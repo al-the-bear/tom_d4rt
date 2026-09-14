@@ -750,35 +750,6 @@ const Map<String, int> _uncoveredBaseline = {
   // reach a verdict about nothing. The reference copy already asks the question
   // of BOTH trees, so a second copy could only ever agree with it or be wrong.
   'scc25_listen_duplication_guard_test.dart': 2,
-  // ONE CASE SHORT, and it is the only entry left here that names a real
-  // behavioural gap in this package. Re-measured 2026-09-06 against published
-  // 0.42.0: 8 of 9 cases PASS. Everything the old text recorded as blocked has
-  // landed — `isInterpreterControlFlowSignal` is in published `exceptions.dart`
-  // so F-SCC27-8 compiles and passes, `throwAsHostFacingError` is published AND
-  // already adopted by exec's own `lib/src/d4rt_base.dart`, and the five
-  // `Native error during …` wrapper failures (F-SCC27-1/2/3/5/7) are fixed.
-  //
-  // The survivor is F-SCC27-9, "an error from an async main reaches the host as
-  // itself". Measured: the reference tree throws a `FormatException` out of
-  // `execute()`; here `execute()` returns a `Future<dynamic>` that later
-  // completes with `RuntimeD4rtException: Native error during static bridged
-  // method call 'parse' on int: FormatException: …`. Two divergences at once —
-  // the error arrives asynchronously instead of synchronously, and it arrives
-  // wrapped. The async half is structural (exec's async main genuinely returns
-  // a future); the wrapping half is the `throwAsHostFacingError` seam not being
-  // applied on the async completion path, which is exec-local work in the third
-  // `_executeInEnvironment` copy. SCD84 owns it; port the file and delete this
-  // entry in the commit that closes that seam.
-  //
-  // RE-MEASURED 2026-09-12 against published 0.65.0 (scd25_aida), which is 23
-  // releases past the 0.42.0 the numbers above were taken at: UNCHANGED, case
-  // for case. scc22 is still 14/17 with F-SCC22-10/-11/-12 failing, scc25 still
-  // 5/7 with F-SCC25-6/-7, scc27 still 8/9 with F-SCC27-9, and scc23 still does
-  // not compile for the same five `undefined_setter` errors. So none of these
-  // four is a stale pin waiting on a publish that already happened — the
-  // residual failures are source scans over files exec does not own, plus the
-  // one behavioural gap scc27's own note names.
-  'scc27_host_error_fidelity_test.dart': 9,
 };
 
 /// Why a [_divergentBaseline] entry is allowed to stand.

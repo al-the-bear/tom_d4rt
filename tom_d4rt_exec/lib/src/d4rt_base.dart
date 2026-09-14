@@ -1605,6 +1605,15 @@ class D4rt {
         _hasExecutedOnce = true;
         return resultValue.then(
           (value) => _bridgeInterpreterValueToNative(value),
+          // SCC27/SCD84 — an `async main` reports its failure through this
+          // future, never through the enclosing try, so the boundary has to be
+          // applied here as well. Without it the async half of the API kept
+          // relabelling what the sync half had stopped relabelling:
+          // `main() async => int.parse("zz")` completed with
+          // `RuntimeD4rtException: Native error during static bridged method
+          // call 'parse' on int: FormatException …` where the synchronous path
+          // already handed back the `FormatException` itself.
+          onError: throwAsHostFacingError,
         );
       } on InternalInterpreterD4rtException catch (e) {
         if (e.originalThrownValue is RuntimeD4rtException) {

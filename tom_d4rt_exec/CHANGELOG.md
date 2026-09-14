@@ -1,3 +1,35 @@
+## 1.24.0
+
+### Fixed — an error from an `async main` reaches the host as itself (scd84)
+
+SCC27 made `execute()` rethrow an `Error`/`Exception` as itself instead of
+relabelling it, so a host `catch` clause can name what a script raised. This
+package adopted it on the synchronous path and not on the asynchronous one, so
+which shape the host got depended on whether the script's `main` was `async`:
+
+```dart
+main() => int.parse("zz");        // FormatException — as intended
+main() async => int.parse("zz");  // RuntimeD4rtException: Native error during
+                                  // static bridged method call 'parse' on int:
+                                  // FormatException: …
+```
+
+An `async main` reports its failure through the future `execute()` returns,
+never through the enclosing `try`, so the boundary has to be applied at that
+future too. `onError: throwAsHostFacingError` on the `.then` is what the
+reference tree already does and what was missing here.
+
+`tom_d4rt/test/scc27_host_error_fidelity_test.dart` is now ported verbatim —
+only the interpreter-package import differs — and passes 9 of 9. It had been
+recorded in `_uncoveredBaseline` at 8 of 9 since the measurement that filed
+SCD84; that entry is deleted in this commit.
+
+**The second `resultValue is Future` site in this file is deliberately
+untouched.** It belongs to `_executeClassic`, which is dead code kept for
+reference (`PRESERVED FOR DEBUGGING REFERENCE`) and is byte-identical to the
+reference tree's copy of the same dead path. Applying the boundary there would
+have created a mirror divergence to fix a path nothing calls.
+
 ## 1.23.0
 
 ### Added — `D4rt.onUncaughtError`, wired to BOTH execution paths (scd74)
