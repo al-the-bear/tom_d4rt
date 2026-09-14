@@ -228,6 +228,10 @@ const _partialTwinBudget = 1;
 /// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
 /// naive search files it as script-level and inflates this budget.
 ///
+/// 17 -> 18: SCD96 added `scd96_host_facing_error_unwrap_test.dart`. Exec's
+/// lock holds tom_d4rt_ast 0.65.0 against a 0.89.0 tree, so a port would state
+/// the fixed behaviour against an interpreter that does not have the fix.
+///
 /// 16 -> 17: SCD94 added `scd94_sdk_type_nameability_test.dart`. Two of its
 /// cases scan both trees' `core/error.dart`, which exec does not have -- it
 /// resolves the twin from pub.dev -- so a port here could not make the
@@ -247,7 +251,7 @@ const _partialTwinBudget = 1;
 /// than the tree — the same reason its own entry gives. The copier surface it
 /// would have added is list, set and map literals with type arguments, which
 /// the corpus already copies on every run.
-const _copierGapBudget = 17;
+const _copierGapBudget = 18;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -479,6 +483,28 @@ const Map<String, _Coverage> _coveredElsewhere = {
     layer: _Layer.registration,
     refCases: 4,
     twinCases: 4,
+  ),
+  // SCD96's host-facing unwrap. Script-level, and its twin is the POINT rather
+  // than a concession: `executeBundle` is the analyzer-free line's entry point,
+  // and the split the fix closed was between the synchronous and asynchronous
+  // halves of that API. Not ported to exec because exec resolves
+  // `tom_d4rt_ast` from pub.dev and still shows the pre-fix behaviour --
+  // measured 2026-09-14, exec's lock holds 0.65.0 against a 0.89.0 tree, and a
+  // port would go red until the release lands (DGUC6).
+  'scd96_host_facing_error_unwrap_test.dart': _Coverage(
+    'ast:runtime/scd96_host_facing_error_unwrap_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 7,
+    twinCases: 4,
+    whyPartial:
+        'the twin is a different KIND of test, not this one with cases '
+        'dropped. The reference file walks seven SHAPES through one entry '
+        'point, which is three lines each when you can run source. The twin '
+        'cannot run source at all -- every case is a hand-built bundle -- so '
+        'it spends its budget on the axis the reference tree cannot reach: '
+        'all THREE bundle entry points agreeing, which is where the defect '
+        'actually was.',
   ),
   // SCD94's `on`-clause nameability guard. Script-level: it runs a `try`/`on`
   // per SDK type and asserts the clause is ENTERED. Not ported to exec on

@@ -1,3 +1,5 @@
+import 'bridge/bridged_types.dart';
+
 /// Lightweight, always-on interpreter instrumentation counters.
 ///
 /// These are plain integer increments on the hottest interpreter paths — no
@@ -627,7 +629,17 @@ Never throwAsHostFacingError(Object e, StackTrace s) {
   // receives whatever the script threw — including a value in neither error
   // hierarchy, which real Dart also permits a script to throw.
   if (e is InternalInterpreterD4rtException) {
-    throw e.originalThrownValue!;
+    final thrown = e.originalThrownValue!;
+    // SCD96: TWO peels, not one. A *bridged* exception holds its native object
+    // one level further in, so peeling only the carrier hands the host a
+    // `BridgedInstance` shell it cannot `catch` on — `throw
+    // FormatException('boom')` reached a caller of `execute` / `executeBundle`
+    // as `BridgedInstance<Object>`, and `on FormatException` around the call
+    // did not match. `unwrapScriptError` has documented this pair since SCD73
+    // ("a host that peeled only the first would get a `BridgedInstance` it
+    // cannot `catch` on") and the zone-callback route already did both, which
+    // is why the ASYNC path was right and the synchronous one was not.
+    throw thrown is BridgedInstance ? thrown.nativeObject : thrown;
   }
   final value = e is RuntimeD4rtException && e.originalException != null
       ? e.originalException!

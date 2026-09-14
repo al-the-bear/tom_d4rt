@@ -1,3 +1,53 @@
+## 0.89.0
+
+### Fixed — the host receives the error the script raised, not a bridged shell (scd96)
+
+A script doing `throw FormatException('boom')` handed its caller a
+`BridgedInstance<Object>`. An `on FormatException` written around `execute()` or
+`executeBundle()` did not match it, and a bare `catch (e)` saw a d4rt-internal
+type the host has no reason to know about.
+
+**The todo this came from was written against a stale premise, and re-measuring
+found a different leak at the same boundary.** It expected
+`InternalInterpreterD4rtException` to reach callers; that carrier has been
+peeled since SCC27. The leak is one peel further in: a *bridged* exception holds
+its native object inside the carrier, and `throwAsHostFacingError` peeled the
+carrier and stopped.
+
+`unwrapScriptError` has documented the pair since SCD73 — "Two peels, not one …
+a host that peeled only the first would get a `BridgedInstance` it cannot
+`catch` on". The zone-callback route already did both, which is why the
+behaviour was SPLIT rather than uniformly wrong:
+
+| entry point                       | before            | after             |
+| --------------------------------- | ----------------- | ----------------- |
+| `tom_d4rt.execute()`              | `BridgedInstance` | `FormatException` |
+| `D4rtRunner.executeBundle`        | `BridgedInstance` | `FormatException` |
+| `D4rtRunner.executeBundleAs<T>`   | `BridgedInstance` | `FormatException` |
+| `executeBundleAsAsync<T>`         | `FormatException` | `FormatException` |
+
+The async variant was right because it runs through the zone callbacks SCD73
+wrapped. So the todo's instruction to check the typed variants was pointing at a
+split that already existed between the synchronous and asynchronous halves of
+one boundary — the shape SCC27 was written to remove.
+
+The todo offered two fixes and said to prefer teaching the shared helper "if the
+sweep is clean, because the asymmetry is the defect and [the narrow fix] only
+relocates it". It is clean — both full suites pass unchanged — so the fix is one
+line in `throwAsHostFacingError`, mirrored, and every present and future caller
+of that boundary gets it.
+
+**Not peeled, deliberately**: a script-declared exception class arrives as
+`InterpretedInstance` (there is no native object, and the host cannot name a
+type the script invented); a thrown non-error value arrives as itself, because
+real Dart lets a script `throw 'plain'`; and `UndefinedNameD4rtException`
+arrives as itself, because SCC31 exists to make it reach the host and peeling it
+would undo that.
+
+This matters most on the analyzer-free line: `executeBundle` is what a Flutter
+app calls to run a downloaded bundle, and it is the one API whose caller cannot
+fall back to a different runner.
+
 ## 0.88.0
 
 ### Fixed — guards that pre-empted a native operator now hand it to the SDK (scd93)
