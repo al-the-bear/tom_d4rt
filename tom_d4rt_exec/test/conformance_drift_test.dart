@@ -1595,8 +1595,39 @@ String _trimSectionTail(String body) {
 }
 
 final RegExp _markerPattern = RegExp(
-  r'^//\s*(KNOWN-GAP\([^)]*\)|WONT-FIX)\s*:',
+  r'^//\s*(KNOWN-GAP\([^)]*\)|WONT-FIX|PUBLISH-PIN\([^)]*\))\s*:',
 );
+
+/// SCD103: markers that must MATCH across the two trees.
+///
+/// `KNOWN-GAP` and `WONT-FIX` mean "the behaviour is wrong in this tree", which
+/// genuinely should be true of both copies — F-SCC6-5 part two holds them to
+/// that, taking no exemption from [_divergentBaseline].
+///
+/// `PUBLISH-PIN` means something else: "this tree runs an OLDER PUBLISHED
+/// interpreter". That is true of exec and false of the reference tree by
+/// construction (DGUC6), so parity is the wrong question for it — and asking it
+/// anyway is what made the corpus's most common pin inexpressible. Marking only
+/// the exec copy failed parity; marking the reference copy too would have been
+/// a false statement, because there is no gap on that side.
+List<String> _parityMarkers(String source) => [
+  for (final marker in _markers(source))
+    if (!marker.startsWith('PUBLISH-PIN')) marker,
+];
+
+/// The `PUBLISH-PIN(<todo-id>)` markers in [source], as their todo ids.
+List<String> _publishPins(String source) => [
+  for (final marker in _markers(source))
+    if (marker.startsWith('PUBLISH-PIN'))
+      marker.substring('PUBLISH-PIN('.length, marker.length - 1).trim(),
+];
+
+/// The quest todo file this repository's pins name.
+///
+/// Read rather than mirrored: a copy of the id list here would have to be
+/// updated by the same person at the same moment, and would then be checking
+/// their memory against itself — the argument [_execAstFloor] already makes.
+File _questTodoFile() => File('../../../_ai/quests/d4rt/todos.d4rt.todo.yaml');
 
 /// Collects `test(...)` / `group(...)` names that claim an expected failure.
 ///
@@ -2087,10 +2118,12 @@ void main() {
       // implies this; for the divergent ones only this check does.
       final mismatched = <String>[];
       for (final path in ref.keys.where(exec.containsKey)) {
-        final refMarkers = (_markers(
+        // SCD103: `_parityMarkers` drops `PUBLISH-PIN`, which asserts something
+        // true of one tree only. The other two kinds are still held to parity.
+        final refMarkers = (_parityMarkers(
           ref[path]!.readAsStringSync(),
         )..sort()).join(', ');
-        final execMarkers = (_markers(
+        final execMarkers = (_parityMarkers(
           exec[path]!.readAsStringSync(),
         )..sort()).join(', ');
         if (refMarkers != execMarkers) {
@@ -2185,8 +2218,11 @@ void main() {
         // Sets, not lists: the question is which pins EXIST on each side, and
         // two copies of one marker in a file is not a distinction this guard
         // has any opinion about.
-        final refMarkers = _markers(refFile.readAsStringSync()).toSet();
-        final twinMarkers = _markers(twinFile.readAsStringSync()).toSet();
+        // SCD103: recorded-pairing parity, same exemption as part two — a
+        // `PUBLISH-PIN` is about which interpreter a tree RESOLVES, so it has
+        // no business matching across trees.
+        final refMarkers = _parityMarkers(refFile.readAsStringSync()).toSet();
+        final twinMarkers = _parityMarkers(twinFile.readAsStringSync()).toSet();
 
         final onlyTwin = (twinMarkers.difference(refMarkers).toList())..sort();
         final onlyRef = (refMarkers.difference(twinMarkers).toList())..sort();
@@ -2236,6 +2272,117 @@ void main() {
             'for, and it puts the reason where a reader of the entry will '
             'find it. If the twin DOES carry the case, the pin is simply '
             'missing: mirror it.',
+      );
+    });
+
+    test('F-SCD103-1: every PUBLISH-PIN names a todo that exists and is still '
+        'open [2026-09-14] (PASS)', () {
+      // SCC15 gave a weakened assertion an inline owner so a reader of the FILE
+      // could see the pin. F-SCC6-5 then held those markers to parity between
+      // the trees — which made the corpus's most common pin inexpressible.
+      //
+      // That pin is: the reference tree asserts the FIXED behaviour, because it
+      // carries the fix; exec asserts the PUBLISHED interpreter's, because it
+      // resolves `tom_d4rt_ast` from pub.dev (DGUC6). Marking only the exec
+      // copy failed parity. Marking the reference copy too would have been a
+      // false statement — there is no gap on that side. So the pins were
+      // written as prose, or not written at all, and the accounting lived only
+      // in this file. `PUBLISH-PIN` is the kind that says "this tree runs an
+      // older published interpreter", and `_parityMarkers` exempts it by
+      // construction.
+      //
+      // THIS CASE IS THE RATCHET, and it is what earns the new kind over a
+      // comment. A pin whose todo is COMPLETE has outlived its reason: the
+      // publish it waited for has landed, the assertion it weakened can be
+      // restored, and nothing else would have said so. When sce119 closes,
+      // every file below goes red and names itself.
+      final todoSource = _questTodoFile().readAsStringSync();
+      final problems = <String>[];
+
+      for (final tree in [ref, exec]) {
+        tree.forEach((path, file) {
+          for (final id in _publishPins(file.readAsStringSync())) {
+            if (id.isEmpty) {
+              problems.add('$path: PUBLISH-PIN() names no todo');
+              continue;
+            }
+            // The id as written may be a prefix of the qualified todo id.
+            final declared = RegExp(
+              '^  - id: ${RegExp.escape(id)}',
+              multiLine: true,
+            ).firstMatch(todoSource);
+            if (declared == null) {
+              problems.add('$path: PUBLISH-PIN($id) names no todo that exists');
+              continue;
+            }
+            // Read that todo's status: the block runs to the next `  - id:`.
+            final blockStart = declared.start;
+            final next = RegExp(
+              r'^  - id: ',
+              multiLine: true,
+            ).firstMatch(todoSource.substring(blockStart + 10));
+            final block = next == null
+                ? todoSource.substring(blockStart)
+                : todoSource.substring(
+                    blockStart,
+                    blockStart + 10 + next.start,
+                  );
+            if (RegExp(
+              r'^    status: completed\s*$',
+              multiLine: true,
+            ).hasMatch(block)) {
+              problems.add(
+                '$path: PUBLISH-PIN($id) — that todo is COMPLETED, so the '
+                'publish it waited for has landed and this assertion can be '
+                'restored',
+              );
+            }
+          }
+        });
+      }
+
+      expect(
+        problems,
+        isEmpty,
+        reason:
+            'PUBLISH-PIN problems:\n  ${problems.join('\n  ')}\n\n'
+            'A PUBLISH-PIN names the todo that will delete it. An id that does '
+            'not exist cannot be followed; an id that is already COMPLETE '
+            'means the pin is obsolete and the weakened assertion should be '
+            'restored in the same change that closes it.',
+      );
+    });
+
+    test('F-SCD103-2: a PUBLISH-PIN on a PORTED file is recorded centrally '
+        'too [2026-09-14] (PASS)', () {
+      // The half that turns two accountings into one ratchet. A pin on a file
+      // that exists in BOTH trees says its copies differ, and that difference
+      // has to be in `_divergentBaseline` — otherwise F-SCC6-4 would already
+      // be red, or the maps and the file disagree about whether a divergence
+      // exists.
+      //
+      // An EXEC-ONLY file is exempt, and the exemption is not a loophole:
+      // there is no reference copy to be divergent from, so no central entry
+      // could exist to match. Both of today's real pins are that shape — they
+      // pin what the PUBLISHED interpreter does at a boundary exec owns.
+      final unrecorded = <String>[];
+      exec.forEach((path, file) {
+        if (_publishPins(file.readAsStringSync()).isEmpty) return;
+        if (!ref.containsKey(path)) {
+          return; // exec-only: nothing to diverge from
+        }
+        if (_divergentBaseline.containsKey(path)) return;
+        unrecorded.add(path);
+      });
+      expect(
+        unrecorded,
+        isEmpty,
+        reason:
+            'These ported files carry a PUBLISH-PIN but no _divergentBaseline '
+            'entry:\n  ${unrecorded.join('\n  ')}\n\n'
+            'A pin on a ported file claims its two copies differ. Record that '
+            'in _divergentBaseline, or delete the pin — the inline marker and '
+            'the central map are two views of one fact and must not disagree.',
       );
     });
 

@@ -117,6 +117,12 @@ void main() {
         'peels [2026-09-14]', () {
       // Behaviour, pinned as it actually is rather than as it will be.
       //
+      // PUBLISH-PIN(sce119_aiml-exec-carries-a-fourth-unwrap-copy-until-the-ast-publish-lands): exec
+      // resolves `throwAsHostFacingError` from pub.dev, and published 0.65.0
+      // peels the interpreter's carrier ONCE where the working tree peels
+      // twice (SCD96). So the `FormatException` assertion this case would
+      // otherwise make is held back to what the published pair can deliver.
+      //
       // `[].first` raises a native StateError, which never passes through a
       // BridgedInstance, so it arrives as itself on any version. A script's
       // `throw FormatException(...)` does pass through one, and arrives peeled

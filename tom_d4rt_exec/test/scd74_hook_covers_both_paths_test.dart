@@ -172,12 +172,17 @@ void main() {
 
     test('F-SCD74-5: the no-hook paths do NOT yet agree, and this is why '
         '[2026-09-13]', () async {
-      // Pins a known divergence so it cannot close silently. SCD73 made the
-      // unwrapping unconditional; this package's own seam has it, and the
-      // bundle path's seam is in the PUBLISHED tom_d4rt_ast (0.65.0, which
-      // predates SCD73). When the publish lands and the constraint is raised,
-      // this test goes red — that is its job. Invert it then and delete
-      // sce119.
+      // PUBLISH-PIN(sce119_aiml-exec-carries-a-fourth-unwrap-copy-until-the-ast-publish-lands): the bundle
+      // path's seam lives in the PUBLISHED tom_d4rt_ast (0.65.0, which
+      // predates SCD73), while this package's own seam carries the fix. So the
+      // two paths disagree for as long as the constraint names 0.65.0, and
+      // this case asserts the disagreement rather than the contract.
+      //
+      // SCD103 turned the prose that used to sit here into that marker. The
+      // difference is not cosmetic: F-SCD103-1 now reads the named todo's
+      // STATUS, so the day sce119 is marked complete this file goes red and
+      // names itself, instead of relying on somebody remembering. Invert the
+      // assertion then.
       Future<List<Object>> noHook(Future<Object?> Function(D4rt) run) async {
         final zoneErrors = <Object>[];
         final finished = Completer<Object?>();
