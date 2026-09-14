@@ -1,3 +1,64 @@
+## 1.101.0
+
+### Added — a report-only static pass that finds undefined names (scd95, phase 1)
+
+`lib/src/static_name_report.dart`. **It reports; it never throws, and nothing in
+`execute()` calls it.** That is deliberate, and it is the whole risk-management
+strategy of the work it belongs to.
+
+SCC31 made an undefined name unswallowable — raised as
+`UndefinedNameD4rtException`, declined by both catch-dispatch sites — which
+removed the harm but not the divergence. Real Dart rejects the program at
+COMPILE time, so it never runs; d4rt runs everything up to the bad line first.
+A script that writes a file on line 3 and mistypes a name on line 9 has already
+written the file. Closing that needs a pass that can REFUSE to run a program,
+and a resolver wrong in the aggressive direction rejects working scripts —
+which is far worse than the bug it fixes. So the resolver is built report-only
+and swept over corpora of programs known to work first.
+
+**What the sweep measured** (`tool/scd95_sweep.dart`,
+`tool/scd95_sweep_inline.dart`):
+
+| corpus                         | units | clean | flagged |
+| ------------------------------ | ----: | ----: | ------: |
+| flutter-material cluster       |  2085 |  2083 |       1 |
+| tom_d4rt inline `execute(...)` |   807 |   799 |       8 |
+
+Every remaining flag is a TRUE positive, in a script written on purpose to
+contain one: `ButtonBar` in `a5_deprecated_symbol_absent_test.dart`,
+`totallyUndefinedThing` in SCC31's own fixture, `notDefinedAnywhere` in SCD69's,
+and `Zone`/`Zoen` in `intentionally_unbridged_test.dart`.
+
+Reaching that state meant closing four real resolver holes, each of which had
+produced a page of false positives and each of which is now pinned:
+
+- **Cascade sections.** `x..moveTo(0, 0)` has no target in the AST — the
+  receiver is the cascade's. Reading `MethodInvocation.target` alone reported
+  `moveTo`, `lineTo`, `setEntry`, `scale`, `sort`, `writeln` and `add` as
+  undefined: 833 hits from one missing `isCascaded`.
+- **Switch EXPRESSION patterns.** Handling only `SwitchPatternCase` left every
+  `switch (s) { Circle(:var radius) => radius * radius }` reporting the name it
+  had just bound.
+- **Extension-opened classes.** An extension member is reachable through
+  implicit `this` by a route no class body mentions, so a class an extension
+  targets is open — and an extension on `Object` opens every class.
+- **Import prefixes.** `import ... as m` puts `m` in scope as a name.
+
+A fifth was a fault in the SWEEP rather than the resolver, and is the one worth
+repeating: suppressing a unit because it merely HAS an import made the first run
+report nothing, look clean, and examine none of the 2085 files. `NameReport`
+now carries `suppressed`, so a suppressed report is distinguishable from a clean
+one, and `openClasses`, so the 12 201 class bodies the flutter sweep skips are
+visible in the data rather than only in a comment.
+
+**Why it is not yet enforcing.** The sweeps supply the registration set by
+regex-harvesting bridge and stdlib sources — good enough to measure a syntactic
+resolver, not good enough to reject a program. The real set lives in the
+`Environment` at execute time. See sce128, which records the design this
+measurement arrived at, including the two facts that make it viable:
+`registerBridgedClassLazy` is name-eager, and directives are processed before
+any statement of `main` runs.
+
 ## 1.100.0
 
 ### Fixed — guards that pre-empted a native operator now hand it to the SDK (scd93)

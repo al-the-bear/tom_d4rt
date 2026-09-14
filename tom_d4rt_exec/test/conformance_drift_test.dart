@@ -752,6 +752,21 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// none. That is why [F-SCC6-6] checks [_coveredElsewhere] — whose counts ARE
 /// static-comparable — and stops there. Confirming a count here is a run.
 const Map<String, int> _uncoveredBaseline = {
+  // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
+  // analyzer-free line. `static_name_report.dart` resolves names over the
+  // ANALYZER AST, which `tom_d4rt_ast` has no access to by construction, so
+  // there is no twin to write rather than one nobody has written yet. The
+  // analyzer-free line would get this check at BUNDLE-BUILD time instead (in
+  // `tom_ast_generator`, which does have the analyzer), which is arguably the
+  // better home for it — a bundle is compiled once on a server and shipped.
+  // That is recorded in sce128 rather than assumed here.
+  //
+  // Exec DOES have an analyzer front end, so a port is possible in principle.
+  // It is not written because the pass is REPORT-ONLY: it changes no observable
+  // behaviour, so a port would assert that a function exec never calls returns
+  // the same list. When the enforcing half lands it changes what `execute()`
+  // does, and that is when exec has something to conform about.
+  'scd95_static_name_report_test.dart': 11,
   // NOT PORTABLE — a throughput probe, not a conformance assertion. Its single
   // case measures how long a Conway generation takes; run on two interpreters
   // with different performance characteristics it yields a flaky failure rather
