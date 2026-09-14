@@ -52,6 +52,38 @@
 // cold cache under-reports rather than accusing an innocent package. For a
 // ratchet, false negatives are the safe direction.
 //
+// A PASS IS A STATEMENT ABOUT ONE MACHINE (SCD130)
+//
+// That one-directionality is a design virtue and also a limit on what green
+// means, and the header used to say only the first half. Two facts compound:
+//
+//   * `pubspec.lock` is gitignored repo-wide, so every fleet host resolved
+//     independently, at whatever time it last ran `pub get`. A sweep on one
+//     machine touches no other, and no other machine's locks have ever been
+//     inspected by anything.
+//   * this guard's sensitivity is a property of the machine's CACHE. A host
+//     that has downloaded little reports green while frozen, in the same words
+//     as a host that is genuinely clean — and the hosts least likely to have a
+//     warm cache are the same ones least likely to have re-resolved recently.
+//
+// So the guard is a ratchet on the machine that runs it, never a fleet
+// assertion. Two things now stop a green from being read as more than it is.
+// Every run PRINTS its own sensitivity — how many `tom_*` versions and packages
+// the cache holds — because that number is what makes a pass interpretable and
+// nobody collects it by hand. And below [_minimumCachedPackages] the two
+// cache-dependent cases SKIP rather than pass, because a green from a machine
+// that cannot discriminate is indistinguishable from a real one.
+//
+// What is still owed is the fleet itself: only mbp has ever produced this
+// evidence. SCE147 carries running it on bomber, bigbeast and legiondary01.
+//
+// NOT FIXED BY CHECKING IN THE LOCK. That trades invisible per-machine drift
+// for merge conflicts on generated files across four machines, which is what
+// the workspace's generated-file merge policy exists for; DGUC10 refused it for
+// the same reason. NOT FIXED BY ASKING PUB.DEV either: a test that touches the
+// network is a test that gets disabled the first week it flakes, and the
+// offline discriminator is what makes this one cheap enough to leave on.
+//
 // WHAT IS ASSERTED
 //
 // F-SCC45-1  no package resolves a `tom_*` dependency from `path` unless its
@@ -281,6 +313,53 @@ Set<String> _declaredPathDependencies(Directory package) {
   return declared;
 }
 
+/// How much this machine's pub cache lets the discriminator see.
+///
+/// SCD130. F-SCC45-2 and F-SCC45-4 can only report a freeze when a version
+/// NEWER than the locked one is already cached, so their sensitivity is a
+/// property of the machine, not of the repo. A host that has downloaded little
+/// reports green while frozen, in exactly the same words as a host that is
+/// genuinely clean — and the hosts least likely to have a warm cache are the
+/// same ones least likely to have re-resolved recently, so the two compound.
+///
+/// These numbers are printed on every run and quoted in the skip reason, so a
+/// green result is a bounded claim rather than a word. Measured on mbp
+/// 2026-09-15: 52 version directories, 23 distinct packages, 13 of them holding
+/// more than one version.
+({int versions, int packages, int multiVersion}) _cacheSensitivity() {
+  final home =
+      Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+  final cache = home == null
+      ? null
+      : Directory('$home/.pub-cache/hosted/pub.dev');
+  if (cache == null || !cache.existsSync()) {
+    return (versions: 0, packages: 0, multiVersion: 0);
+  }
+  final byPackage = <String, int>{};
+  for (final entry in cache.listSync().whereType<Directory>()) {
+    final dir = entry.path.split(Platform.pathSeparator).last;
+    if (!dir.startsWith(_ownedPrefix)) continue;
+    final dash = dir.lastIndexOf('-');
+    if (dash <= 0) continue;
+    byPackage.update(dir.substring(0, dash), (n) => n + 1, ifAbsent: () => 1);
+  }
+  return (
+    versions: byPackage.values.fold(0, (a, b) => a + b),
+    packages: byPackage.length,
+    multiVersion: byPackage.values.where((n) => n > 1).length,
+  );
+}
+
+/// Below this many distinct cached `tom_*` packages, a pass means nothing.
+///
+/// Not a guess at the right sensitivity — there is no threshold that makes a
+/// cold cache informative. It separates "this machine has resolved this repo"
+/// from "this machine has barely resolved anything", which is the only
+/// distinction the cache can support. Far below mbp's 23, so it does not fire
+/// on a host that works here; well above a fresh clone that has pulled two
+/// packages.
+const int _minimumCachedPackages = 5;
+
 /// Versions of [name] present in this machine's pub.dev cache.
 List<String> _cachedVersions(String name) {
   final home =
@@ -432,9 +511,40 @@ void main() {
   group('SCC45/DGUC10: resolutions match declarations', () {
     late List<Directory> packages;
 
+    late ({int versions, int packages, int multiVersion}) cache;
+
     setUpAll(() {
       packages = root == null ? const [] : _packagesUnder(root);
+      cache = _cacheSensitivity();
+      // SCD130: printed on EVERY run, pass or fail, because the number is what
+      // makes a green interpretable and nobody collects it by hand. A fleet
+      // host that runs this suite now records its own sensitivity as a side
+      // effect of running it.
+      // ignore: avoid_print
+      print(
+        '[SCC45] pub-cache sensitivity on this machine: '
+        '${cache.versions} tom_* version directories across '
+        '${cache.packages} packages, ${cache.multiVersion} of them holding '
+        'more than one version. A pass below is a statement about THIS '
+        'machine: the discriminator can only see a freeze whose newer version '
+        'is already cached here.',
+      );
     });
+
+    /// Whether this machine's cache is warm enough for a verdict to mean
+    /// anything, recording why in the skip reason when it is not.
+    bool canDiscriminate(String caseName) {
+      if (cache.packages >= _minimumCachedPackages) return true;
+      markTestSkipped(
+        '$caseName cannot answer on this machine: its pub cache holds '
+        '${cache.packages} distinct tom_* package(s), below the '
+        '$_minimumCachedPackages this check needs to tell a frozen lock from a '
+        'current one. A pass here would be indistinguishable from a clean '
+        'repo, which is the failure SCD130 recorded — so it skips instead. '
+        'Run `dart pub get` across the repo and re-run.',
+      );
+      return false;
+    }
 
     test('F-SCC45-1: no undeclared path resolution [2026-09-05]', () {
       if (root == null) {
@@ -477,6 +587,7 @@ void main() {
         markTestSkipped('d4rt repo root not reachable — nothing to check');
         return;
       }
+      if (!canDiscriminate('F-SCC45-2')) return;
 
       final offenders = <String>[];
       for (final package in packages) {
@@ -559,6 +670,7 @@ void main() {
         markTestSkipped('d4rt repo root not reachable — nothing to check');
         return;
       }
+      if (!canDiscriminate('F-SCC45-4')) return;
 
       final surfaces = _pubspecsUnder(
         root,
