@@ -4416,6 +4416,13 @@ Base baselines are `basetestlog_20260628-step2-{src,ast}/metrics.txt`
 are in `basetestlog_20260728-scb16-{src,ast}/` and
 `extlog_20260728-scb16/` in each twin.
 
+None of those folders is tracked, and none is expected to be: runner
+output is per-machine and is never versioned (see `test/README.md`).
+The folder names are cited so a host that still holds a run can be
+matched against this entry — the numbers in the table above are the
+durable record. The written analysis of the 2026-06-24 sweep is kept
+separately as `doc/issue_analysis_20260624.md`.
+
 **Neither improvement is attributable to the widening.** The 12
 ext_22 recoveries are a single contiguous alphabetical block
 (`widgets/image_filtered_test.dart` … `widgets/page_storage_test.dart`)

@@ -72,13 +72,25 @@ to the two `.sh` issue-analysis runners *only*. The two `.ps1` twins and both
 `run_base_tests` scripts were missed and kept writing to `doc/` — so the same
 command produced a gitignored folder on macOS/Linux and a **tracked** one on
 Windows, and a contributor following this README on Windows would find ~41
-result-JSON and log files staged for commit. It actually happened: the 90 files
-under `doc/testlog_20260624-0713-issue-analysis/` are still in git for exactly
-this reason.
+result-JSON and log files staged for commit. It actually happened, and it was
+not caught for a month: **104 machine-generated files across four `doc/` run
+folders** in this project and its siblings reached the repository before being
+untracked (`git rm --cached`, left on disk — they are still valid local results,
+just not versioned).
 
-If you write an analysis document about a run (`error_analysis.md`), it goes in
-the run's `testlog/` folder with the results it describes — durable on disk,
-deliberately not committed.
+Note what the `.gitignore` stanza for `**/doc/testlog_*/` could *not* do:
+ignoring a path does nothing to a file git is already tracking. That stanza was
+written **after** the untracking and says so — it keeps the surviving on-disk
+folders out of `git status`, it did not clean them up. If you find a tracked run
+folder, untrack it; do not assume the ignore rule already handled it.
+
+If you write an analysis document about a run, do not leave it in the run
+folder. Raw results are machine output and stay uncommitted in `testlog/`; a
+document a **person** wrote is the one thing in that folder worth keeping, and
+it belongs in `doc/` under a name that survives the run it came from. The
+2026-06-24 analysis was preserved that way, as `doc/issue_analysis_20260624.md`;
+the raw metrics it was written from are no longer tracked, which is the same
+convention every historical entry in `doc/interpreter_issues.md` follows.
 
 ## ⚠️ The tests must run strictly serially — never in parallel
 

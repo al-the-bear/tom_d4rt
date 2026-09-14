@@ -8,8 +8,11 @@
 **Projects covered:** `tom_d4rt_flutter_ast` (AST twin) and `tom_d4rt_flutter_test`
 (SourceFlutterD4rt / in-process WidgetTester twin)
 
-This analysis covers both projects in one document; an identical copy lives in each
-project's `doc/testlog_20260624-0713-issue-analysis/` folder.
+This analysis covers both projects in one document, and an identical copy is kept in
+each project's `doc/` folder for that reason. The raw run it was written from —
+`testlog_20260624-0713-issue-analysis/`, ~41 result-JSON files and their logs per
+project — is machine output and is not versioned; a host that still holds the folder
+can match it by the run ID above.
 
 ---
 
