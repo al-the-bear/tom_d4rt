@@ -228,6 +228,11 @@ const _partialTwinBudget = 1;
 /// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
 /// naive search files it as script-level and inflates this budget.
 ///
+/// 19 -> 20: SCD99 added `scd99_runtimetype_reporting_test.dart`. Exec resolves
+/// tom_d4rt_ast from pub.dev, which still answers `false` for
+/// `x.runtimeType == SomeType`, so a port would assert the fix against an
+/// interpreter that does not have it.
+///
 /// 18 -> 19: SCD98 added `scd98_bridged_value_representation_test.dart`. Exec
 /// resolves tom_d4rt_ast from pub.dev, which still wraps constructor results,
 /// so a port would assert the converged representation against an interpreter
@@ -256,7 +261,7 @@ const _partialTwinBudget = 1;
 /// than the tree — the same reason its own entry gives. The copier surface it
 /// would have added is list, set and map literals with type arguments, which
 /// the corpus already copies on every run.
-const _copierGapBudget = 19;
+const _copierGapBudget = 20;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -488,6 +493,28 @@ const Map<String, _Coverage> _coveredElsewhere = {
     layer: _Layer.registration,
     refCases: 4,
     twinCases: 4,
+  ),
+  // SCD99's runtimeType reporting. Script-level. The defect lived in shared
+  // interpreter code (`visitBinaryExpression`), so the twin is what says the
+  // analyzer-free line has it too. Not ported to exec because exec resolves
+  // `tom_d4rt_ast` from pub.dev and still answers `false` for
+  // `x.runtimeType == SomeType` -- a port would go red until the release lands
+  // (DGUC6).
+  'scd99_runtimetype_reporting_test.dart': _Coverage(
+    'ast:runtime/scd99_runtimetype_reporting_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 8,
+    twinCases: 3,
+    whyPartial:
+        'the twin is a different KIND of test, not this one with cases '
+        'dropped. Five of the reference cases sweep SHAPES -- four primitive '
+        'and bridged types, both operand orders, `!=`, a generic type '
+        'argument, and equality on six other receiver kinds -- which are one '
+        'line each when you can run source and a couple of dozen when every '
+        'case is a hand-built bundle. The twin carries the comparison that was '
+        'actually wrong, the name that must not break while fixing it, and the '
+        'ordinary-receiver control for the hoist.',
   ),
   // SCD98's bridged-value representation. Script-level, and its twin earns its
   // place: the split lived in the SHARED interpreter code, so the reference

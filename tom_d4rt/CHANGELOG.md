@@ -1,3 +1,54 @@
+## 1.104.0
+
+### Fixed — `x.runtimeType == SomeType` was false for every type (scd99)
+
+The todo reported that `Duration(seconds: 1).runtimeType.toString()` is
+`'BridgedInstance<Object>'`. Measured, it is `Duration`: the member-access sites
+already answer `bridgedInstance.nativeObject.runtimeType`, and SCD98 then
+stopped the constructor producing a wrapper at all. The one-line fix the todo
+recommends was already in place at every site an audit finds.
+
+**What the todo was about survived that.** Its stated harm is "a script that
+branches on `x.runtimeType` takes the wrong branch with no error", and that was
+true — for a different reason, and not only for bridged values:
+
+```dart
+Duration(seconds: 1).runtimeType == Duration   // was false
+1.runtimeType == int                           // was false
+'a'.runtimeType == String                      // was false
+DateTime(2020).runtimeType == DateTime         // was false
+Duration == Duration(seconds: 1).runtimeType   // was TRUE
+```
+
+Asymmetric by operand order, and false in the order everybody writes. A correct
+`runtimeType` whose result cannot be compared against a type literal is not
+worth much.
+
+**The reconciliation existed and never ran.** `visitBinaryExpression` carried
+the Type-vs-`BridgedClass` comparison twice, in the `==` and `!=` arms of its
+operator switch. Neither was reachable for this shape:
+`Environment.toBridgedInstance` succeeds on a `Type` object, so the
+bridged-operator dispatch twenty lines ABOVE the switch found an `==` adapter
+and invoked it on the WRAPPER — comparing a wrapped `Type` against a
+`BridgedClass` and answering false.
+
+That is the wrapper substituting itself for the value it wraps, which is the
+shape SCD98 removed from the constructor; it survived here because a dispatch
+site reached it first. The reconciliation is now hoisted above that dispatch,
+and the two copies in the arms are deleted rather than left unreachable — a
+second implementation of one rule is what let this diverge unnoticed.
+
+A generic type argument still distinguishes: `[1].runtimeType == List` stays
+false, as real Dart has it, so the fix does not simply make every
+Type-versus-name comparison true.
+
+**The neighbours were audited, as the todo asked.** `toString`, `hashCode`,
+`is`, `is!`, `as` and cross-route `==` all already delegate to the native on
+both production routes. They are pinned anyway, alongside equality on enum,
+String, null, bridged and script-defined receivers — the hoist runs before the
+bridged dispatch, so those are the cases that say it intercepts nothing it
+should not.
+
 ## 1.103.0
 
 ### Fixed — one representation for a bridged value: the bare native (scd98)

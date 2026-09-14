@@ -2026,6 +2026,37 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
     }
 
+    // SCD99: reconcile a `Type` against a `BridgedClass` BEFORE the bridged
+    // operator dispatch below.
+    //
+    // `x.runtimeType == SomeType` was FALSE for every type — `1.runtimeType ==
+    // int`, `'a'.runtimeType == String`, `Duration(seconds: 1).runtimeType ==
+    // Duration` — while the reverse order was true. A script branching on
+    // `x.runtimeType` took the wrong branch with no error, which is the harm
+    // this todo was filed about.
+    //
+    // The reconciliation existed, twenty lines further down in the `==` / `!=`
+    // arms, and never ran: `toBridgedInstance` succeeds on a `Type` object, so
+    // the block below found a bridged `==` adapter and invoked it on the
+    // WRAPPER, comparing a wrapped Type against a `BridgedClass` and answering
+    // false. The wrapper substituted itself for the value — the same shape
+    // SCD98 removed from the constructor, surviving here because a dispatch
+    // site reached it first.
+    //
+    // Hoisted rather than duplicated: the two copies that used to sit in the
+    // arms are gone, because a second implementation of one rule is what let
+    // this diverge unnoticed in the first place.
+    if (operatorName == '==' || operatorName == '!=') {
+      final bool? typeMatch = (left is Type && right is BridgedClass)
+          ? left == right.nativeType
+          : (left is BridgedClass && right is Type)
+          ? left.nativeType == right
+          : null;
+      if (typeMatch != null) {
+        return operatorName == '==' ? typeMatch : !typeMatch;
+      }
+    }
+
     // Check for bridged operator methods (e.g., +, -, *, /, etc. on BridgedInstance)
     // Reuse the wrappers already resolved above (leftBridgedInstance /
     // rightBridgedInstance): each `toBridgedInstance` call mints a fresh
@@ -2210,15 +2241,6 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           return result;
         }
 
-        // Special handling for Type vs BridgedClass comparison
-        // (e.g., value.runtimeType == int)
-        if (left is Type && right is BridgedClass) {
-          return left == right.nativeType;
-        }
-        if (left is BridgedClass && right is Type) {
-          return left.nativeType == right;
-        }
-
         return left == right;
       case '!=':
         // Special handling for BridgedEnumValue comparison
@@ -2239,15 +2261,6 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
               ? rightOperandValue.nativeValue
               : rightOperandValue;
           return leftNative != rightNative;
-        }
-
-        // Special handling for Type vs BridgedClass comparison
-        // (e.g., value.runtimeType != int)
-        if (left is Type && right is BridgedClass) {
-          return left != right.nativeType;
-        }
-        if (left is BridgedClass && right is Type) {
-          return left.nativeType != right;
         }
 
         return left != right;
