@@ -459,7 +459,45 @@ class InterpretedFunction implements Callable {
       declaredName,
       typeNode.isNullable,
       describedAs == null ? '' : " of '$describedAs'",
+      _appliedDeclaredType(env, typeNode, declaredType),
     );
+  }
+
+  /// SCD92: the declared type with its WRITTEN type arguments resolved, or null
+  /// when the annotation carries none the check can act on.
+  ///
+  /// [resolveBinding]'s own resolution goes through
+  /// [_resolveTypeAnnotationDynamic], which reads a `NamedType`'s name and
+  /// ignores its `typeArguments` — so `List<String>` resolves to the bare `List`
+  /// bridge. Rather than change that resolver, whose result is also a type
+  /// parameter's bound and a callable's structural type, the arguments are
+  /// resolved here and paired with the base type it already produced.
+  ///
+  /// Null — no applied check — wherever the arguments carry nothing to compare:
+  /// an argument that fails to resolve, a type parameter (which stands for a
+  /// type not bound at this point, the same reason a bare `T` annotation is
+  /// skipped), and an argument list that is entirely top types, where the
+  /// applied check could only repeat the base one.
+  static AppliedRuntimeType? _appliedDeclaredType(
+    Environment env,
+    SNamedType typeNode,
+    RuntimeType declaredType,
+  ) {
+    final argNodes = typeNode.typeArguments?.arguments;
+    if (argNodes == null || argNodes.isEmpty) return null;
+    final args = <RuntimeType>[];
+    for (final argNode in argNodes) {
+      final RuntimeType arg;
+      try {
+        arg = _resolveTypeAnnotationDynamic(argNode, env);
+      } catch (_) {
+        return null;
+      }
+      if (arg is TypeParameter) return null;
+      args.add(arg);
+    }
+    if (args.every((a) => isTopTypeName(a.name))) return null;
+    return AppliedRuntimeType(declaredType, args);
   }
 
   /// The value to bind to a for-each loop variable for one iteration, checked
@@ -6106,11 +6144,17 @@ class ResolvedBinding {
     this._declaredName,
     this._isNullable,
     this._suffix,
+    this._appliedDeclared,
   );
 
   final RuntimeType _declaredType;
   final String _declaredName;
   final bool _isNullable;
+
+  /// SCD92: the declared type with its written type arguments, when they are
+  /// checkable. Null means the annotation is raw, or carries only arguments the
+  /// check cannot act on — see [InterpretedFunction._appliedDeclaredType].
+  final AppliedRuntimeType? _appliedDeclared;
 
   /// The `of 'name'` clause, or empty. The SDK spells a failed PARAMETER bind
   /// `type 'X' is not a subtype of type 'Y' of 'p'` but a failed for-in bind
@@ -6152,11 +6196,79 @@ class ResolvedBinding {
     }
     if (valueType == null || valueType is TypeParameter) return value;
 
-    if (valueType.isSubtypeOf(_declaredType, value: value)) return value;
+    if (valueType.isSubtypeOf(_declaredType, value: value)) {
+      return _checkTypeArguments(env, value);
+    }
     throw D4rtTypeError(
       "type '${valueType.name}' is not a subtype of type '$_displayName'"
       "$_suffix",
     );
+  }
+
+  /// SCD92: [value], once its own type arguments are known to satisfy the
+  /// declared ones — or throws when they do not.
+  ///
+  /// Runs only after the base check has already passed, so it can add a
+  /// rejection but never remove one. Both sides must carry arguments the check
+  /// can read: a raw annotation, or a value whose arguments are not derivable
+  /// (an empty or heterogeneous collection, every bridged instance), passes
+  /// untouched. That permissiveness is the point — a binding check runs on
+  /// every argument of every call, and a false positive rejects a correct
+  /// program, which is worse than the silent pass it replaces.
+  Object? _checkTypeArguments(Environment env, Object? value) {
+    final declared = _appliedDeclared;
+    if (declared == null) return value;
+    final AppliedRuntimeType? actual;
+    try {
+      actual = env.appliedRuntimeTypeOf(value);
+    } catch (_) {
+      return value;
+    }
+    if (actual == null) return value;
+    if (actual.isSubtypeOf(declared)) return value;
+    if (_widenNumericArguments(actual, declared).isSubtypeOf(declared)) {
+      return value;
+    }
+    final declaredName = _isNullable ? '${declared.name}?' : declared.name;
+    throw D4rtTypeError(
+      "type '${actual.name}' is not a subtype of type '$declaredName'$_suffix",
+    );
+  }
+
+  /// SCD92: [actual] with each `int` type argument whose declared counterpart is
+  /// `double` replaced by it — or [actual] unchanged when none applies.
+  ///
+  /// Dart widens an int literal to a double from its surrounding context, so
+  /// `fromJson({'x': 3, 'y': 4})` against a `Map<String, double>` parameter
+  /// really does pass a map of doubles. d4rt's map holds the ints it was
+  /// written with, so the argument derived from its CONTENTS is `int` and a
+  /// literal comparison rejects a correct program — which is how this was
+  /// found, on two class tests that had passed since February.
+  ///
+  /// This is the allowance [bind] already makes for a `double` binding one
+  /// level out (F-SCC29-22), reaching the type arguments. It widens the type
+  /// used for the COMPARISON only: the collection is passed through untouched,
+  /// still holding its ints, exactly as before this check existed.
+  static AppliedRuntimeType _widenNumericArguments(
+    AppliedRuntimeType actual,
+    AppliedRuntimeType declared,
+  ) {
+    if (actual.typeArguments.length != declared.typeArguments.length) {
+      return actual;
+    }
+    var widened = false;
+    final args = <RuntimeType>[];
+    for (var i = 0; i < actual.typeArguments.length; i++) {
+      final ours = actual.typeArguments[i];
+      final theirs = declared.typeArguments[i];
+      if (ours.name == 'int' && theirs.name == 'double') {
+        args.add(theirs);
+        widened = true;
+      } else {
+        args.add(ours);
+      }
+    }
+    return widened ? AppliedRuntimeType(actual.baseType, args) : actual;
   }
 }
 

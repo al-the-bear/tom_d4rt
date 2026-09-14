@@ -223,11 +223,19 @@ const _partialTwinBudget = 1;
 /// surface than fourteen ports chosen by which files happen to have ast twins.
 /// That census is sce62.
 ///
-/// The fourteen were classified by asking whether the REFERENCE file runs
-/// source, with comments stripped first. That is not pedantry:
+/// The original fourteen were classified by asking whether the REFERENCE file
+/// runs source, with comments stripped first. That is not pedantry:
 /// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
-/// naive search files it as script-level and inflates this budget to fifteen.
-const _copierGapBudget = 14;
+/// naive search files it as script-level and inflates this budget.
+///
+/// 14 -> 15: SCD92 added `scd92_applied_parameter_type_test.dart`, which runs
+/// source to ask which programs a binding check accepts. Porting it would state
+/// the new behaviour against the PUBLISHED tom_d4rt_ast, so it would go red
+/// until the release carrying the fix lands and then measure the release rather
+/// than the tree — the same reason its own entry gives. The copier surface it
+/// would have added is list, set and map literals with type arguments, which
+/// the corpus already copies on every run.
+const _copierGapBudget = 15;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -459,6 +467,32 @@ const Map<String, _Coverage> _coveredElsewhere = {
     layer: _Layer.registration,
     refCases: 4,
     twinCases: 4,
+  ),
+  // SCD92's applied-parameter matrix. Script-level: it runs source and asserts
+  // which programs a binding check accepts, so most of its value is in the
+  // twenty-two shapes the reference tree can spell cheaply. Not ported to exec
+  // on purpose: this package resolves `tom_d4rt_ast` from pub.dev, so a copy
+  // here would measure the published check rather than the fixed one, and
+  // would go red until the release lands (DGUC6). The twin carries the four
+  // cases that cannot pass by accident, hand-built as bundles.
+  'scd92_applied_parameter_type_test.dart': _Coverage(
+    'ast:runtime/scd92_applied_parameter_type_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 22,
+    twinCases: 4,
+    whyPartial:
+        'the twin is a different KIND of test, not this one with cases '
+        'dropped. The reference file spells twenty-two SHAPES -- empty, '
+        'heterogeneous, top-type, unbound and bound type parameters, '
+        'covariance, numeric widening -- because running source makes each '
+        'one three lines. The twin cannot run source at all: every case is a '
+        'hand-built bundle costing a couple of dozen lines, so it carries the '
+        'four that cannot pass by accident (mismatch throws, match binds, '
+        'empty stays permissive, raw annotation admits anything). Porting the '
+        'other eighteen would restate boundary arithmetic the shared '
+        '`ResolvedBinding._checkTypeArguments` decides in one place, at a '
+        'cost of some 500 lines of bundle construction.',
   ),
   'scc28_typed_undefined_member_test.dart': _Coverage(
     'ast:runtime/scc28_typed_undefined_member_test.dart',

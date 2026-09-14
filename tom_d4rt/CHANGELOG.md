@@ -1,3 +1,54 @@
+## 1.99.0
+
+### Fixed — a binding check compares declared type arguments (scd92)
+
+`f(List<String> xs)` accepted `f([1])`. SCC29 made a declared parameter type a
+real check and SCD63 extended it to a typed for-each variable, but both compared
+BASE types only, so every generic annotation was erased to its base before the
+comparison ever happened.
+
+Erased on both sides, for different reasons.
+`InterpretedFunction._resolveTypeAnnotationDynamic` reads a `NamedType`'s name
+and ignores its `typeArguments`, so `List<String>` resolved to the bare `List`
+bridge. And `Environment.getRuntimeType` answers `List` for every list, because
+a native list carries no element type d4rt can read back — `<int>[1]`, `[1]` and
+`<dynamic>[1]` are the same object at runtime, and all three report
+`List<Object?>` for their script-visible `runtimeType`. The machinery to decide
+the question was already present: `AppliedRuntimeType.isSubtypeOf` has compared
+arguments element-wise since DFUB6. Nothing ever handed it two applied types.
+
+DFUB6 had solved the identical problem for the RETURN path, by deriving a
+collection's element type from its CONTENTS rather than from a static type. That
+derivation moved out of the visitor onto `Environment.appliedRuntimeTypeOf`, and
+the binding check now feeds it — so a parameter, a for-each variable and a
+return decide the same question the same way. The declared arguments are
+resolved alongside the base type in `resolveBinding`, not inside
+`_resolveTypeAnnotationDynamic`, whose result is also a type parameter's bound
+and a callable's structural type.
+
+The check runs only after the base check has already passed, so it can add a
+rejection but never remove one, and it is permissive wherever either side has
+nothing to read: an empty or heterogeneous collection, a top-type argument, an
+UNBOUND type parameter (`f<T>(List<T> xs)` called as `f([1])`), a raw generic
+instance, every bridged instance, and anything more than one level deep. A type
+parameter the caller BOUND is checked — `f<String>([1])` is an error real Dart
+reports too.
+
+That permissiveness is the point rather than a caveat: unlike the return check,
+this one runs on every argument of every call, and a false positive rejects a
+correct program, which is worse than the silent pass it replaces. Two class
+tests that had passed since February proved it. Dart widens an int literal to a
+double from its surrounding context, so `Points.fromJson({'x': 3, 'y': 4})`
+against a `Map<String, double>` parameter really does pass a map of doubles —
+d4rt's map holds the ints it was written with, and the literal comparison
+rejected it. The comparison now allows the same widening `bind` already allowed
+one level out, on the type used for the comparison only: the collection is
+passed through untouched.
+
+F-SCC29-21 pinned the old limit and now asserts the throw.
+`scd92_applied_parameter_type_test.dart` (22 cases) carries the boundary, with a
+four-case bundle-built twin in `tom_d4rt_ast`.
+
 ## 1.98.0
 
 ### Fixed — `dynamic` is a top type for `BridgedClass.isSubtypeOf` (scd90)

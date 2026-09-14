@@ -1959,6 +1959,65 @@ class Environment {
     return null; // Type couldn't be determined
   }
 
+  /// SCD92: the applied runtime type of [value] when its type arguments are
+  /// determinable, or null when they are not.
+  ///
+  /// A native collection carries no element type d4rt can read back — `<int>[1]`
+  /// and `[1]` are the same object — so the arguments are derived from the
+  /// CONTENTS, and only when every element agrees. An interpreted instance
+  /// carries its own arguments and is simply asked for them. Everything else,
+  /// including every bridged instance, returns null.
+  ///
+  /// A null result means "not determinable", and every caller must read it as
+  /// permission to pass rather than as a mismatch: an empty or heterogeneous
+  /// collection is a correct argument to a typed parameter, not a wrong one.
+  ///
+  /// DFUB6 wrote this derivation inside the visitor for the generic return
+  /// check; SCD92 moved it here so the binding check ([ResolvedBinding]) — a
+  /// parameter, a for-each variable — decides the same question the same way.
+  AppliedRuntimeType? appliedRuntimeTypeOf(Object? value) {
+    if (value is InterpretedInstance) {
+      final vt = value.valueType;
+      return vt is AppliedRuntimeType ? vt : null;
+    }
+    if (value is List) {
+      final elem = _homogeneousElementType(value);
+      if (elem == null) return null;
+      final base = getRuntimeType(value);
+      return base == null ? null : AppliedRuntimeType(base, [elem]);
+    }
+    if (value is Set) {
+      final elem = _homogeneousElementType(value);
+      if (elem == null) return null;
+      final base = getRuntimeType(value);
+      return base == null ? null : AppliedRuntimeType(base, [elem]);
+    }
+    if (value is Map) {
+      final keyType = _homogeneousElementType(value.keys);
+      final valType = _homogeneousElementType(value.values);
+      if (keyType == null || valType == null) return null;
+      final base = getRuntimeType(value);
+      return base == null ? null : AppliedRuntimeType(base, [keyType, valType]);
+    }
+    return null;
+  }
+
+  /// The shared runtime type of every element in [items], or null when the
+  /// collection is empty, heterogeneous, or an element type is unknown.
+  RuntimeType? _homogeneousElementType(Iterable<Object?> items) {
+    RuntimeType? common;
+    for (final item in items) {
+      final t = getRuntimeType(item);
+      if (t == null) return null;
+      if (common == null) {
+        common = t;
+      } else if (common.name != t.name) {
+        return null;
+      }
+    }
+    return common;
+  }
+
   /// Creates a shallow copy of this environment, optionally filtering symbols.
   ///
   /// If [showNames] is provided, only symbols (values, bridged classes, enums, prefixed imports)

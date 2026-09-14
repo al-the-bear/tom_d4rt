@@ -63,9 +63,19 @@ import 'interpreter_test.dart' show execute;
 /// diagnostic quoted at runtime. The parameter check raises `D4rtTypeError` with
 /// the *SDK's runtime* wording, because that is the shape a real program sees
 /// and the shape `on TypeError` must match (F-SCC29-17). The two differ on
-/// purpose; F-SCC29-21 pins that this change did not drag the return path along
+/// purpose; F-SCC29-24 pins that this change did not drag the return path along
 /// with it. What the two paths genuinely share is the *predicate* —
 /// `RuntimeType.isSubtypeOf` — not the presentation.
+///
+/// SCD92 LATER ADDED THE TYPE ARGUMENTS
+///
+/// This check originally compared BASE types only: `f(List<String> xs)` accepted
+/// `f([1])`, and F-SCC29-21 pinned that limit. SCD92 lifted it — the declared
+/// arguments are resolved alongside the base type, the value's are derived from
+/// its contents, and the comparison runs only when both sides have arguments to
+/// read. The cases it stays permissive on are pinned in
+/// `scd92_applied_parameter_type_test.dart`; the exemptions listed above are
+/// unaffected.
 void main() {
   group('SCC29: declared parameter types are checked at binding', () {
     test('F-SCC29-1: a wrong-typed required positional argument raises '
@@ -387,17 +397,20 @@ void main() {
         );
       });
 
-      test('F-SCC29-21: a collection argument is checked on its base type '
-          'only [2026-09-05]', () {
-        // `List<int>` against `List<String>` is an applied-generic mismatch.
-        // The base check passes it; enforcing the arguments element-wise is a
-        // separate question from "is this even a List".
+      test('F-SCC29-21: a collection argument is checked on its type '
+          'arguments too [2026-09-05, SCD92 2026-09-14]', () {
+        // SCC29 checked the BASE type only, so `List<int>` satisfied a
+        // `List<String>` parameter and this expected `1`. SCD92 made the check
+        // compare the arguments as well, by deriving a collection's element
+        // type from its contents — see
+        // `scd92_applied_parameter_type_test.dart` for the boundary, which is
+        // deliberately permissive wherever the contents cannot answer.
         expect(
-          execute('''
+          () => execute('''
             int f(List<String> xs) => xs.length;
             main() => f([1]);
           '''),
-          1,
+          throwsA(isA<TypeError>()),
         );
       });
     });

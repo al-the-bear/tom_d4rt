@@ -8597,7 +8597,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     final appliedDeclared = currentCallable.declaredReturnTypeApplied;
     if (appliedDeclared == null) return;
 
-    final appliedValue = _appliedValueType(returnValue);
+    final appliedValue = environment.appliedRuntimeTypeOf(returnValue);
     if (appliedValue == null) return;
 
     if (!appliedValue.isSubtypeOf(appliedDeclared)) {
@@ -8608,57 +8608,6 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         "A value of type '${appliedValue.name}' can't be returned from the function '$functionName' because it has a return type of '$declaredTypeName'.",
       );
     }
-  }
-
-  /// DFUB6: derive an [AppliedRuntimeType] for a runtime value when its applied
-  /// type arguments are determinable — an interpreted instance carrying type
-  /// arguments, or a homogeneous native List/Set/Map. Returns null (permissive)
-  /// for anything else, including empty or heterogeneous collections.
-  AppliedRuntimeType? _appliedValueType(Object? value) {
-    if (value is InterpretedInstance) {
-      final vt = value.valueType;
-      return vt is AppliedRuntimeType ? vt : null;
-    }
-    if (value is List) {
-      final elem = _homogeneousElementType(value);
-      if (elem == null) return null;
-      final base = environment.getRuntimeType(value);
-      if (base == null) return null;
-      return AppliedRuntimeType(base, [elem]);
-    }
-    if (value is Set) {
-      final elem = _homogeneousElementType(value);
-      if (elem == null) return null;
-      final base = environment.getRuntimeType(value);
-      if (base == null) return null;
-      return AppliedRuntimeType(base, [elem]);
-    }
-    if (value is Map) {
-      final keyType = _homogeneousElementType(value.keys);
-      final valType = _homogeneousElementType(value.values);
-      if (keyType == null || valType == null) return null;
-      final base = environment.getRuntimeType(value);
-      if (base == null) return null;
-      return AppliedRuntimeType(base, [keyType, valType]);
-    }
-    return null;
-  }
-
-  /// DFUB6: the shared runtime type of every element in [items], or null when
-  /// the collection is empty, heterogeneous, or an element type is unknown. A
-  /// null result keeps applied-generic checks permissive.
-  RuntimeType? _homogeneousElementType(Iterable<Object?> items) {
-    RuntimeType? common;
-    for (final item in items) {
-      final t = environment.getRuntimeType(item);
-      if (t == null) return null;
-      if (common == null) {
-        common = t;
-      } else if (common.name != t.name) {
-        return null;
-      }
-    }
-    return common;
   }
 
   @override
