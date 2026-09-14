@@ -1,3 +1,36 @@
+## 1.95.1
+
+### Removed — `_executeClassic`, which was dead code pinning a retired contract (scd85)
+
+A ~310-line private copy of the original `execute()` implementation, kept
+behind `// ignore: unused_element` under a banner reading `PRESERVED FOR
+DEBUGGING REFERENCE` / `DO NOT MODIFY OR DELETE THIS METHOD!`. Nothing called
+it — that is what the ignore was for.
+
+**The problem was the word "reference".** SCC27 rewrote the live boundary so an
+`Error` or `Exception` leaves `execute()` as itself; this copy was deliberately
+left alone, because the banner forbade editing it and a dead method cannot fail
+a test. Its two catch-alls therefore still said
+`throw RuntimeD4rtException('Unexpected error: $e')` — a boundary contract that
+holds nowhere — while the banner told the reader it was authoritative. A stale
+document that announces itself as current is worse than no copy, and the same
+objection would have applied to every future change to the live path.
+
+The banner also contradicted itself: alongside `DO NOT MODIFY OR DELETE` it
+carried `TODO: Remove this legacy method once all code uses the new execution
+path`. Deleting it follows the second instruction; keeping it accurate was
+forbidden by the first.
+
+Git history serves the stated purpose without the risk — `git log -S
+_executeClassic` finds it, unambiguously dated, which an in-tree copy is not.
+Checked before deleting: nothing in the workspace calls it, and no doc or
+guideline names it. The other hits a naive grep finds are `_executeClassicFor`
+and `_executeClassicForWithYieldSuspension`, which are about C-style `for` loops
+and unrelated.
+
+No behaviour changes: the method was unreachable, and both suites are unchanged
+(3648 pass, 0 fail).
+
 ## 1.95.0
 
 ### Changed — `Uri.isScheme` is a method, and a shadowed `TimeoutException.toString` getter is gone (scd77)
