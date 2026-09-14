@@ -228,6 +228,11 @@ const _partialTwinBudget = 1;
 /// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
 /// naive search files it as script-level and inflates this budget.
 ///
+/// 18 -> 19: SCD98 added `scd98_bridged_value_representation_test.dart`. Exec
+/// resolves tom_d4rt_ast from pub.dev, which still wraps constructor results,
+/// so a port would assert the converged representation against an interpreter
+/// that has not converged.
+///
 /// 17 -> 18: SCD96 added `scd96_host_facing_error_unwrap_test.dart`. Exec's
 /// lock holds tom_d4rt_ast 0.65.0 against a 0.89.0 tree, so a port would state
 /// the fixed behaviour against an interpreter that does not have the fix.
@@ -251,7 +256,7 @@ const _partialTwinBudget = 1;
 /// than the tree — the same reason its own entry gives. The copier surface it
 /// would have added is list, set and map literals with type arguments, which
 /// the corpus already copies on every run.
-const _copierGapBudget = 18;
+const _copierGapBudget = 19;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -483,6 +488,29 @@ const Map<String, _Coverage> _coveredElsewhere = {
     layer: _Layer.registration,
     refCases: 4,
     twinCases: 4,
+  ),
+  // SCD98's bridged-value representation. Script-level, and its twin earns its
+  // place: the split lived in the SHARED interpreter code, so the reference
+  // tree's evidence says nothing about the analyzer-free line on its own. Not
+  // ported to exec because exec resolves `tom_d4rt_ast` from pub.dev and still
+  // constructs wrappers -- a port would go red until the release lands
+  // (DGUC6).
+  'scd98_bridged_value_representation_test.dart': _Coverage(
+    'ast:runtime/scd98_bridged_value_representation_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 6,
+    twinCases: 3,
+    whyPartial:
+        'the twin is a different KIND of test, not this one with cases '
+        'dropped. The reference file spends three of its six cases on the '
+        'measured wrapping TABLE -- every production route, the four '
+        'observations the todo names, and the typed-data boundary -- which are '
+        'one line each when you can run source and a couple of dozen when '
+        'every case is a hand-built bundle. The twin carries the case that '
+        'actually detects a wrapper (a native container deduplicating in BOTH '
+        'orders) plus the two that say the fix did not break ordinary '
+        'bridging.',
   ),
   // SCD96's host-facing unwrap. Script-level, and its twin is the POINT rather
   // than a concession: `executeBundle` is the analyzer-free line's entry point,

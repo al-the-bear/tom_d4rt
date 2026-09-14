@@ -3165,15 +3165,38 @@ class D4rt {
       return D4.unwrapAs<Object?>(interpreterValue, visitor: _visitor);
     }
     if (interpreterValue is List) {
-      return interpreterValue.map(_bridgeInterpreterValueToNative).toList();
+      // SCD98: rebuild ONLY when an element actually changed. `.map(...)
+      // .toList()` retypes unconditionally, so a `Uint8List` whose elements
+      // were already native came back as `List<Object?>` and the host's
+      // `as Uint8List` failed. That was visible today on any typed-data value
+      // reaching the host from a METHOD or GETTER; the constructor route
+      // survived only because its `BridgedInstance` wrapper took the branch
+      // above and never reached this one. Two host-visible outcomes for one
+      // value, decided by how the script happened to produce it.
+      var changed = false;
+      final out = List<Object?>.filled(interpreterValue.length, null);
+      for (var i = 0; i < interpreterValue.length; i++) {
+        final element = interpreterValue[i];
+        final native = _bridgeInterpreterValueToNative(element);
+        if (!identical(native, element)) changed = true;
+        out[i] = native;
+      }
+      return changed ? out : interpreterValue;
     }
     if (interpreterValue is Map) {
-      return interpreterValue.map(
-        (key, value) => MapEntry(
-          _bridgeInterpreterValueToNative(key),
-          _bridgeInterpreterValueToNative(value),
-        ),
-      );
+      // SCD98: same rule as the list branch — a map whose entries are already
+      // native comes back as ITSELF, so a specialized map keeps its type.
+      var changed = false;
+      final out = <Object?, Object?>{};
+      interpreterValue.forEach((key, value) {
+        final nativeKey = _bridgeInterpreterValueToNative(key);
+        final nativeValue = _bridgeInterpreterValueToNative(value);
+        if (!identical(nativeKey, key) || !identical(nativeValue, value)) {
+          changed = true;
+        }
+        out[nativeKey] = nativeValue;
+      });
+      return changed ? out : interpreterValue;
     }
     // Convert InterpretedRecord to native Dart records when possible
     // For positional-only records up to 16 elements, we can create native records

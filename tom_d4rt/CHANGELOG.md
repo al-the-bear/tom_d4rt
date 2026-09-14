@@ -1,3 +1,72 @@
+## 1.103.0
+
+### Fixed — one representation for a bridged value: the bare native (scd98)
+
+D4rt had two representations for the same bridged value and no rule about which
+one you got. A bridged CONSTRUCTOR call yielded a `BridgedInstance<T>` wrapper;
+every method return, getter return, operator return and static call yielded the
+bare native. The same conceptual value arrived in two shapes depending only on
+how the script happened to produce it, and the two routinely met in one
+collection.
+
+**The wrapping table, measured before choosing a direction** (the todo made
+writing it down a precondition, because the two candidate directions have very
+different blast radii and only the table says which one the codebase is already
+closer to):
+
+| site                                 | before      | after   |
+| ------------------------------------ | ----------- | ------- |
+| bridged constructor, default         | **wrapper** | native  |
+| bridged constructor, named           | **wrapper** | native  |
+| bridged constructor, generic factory | **wrapper** | native  |
+| redirecting factory target           | **wrapper** | native  |
+| bridged method / getter / operator   | native      | native  |
+| bridged static method, const         | native      | native  |
+| argument marshalled INTO a bridge    | native      | native  |
+| `Environment.toBridgedInstance`      | wrapper     | wrapper |
+
+The constructor was the lone outlier, so converging on the native was a
+four-site change at the introduction point rather than a refactor of the value
+representation. `toBridgedInstance` stays a wrapper on purpose — it IS the
+bridge-dispatch boundary the wrapper is meant to be confined to.
+
+**Why it was nearly invisible.** Every observation route a script has already
+unwraps: the host boundary, the `runtimeType` getter, argument marshalling, and
+`visitBinaryExpression`, which unwraps both operands before `==`. So
+`runtimeType`, `is`, `==` and simple membership all agreed beforehand. It bites
+where a NATIVE container compares its own stored elements, because then the
+interpreter is not in the loop:
+
+```dart
+[Duration(seconds: 86400),                          // constructed -> wrapper
+ DateTime(2020,1,2).difference(DateTime(2020,1,1))  // method      -> native
+].toSet().length   // was 2, is 1
+```
+
+and it was ORDER-DEPENDENT, which is the fingerprint: `[ctor, method]` failed
+while `[method, ctor]` passed. SCC32 gave `BridgedInstance` cross-boundary
+`==`/`hashCode`, so `wrapper == raw` is true — but `raw == wrapper` cannot be,
+because a native's `==` rejects a foreign type. A stored wrapper probed by a
+bare native runs the direction that cannot work.
+
+**A second defect, already live and unrelated to the wrapper.** Chasing the
+first surfaced it: `_bridgeInterpreterValueToNative` rebuilt every `List` with
+`.map(...).toList()`, which retypes unconditionally, so a `Uint8List` reaching
+the host from a METHOD or GETTER arrived as `List<Object?>` and an
+`as Uint8List` threw. The CONSTRUCTOR route survived only because its wrapper
+took the `BridgedInstance` branch and never reached the list branch — the same
+split, showing up as a type loss rather than a duplicate. The boundary now
+rebuilds a list or map only when an element actually changed, and returns the
+original instance otherwise.
+
+**SCC32 is not removed, and its doc comment now says why.** Its cross-boundary
+equality and hash-key normalisation are no longer load-bearing for values this
+interpreter produces — nothing it produces is a wrapper any more. But
+`toBridgedInstance` still hands one to bridge dispatch and an embedder can put
+one into a collection itself, so they stop being a workaround for an internal
+inconsistency and become what they read as: a courtesy to a wrapper that
+arrives from outside. F-SCC32-10/11/12 keep passing unchanged.
+
 ## 1.102.0
 
 ### Fixed — the host receives the error the script raised, not a bridged shell (scd96)

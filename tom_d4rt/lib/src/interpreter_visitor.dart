@@ -4829,7 +4829,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
               return nativeObject;
             }
 
-            final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
+            // SCD98: the bare native, not a wrapper — see the 10-space site
+            // below for the reasoning.
+            final Object bridgedInstance = nativeObject;
             Logger.debug(
               "[visitMethodInvocation]   Created BridgedInstance wrapping native: ${nativeObject.runtimeType}",
             );
@@ -5242,7 +5244,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
                     '',
               );
             }
-            final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
+            // SCD98: the bare native, not a wrapper — see the 10-space site
+            // below for the reasoning.
+            final Object bridgedInstance = nativeObject;
             Logger.debug(
               "[visitMethodInvocation]   Created via generic constructor factory: ${nativeObject.runtimeType}",
             );
@@ -5294,7 +5298,17 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             return nativeObject;
           }
 
-          final bridgedInstance = BridgedInstance(bridgedClass, nativeObject);
+          // SCD98: a bridged constructor yields the BARE NATIVE, as every
+          // other route already did. It was the lone site that wrapped, and the
+          // split was script-visible: `[ctor, method].toSet()` counted one
+          // Duration twice, because a native container comparing a stored
+          // WRAPPER against a bare probe runs `raw == wrapper`, the direction
+          // a native's `==` rejects and nothing in this package can override.
+          // Converging on the native is the direction the codebase had already
+          // been drifting — `visitBinaryExpression` unwraps operands, bridge
+          // calls unwrap arguments, SCC32 normalises hash keys — so this makes
+          // those unwraps unnecessary rather than adding a second convention.
+          final Object bridgedInstance = nativeObject;
           Logger.debug(
             "[visitMethodInvocation]   Created BridgedInstance wrapping native: ${nativeObject.runtimeType}",
           );

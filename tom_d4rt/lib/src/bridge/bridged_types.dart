@@ -427,12 +427,20 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
   /// which is why `hashCode` alone was not the fix.
   ///
   /// **Equality with the raw native is deliberate**, and it is the same choice
-  /// [BridgedEnumValue] already made for the same reason. d4rt is not
-  /// consistent about wrapping: a constructor call yields a wrapper, while
-  /// every bridged *method* return yields a bare native, so
-  /// `DateTime(2021).difference(x)` and `Duration(seconds: 1)` are the same
-  /// value in two different representations and routinely meet in one
-  /// collection.
+  /// [BridgedEnumValue] already made for the same reason.
+  ///
+  /// **SCD98 removed the inconsistency this was written to survive, and this
+  /// operator stays anyway.** When this comment was written a constructor call
+  /// yielded a wrapper while every bridged *method* return yielded a bare
+  /// native, so `DateTime(2021).difference(x)` and `Duration(seconds: 1)` were
+  /// the same value in two representations that routinely met in one
+  /// collection. The constructor now yields the native too, so nothing the
+  /// interpreter PRODUCES is a wrapper and that particular collision cannot
+  /// arise. What remains is the boundary this type exists for:
+  /// `Environment.toBridgedInstance` still hands a wrapper to bridge dispatch,
+  /// and an embedder can put one into a collection itself. So the operator is
+  /// no longer a workaround for an internal inconsistency — it is what it
+  /// reads as, a courtesy to a wrapper that arrives from outside.
   ///
   /// This is asymmetric, which is normally a hazard — `raw == wrapper` stays
   /// false because a native's `==` rejects a foreign type, and nothing here can

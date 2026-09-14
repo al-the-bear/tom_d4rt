@@ -2086,7 +2086,8 @@ class InterpretedFunction implements Callable {
           "Redirecting factory target bridged constructor for '$className' returned null unexpectedly.",
         );
       }
-      return BridgedInstance(bridgedClass, nativeObject);
+      // SCD98: the bare native, like every other bridged-constructor route.
+      return nativeObject;
     }
 
     throw RuntimeD4rtException(
