@@ -144,25 +144,22 @@ void main() {
   }
 
   group('SCD110: `doc/` is hand-authored; runner output lives in `testlog/`', () {
-    test(
-      'F-SCD110-1: no TRACKED file under any `<pkg>/doc/` is runner output '
-      '[2026-09-14]',
-      () {
-        final offenders = _offenders(_gitLines(['ls-files']));
-        expect(
-          offenders,
-          isEmpty,
-          reason:
-              'Machine-generated files are committed under a documentation '
-              'folder. A committed run is a photograph of one machine\'s build '
-              'that nothing updates, so a later reader cannot tell it from a '
-              'current one.\n\n'
-              '${offenders.join('\n')}\n\n'
-              'Untrack them (`git rm -r --cached`, which keeps them on disk) '
-              'and move them:\n$_repairCommand',
-        );
-      },
-    );
+    test('F-SCD110-1: no TRACKED file under any `<pkg>/doc/` is runner output '
+        '[2026-09-14]', () {
+      final offenders = _offenders(_gitLines(['ls-files']));
+      expect(
+        offenders,
+        isEmpty,
+        reason:
+            'Machine-generated files are committed under a documentation '
+            'folder. A committed run is a photograph of one machine\'s build '
+            'that nothing updates, so a later reader cannot tell it from a '
+            'current one.\n\n'
+            '${offenders.join('\n')}\n\n'
+            'Untrack them (`git rm -r --cached`, which keeps them on disk) '
+            'and move them:\n$_repairCommand',
+      );
+    });
 
     test(
       'F-SCD110-2: no tracked runner script writes into `doc/` [2026-09-14]',
@@ -202,86 +199,80 @@ void main() {
       },
     );
 
-    test(
-      'F-SCD110-3: the detector still reports all 104 offenders in the '
-      'pre-cleanup tree [2026-09-14]',
-      () {
-        final probe = Process.runSync('git', [
-          'cat-file',
-          '-e',
-          '$_preCleanupCommit^{commit}',
-        ], workingDirectory: _repoRoot);
-        if (probe.exitCode != 0) {
-          // A shallow clone genuinely cannot answer this. Say so instead of
-          // passing, so "green" never means "did not look".
-          fail(
-            'the pinned control commit $_preCleanupCommit is not in this '
-            'clone, so the detector is unverified here. Fetch full history '
-            '(`git fetch --unshallow`) or update the pin.',
-          );
-        }
+    test('F-SCD110-3: the detector still reports all 104 offenders in the '
+        'pre-cleanup tree [2026-09-14]', () {
+      final probe = Process.runSync('git', [
+        'cat-file',
+        '-e',
+        '$_preCleanupCommit^{commit}',
+      ], workingDirectory: _repoRoot);
+      if (probe.exitCode != 0) {
+        // A shallow clone genuinely cannot answer this. Say so instead of
+        // passing, so "green" never means "did not look".
+        fail(
+          'the pinned control commit $_preCleanupCommit is not in this '
+          'clone, so the detector is unverified here. Fetch full history '
+          '(`git fetch --unshallow`) or update the pin.',
+        );
+      }
 
-        final offenders = _offenders(
-          _gitLines(['ls-tree', '-r', '--name-only', _preCleanupCommit]),
-        );
+      final offenders = _offenders(
+        _gitLines(['ls-tree', '-r', '--name-only', _preCleanupCommit]),
+      );
+      expect(
+        offenders,
+        hasLength(_preCleanupOffenderCount),
+        reason:
+            'The detector no longer reproduces the known answer for '
+            '$_preCleanupCommit, so it can no longer be trusted on the '
+            'current tree either. Found ${offenders.length}.',
+      );
+      // Shape, not just count: all four historical folders must be named.
+      for (final folder in const [
+        'tom_d4rt_flutter/doc/extlog_20260728-scb16',
+        'tom_d4rt_flutter_ast/doc/extlog_20260728-scb16',
+        'tom_d4rt_flutter_ast/doc/testlog_20260624-0713-issue-analysis',
+        'tom_d4rt_flutter_test/doc/testlog_20260624-0713-issue-analysis',
+      ]) {
         expect(
-          offenders,
-          hasLength(_preCleanupOffenderCount),
-          reason:
-              'The detector no longer reproduces the known answer for '
-              '$_preCleanupCommit, so it can no longer be trusted on the '
-              'current tree either. Found ${offenders.length}.',
+          offenders.any((o) => o.startsWith('$folder/')),
+          isTrue,
+          reason: 'the detector stopped recognising `$folder/`',
         );
-        // Shape, not just count: all four historical folders must be named.
-        for (final folder in const [
-          'tom_d4rt_flutter/doc/extlog_20260728-scb16',
-          'tom_d4rt_flutter_ast/doc/extlog_20260728-scb16',
-          'tom_d4rt_flutter_ast/doc/testlog_20260624-0713-issue-analysis',
-          'tom_d4rt_flutter_test/doc/testlog_20260624-0713-issue-analysis',
-        ]) {
-          expect(
-            offenders.any((o) => o.startsWith('$folder/')),
-            isTrue,
-            reason: 'the detector stopped recognising `$folder/`',
-          );
-        }
-      },
-    );
+      }
+    });
 
-    test(
-      'F-SCD110-4: nothing ON DISK under any `<pkg>/doc/` is runner output '
-      '[2026-09-14]',
-      () {
-        final root = Directory(_repoRoot!);
-        final onDisk = <String>[];
-        for (final package in root.listSync().whereType<Directory>()) {
-          final doc = Directory('${package.path}/doc');
-          if (!doc.existsSync()) continue;
-          final packageName = package.uri.pathSegments
-              .where((s) => s.isNotEmpty)
-              .last;
-          for (final entity in doc.listSync(recursive: true)) {
-            if (entity is! File) continue;
-            final relative = entity.path.substring(_repoRoot!.length + 1);
-            if (!relative.startsWith('$packageName/doc/')) continue;
-            final reason = _runnerOutputReason(relative);
-            if (reason != null) onDisk.add('$relative — $reason');
-          }
+    test('F-SCD110-4: nothing ON DISK under any `<pkg>/doc/` is runner output '
+        '[2026-09-14]', () {
+      final root = Directory(_repoRoot!);
+      final onDisk = <String>[];
+      for (final package in root.listSync().whereType<Directory>()) {
+        final doc = Directory('${package.path}/doc');
+        if (!doc.existsSync()) continue;
+        final packageName = package.uri.pathSegments
+            .where((s) => s.isNotEmpty)
+            .last;
+        for (final entity in doc.listSync(recursive: true)) {
+          if (entity is! File) continue;
+          final relative = entity.path.substring(_repoRoot!.length + 1);
+          if (!relative.startsWith('$packageName/doc/')) continue;
+          final reason = _runnerOutputReason(relative);
+          if (reason != null) onDisk.add('$relative — $reason');
         }
-        onDisk.sort();
-        expect(
-          onDisk,
-          isEmpty,
-          reason:
-              'THIS MACHINE still has run output in a documentation folder. It '
-              'is not committed — which is exactly how it stayed invisible '
-              'while three `.gitignore` stanzas kept it out of `git status` — '
-              'but `doc/` is hand-authored and this is not.\n\n'
-              '${onDisk.join('\n')}\n\n'
-              'From the repo root:\n$_repairCommand',
-        );
-      },
-    );
+      }
+      onDisk.sort();
+      expect(
+        onDisk,
+        isEmpty,
+        reason:
+            'THIS MACHINE still has run output in a documentation folder. It '
+            'is not committed — which is exactly how it stayed invisible '
+            'while three `.gitignore` stanzas kept it out of `git status` — '
+            'but `doc/` is hand-authored and this is not.\n\n'
+            '${onDisk.join('\n')}\n\n'
+            'From the repo root:\n$_repairCommand',
+      );
+    });
 
     test(
       'F-SCD110-5: `.gitignore` has no `doc/`-shaped stanza [2026-09-14]',
