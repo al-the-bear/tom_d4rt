@@ -1,3 +1,29 @@
+## 1.106.0
+
+### Fixed — a native proxy now binds to a parameter declared as the script class it stands for (scd119)
+
+A script class that extends a bridged class crosses into native code as a
+registered `D4InterpretedProxy` — `_InterpretedThemeExtension` for
+`class BrandColors extends ThemeExtension<BrandColors>`, and the same for
+widgets, painters and states. Ask such a value for its runtime type and the
+answer is the BRIDGE's name, so binding it back to a parameter declared as the
+script's own class was rejected:
+
+    type 'ThemeExtension' is not a subtype of type 'BrandColors' of 'brand'
+
+Every member access on the same value worked, because the property and method
+paths already unwrap a proxy. The type check was the only place that did not —
+measured by changing the script's parameter to `dynamic`, which took the
+script's framework errors from 1 to 0 with nothing else touched.
+
+`ResolvedBinding.bind` now retries against the interpreted instance behind a
+proxy. The retry runs only AFTER the base check has already failed, so it can
+remove a rejection but never add one, and the PROXY is still what gets bound —
+the value stays whatever native code downstream expects, only the verdict on it
+changes. Teaching `Environment.getRuntimeType` to see through every proxy is
+the more correct model and was deliberately not done: it would change what
+`is`, `as` and `runtimeType` answer for every proxied widget in a live tree.
+
 ## 1.105.0
 
 ### Fixed — a type alias now resolves to its target (scd100)

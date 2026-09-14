@@ -6019,10 +6019,66 @@ class ResolvedBinding {
     if (valueType.isSubtypeOf(_declaredType, value: value)) {
       return _checkTypeArguments(env, value);
     }
+
+    // SCD119: the value may be a NATIVE PROXY standing in for an interpreted
+    // instance. A script class that extends a bridged class is handed to
+    // Flutter as a registered [D4InterpretedProxy] — `_InterpretedThemeExtension`
+    // for `class BrandColors extends ThemeExtension<BrandColors>`, and the same
+    // for widgets, painters and states. Ask such a value for its runtime type
+    // and the answer is the BRIDGE's name (`ThemeExtension`), so binding it back
+    // to a parameter declared as the script's own class was rejected with
+    // `type 'ThemeExtension' is not a subtype of type 'BrandColors' of 'brand'`
+    // — while every member access on the same value worked, because the
+    // property and method paths already unwrap the proxy (the D2 sites in
+    // `interpreter_visitor.dart`). The check was the only place that did not.
+    //
+    // THIS RUNS ONLY AFTER THE BASE CHECK HAS FAILED, so it can remove a
+    // rejection but never add one: a program that binds today still binds.
+    // That is deliberate. The obvious alternative — teaching
+    // `Environment.getRuntimeType` to see through every proxy — is the more
+    // correct model and a far larger blast radius, since it would change what
+    // `is`, `as` and `runtimeType` answer for every proxied widget in a running
+    // tree. Cluster 25 was reverted in April for exactly that kind of reach on
+    // the dispatch path; this is the version that cannot regress a passing
+    // script.
+    //
+    // The PROXY is what gets bound, not the instance behind it. The value has
+    // to stay whatever native code downstream expects; only the verdict on it
+    // changes.
+    final Object? interpreted = _interpretedBehind(value);
+    if (interpreted != null) {
+      RuntimeType? interpretedType;
+      try {
+        interpretedType = env.getRuntimeType(interpreted);
+      } catch (_) {
+        interpretedType = null;
+      }
+      if (interpretedType != null &&
+          interpretedType.isSubtypeOf(_declaredType, value: interpreted)) {
+        return value;
+      }
+    }
+
     throw D4rtTypeError(
       "type '${valueType.name}' is not a subtype of type '$_displayName'"
       "$_suffix",
     );
+  }
+
+  /// SCD119: the interpreted instance [value] is a native proxy for, or null
+  /// when it is not one.
+  ///
+  /// Both carriers are accepted because both reach a binding: the bare proxy
+  /// object, and a [BridgedInstance] wrapping it — which of the two arrives
+  /// depends on the path the value took out of native code, and the unwrap
+  /// sites in the visitor already handle the pair the same way.
+  static Object? _interpretedBehind(Object? value) {
+    if (value is D4InterpretedProxy) return value.d4rtInstance;
+    if (value is BridgedInstance) {
+      final native = value.nativeObject;
+      if (native is D4InterpretedProxy) return native.d4rtInstance;
+    }
+    return null;
   }
 
   /// SCD92: [value], once its own type arguments are known to satisfy the

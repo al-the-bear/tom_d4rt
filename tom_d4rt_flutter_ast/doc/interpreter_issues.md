@@ -26,7 +26,6 @@ reverse) fails the suite. Re-derive; do not hand-edit one side alone.
 | ------ | -------------------------------- | ---------- |
 | `[ ]` | Open (GEN-125) — an interpreted closure is rejected against a bridged function typedef (`VoidCallback`, `ValueChanged`) | An **interpreter / bridge** defect: passing a script closure to a parameter typed as a Flutter function typedef is rejected. Found 2026-09-06 (run `20260906-scc46-fixed`); 15 failures and ~276 framework errors across 109 scripts — the framework-error count is its real size. |
 | `[ ]` | Open (GEN-126) — a bridged base class arrives where the script's own subclass is declared | A script subclass of a bridged Flutter class loses its interpreted identity on a round trip through native code, so only the bridged base comes back (`type 'Intent' is not a subtype of type '_GreetIntent'`). Found 2026-09-06; 14 framework errors, 0 failures, identical in both twins. |
-| `[REVERTED]` | (25) — Abstract bridged superclasses with no proxy + active-visitor unset during bridge method dispatch + broken `ThemeData.extension<T>()` adapter (bucket #16, Section P) | The fix was rolled back on 2026-04-25 after it regressed ~24 widget-build tests into build timeouts. Section P is **deferred, not solved**; `default_text_editing_shortcuts_test.dart` and `theme_extension_test.dart` stay in the open issue log. The section sketches a less invasive approach (gate the override lookup on a non-empty registry, skip the `withActiveVisitor` wrap on adapters that take no typeArgs). |
 | `[~]` | Partially fixed — script-side / Flutter framework limitations | **Not an interpreter defect** — a rolling sweep log of demo-script fixes (layout overflow, unbounded constraints, platform-unsupported services). Rows whose "After" column reads `1*` note a residual that *is* interpreter-side; each of those is tracked by its own cluster. Last sweep 2026-04-29. |
 
 ## No corpus numbers live in this header
@@ -2489,43 +2488,50 @@ No interpreter or generator changes — `tom_d4rt`, `tom_d4rt_ast`, and `tom_d4r
 
 ---
 
-### [REVERTED] (25) — Abstract bridged superclasses with no proxy + active-visitor unset during bridge method dispatch + broken `ThemeData.extension<T>()` adapter (bucket #16, Section P)
+### [X] Fixed (25) — Abstract bridged superclasses with no proxy + active-visitor unset during bridge method dispatch + broken `ThemeData.extension<T>()` adapter (bucket #16, Section P)
 
-> **Status: REVERTED 2026-04-25.** The original cluster 25 commits
-> (`cdbd0c44` interpreter, `c9374500` flutterm registrations,
-> `9a6eebf7` doc) introduced a **regression of ~24 widget-build tests
-> across gii / essential / important** that all surfaced as
-> `Build timed out after 10 seconds`. The bisect identified two
-> independent triggers in the cluster-25 patch:
+> **Status: CLOSED 2026-09-14, and not by the patch that was reverted.**
+> Re-measured against the 2026-09-14 full-corpus run (both twins, tom_d4rt
+> 1.77.0 / tom_d4rt_ast 0.65.0). All three named failure modes are gone, each
+> repaired later by a different and narrower mechanism than the April commits:
 >
-> 1. **`node.typeArguments` evaluation** in the bridged-instance
->    method-dispatch site called `_resolveTypeAnnotation` for every
->    type-argument slot. Script-side type parameters (`<E>` in a
->    generic helper, `<T>` inside an interpreted class method) are
->    not bound as `RuntimeType` values in the environment, so
->    `_resolveTypeAnnotation` threw `Type 'E' not found.`. The throw
->    escaped pre-build and Flutter's widget-tree retry-loop hung
->    past the 10s timeout.
-> 2. The combination of **`findMethodOverride` lookup on every bridged
->    instance method** plus **`D4.withActiveVisitor` wrap on every
->    adapter call** independently broke `rendering/renderobjects_basic
->    /clip/layout`, `material/datepicker_widgets`, and
->    `material/scaffold` even with a try/catch around the typeArgs
->    eval — these scripts have no script-side type parameters at all,
->    so the throw-and-swallow narrow-fix was insufficient. Reverting
->    the override-lookup + visitor-wrap restores them all.
+> 1. **No proxy for the abstract bridged superclass** — `Intent` and
+>    `ThemeExtension` are both registered via `D4.registerInterfaceProxy` in
+>    `d4rt_runtime_registrations.dart`, in both twins.
+> 2. **`D4._activeVisitor` null inside instance-method adapters** — the
+>    bridged-instance dispatch site in both `interpreter_visitor.dart` copies
+>    now wraps the adapter in `D4.withActiveVisitor` (the comment there names
+>    `ThemeExtension<ThemeExtension<dynamic>>`, i.e. this cluster), and resolves
+>    `node.typeArguments` and forwards them (the "Plan E" block). **Both of the
+>    April regression triggers were therefore re-landed independently, in a form
+>    that did not regress** — which is what the revert asked for and what makes
+>    this a close rather than a retry.
+> 3. **`ThemeData.extension<T>()` dropping its type argument** — repaired
+>    through the generic interceptor registry instead of a bespoke
+>    method-override registry: the generated adapter carries a
+>    `D4.findBridgedMethodInterceptor('ThemeData', 'extension')` hook, and
+>    `_registerBridgedMethodInterceptors()` registers a walk of
+>    `theme.extensions.values` that matches on `typeArgs[0]` and unwraps a
+>    `_InterpretedThemeExtension` back to its `InterpretedInstance`. Both twins.
 >
-> The narrow `try { _resolveTypeAnnotation(...) } catch (_) { dynamic }`
-> swallow alone recovered gii (+38 → +63) but left ~5 essential /
-> important regressions intact, so the whole cluster was rolled back.
-> Section P (`Intent` / `ThemeExtension<T>` / `ThemeData.extension<T>()`)
-> remains **deferred** for a less-invasive approach. Suggested follow-up:
-> register the override lookup only when the registry is non-empty for
-> a given class (gate on `D4.hasMethodOverrides(bridgedClass.name)`),
-> and skip the `withActiveVisitor` wrap on adapters that don't take
-> typeArgs. The two affected retest scripts
-> (`default_text_editing_shortcuts_test.dart`,
-> `theme_extension_test.dart`) stay in the open issue log.
+> **Measured state of the two scripts.** `default_text_editing_shortcuts_test.dart`
+> passes with `frameworkErrors=0` in both its forms (`flutter_extended_21` W2 and
+> `flutter_extended_14`). `material/theme_extension_test.dart` passes
+> (`flutter_extended_07`), and `retest/material/theme_extension_test.dart` still
+> fails — but for neither of this cluster's defects: it raises
+> `type 'dynamic Function(dynamic)' is not a subtype of type 'ValueChanged' of
+> 'onBegin'`, which is **GEN-125**, and which is also the single cause of all
+> four failures in `flutter_extended_23`.
+>
+> One residue of defect 3 was isolated on the way and is **GEN-126**, not this
+> cluster: `material/theme_extension_test.dart` still raised one framework error,
+> `type 'ThemeExtension' is not a subtype of type 'BrandColors' of 'brand'`. See
+> that entry — the fix is in the tree and awaiting a publish.
+>
+> The suggested follow-up this section used to carry (gate the override lookup
+> on a non-empty registry; skip the visitor wrap on adapters without typeArgs)
+> was never needed: the interceptor registry made the override lookup
+> unnecessary, and the visitor wrap landed unconditionally without the timeouts.
 
 **Symptom** (now resolved)
 
@@ -3846,7 +3852,7 @@ Nine of the fourteen are `Intent` subclasses, across seven distinct classes
 `ThemeReadIntent`, `TreeClimbIntent`, `ShowInfoIntent`); the remaining five
 are the `TwoDimensional*` and `ThemeExtension` cases above.
 
-**Root cause (hypothesis, not yet confirmed in code)**
+**Root cause — MEASURED 2026-09-14, and not what the hypothesis said**
 
 The canonical shape is `widgets/actions_test.dart:37-43`:
 
@@ -3857,17 +3863,43 @@ class _GreetAction extends Action<_GreetIntent> {
 }
 ```
 
-`Actions.invoke` dispatches inside the Flutter framework, so the intent
-crosses the bridge boundary twice. What comes back to `invoke` is the native
-`Intent` the proxy wraps, not the `InterpretedInstance` that was handed in —
-so `getRuntimeType` answers `Intent`, and the bridged base is correctly *not*
-a subtype of the interpreted subclass.
+This entry used to reason that the value coming back was "genuinely the wrong
+thing by then" — the native base with its interpreted identity lost — and
+concluded that a repair at the type check would be an exemption hiding a real
+defect. **That is disproven.** The identity is not lost; it is unreadable.
 
-If that is right, the repair is at the unwrap/rewrap boundary — a value that
-entered as an `InterpretedInstance` must come back as one — and **not** in
-`_checkArgumentType`, which is answering correctly about a value that is
-genuinely the wrong thing by then. Confirm before fixing: an exemption here
-would hide a real identity loss that other code paths also see.
+The measurement, on `material/theme_extension_test.dart`: change the script's
+parameter from `BrandColors` to `dynamic`, touch nothing else, and the script's
+`frameworkErrors` go **1 → 0**. Every member access on the value then reaches
+the interpreted class. So what comes back is the registered
+`D4InterpretedProxy` — `_InterpretedThemeExtension`, holding the
+`InterpretedInstance` — and the property and method paths already unwrap it
+(the D2 sites in `interpreter_visitor.dart`). Only `getRuntimeType` does not,
+so it answers with the BRIDGE's name and the check refuses a value that works.
+
+The repair is therefore at the check, and is not an exemption: it retries
+against the interpreted instance behind the proxy, and an unrelated declared
+class is still rejected (the controls in
+`tom_d4rt/test/bridge/scd119_interpreted_proxy_binding_test.dart`).
+
+**Fixed in the tree, not yet confirmed here.** `ResolvedBinding.bind` in both
+`tom_d4rt` 1.106.0 and `tom_d4rt_ast` 0.93.0 (scd119), with the corpus symptom
+reproduced and controlled in both trees' suites. The retry runs only after the
+base check has already failed, so it can remove a rejection but never add one.
+Teaching `Environment.getRuntimeType` to see through every proxy is the more
+correct model and was deliberately not done — it changes what `is`, `as` and
+`runtimeType` answer for every proxied widget in a live tree, which is the kind
+of reach cluster 25 was reverted for.
+
+**This row stays open until a corpus run says otherwise (DGUC6).** The twins
+resolve the interpreter from pub.dev, so nothing here measures 1.106.0 / 0.93.0
+until they ship. What is confirmed by construction is the `ThemeExtension` row
+of the symptom list, whose exact error the new tests reproduce. The nine
+`Intent` rows are **not** confirmed: if `Actions.invoke` hands back the proxy
+they are the same defect and close with it; if it hands back a bare native
+`Intent` with no proxy attached, the identity really is gone for those and they
+need the boundary repair this entry originally described. The corpus run after
+the publish is what distinguishes the two.
 
 **Distinguish from GEN-125.** Both surface through `_checkArgumentType` and
 both were invisible before it consulted declared parameter types, but the
@@ -3875,7 +3907,8 @@ defects are unrelated: GEN-125 is a *modelling* gap (the type system cannot
 say what a typedef is), GEN-126 is an *identity* loss (the value itself
 changed). Fixing GEN-125 will not move these 11.
 
-Tracked as **scd138** — as an investigation, not as a fix.
+Tracked as **scd138** — as an investigation, not as a fix; scd119 answered
+its first question and narrowed what is left to the `Intent` rows.
 
 **Verifying the fix.** These 14 framework errors go to 0. No `+N` count will
 move — the affected tests already pass.
