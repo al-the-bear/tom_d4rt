@@ -771,8 +771,12 @@ In decreasing order of impact (scripts closed per fix):
 
 ## Links and artifacts
 
-- Combined log: `doc/testlog_20260424-1838-issue-analysis/combined.log.txt`
-- Per-suite JSON reporter: `doc/testlog_20260424-1838-issue-analysis/*_test.result.json`
-- Per-suite text log: `doc/testlog_20260424-1838-issue-analysis/*_test.log.txt`
+The three run files below were written to the folder this document used
+to live in and were pruned with it; they are listed as a record of what
+the analysis was derived from, not as paths to open.
+
+- Combined log: `combined.log.txt`
+- Per-suite JSON reporter: `*_test.result.json`
+- Per-suite text log: `*_test.log.txt`
 - Live cluster tracker: `doc/interpreter_issues.md`
 - Quest overview: `_ai/quests/d4rt/overview.d4rt.md`
