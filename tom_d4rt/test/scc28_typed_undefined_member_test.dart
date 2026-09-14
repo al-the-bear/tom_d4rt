@@ -335,7 +335,7 @@ void main() {
       // assignment on static member"). None produced an
       // `UndefinedStaticMemberD4rtException` at that site.
       //
-      // So the clause may be dead. That is tracked as sce125_aimo, together with
+      // So the clause may be dead. That is tracked as sce125_ainq, together with
       // the defect the same probe turned up: writing a static field by bare name
       // from an instance method updates a shadow, not the static. What this case
       // pins meanwhile is the half that IS reachable and that the conversion had
