@@ -52,3 +52,24 @@ export 'package:tom_d4rt/src/generator/d4rt_user_bridge_annotation.dart';
 export 'package:tom_d4rt/src/generator/d4rt_user_proxy_annotation.dart';
 export 'package:tom_d4rt/src/bridge/library_mapping.dart';
 export 'package:tom_d4rt/src/script_execution.dart';
+
+// SCD134 — three files the barrel never exported, each holding a type this
+// package's own public API already hands back. A type that a consumer receives
+// but cannot NAME is not a private type; it is a public type with a missing
+// export, and the twin (`tom_d4rt_ast/runtime.dart`) exports all three
+// equivalents. `tom_d4rt/test/scd134_barrel_surface_parity_test.dart` is what
+// keeps the two surfaces comparable from here on.
+//
+//   * `BridgedEnum` / `BridgedEnumValue` — what `BridgedEnumDefinition
+//     .buildBridgedEnum()` returns and what `Environment.getRuntimeType` hands
+//     back for an enum value. Consumers were reaching them through
+//     `package:tom_d4rt/src/...`, which is an implementation import.
+//   * `D4rtTypeError` / `D4rtNoSuchMethodError` / `indexRangeError` — the SDK
+//     error types the interpreter raises itself (SCB10), so `on TypeError` in
+//     interpreted code matches. A host that wants to catch one needs the name.
+//   * `ModuleLoader` / `LoadedModule` — `InterpreterVisitor.moduleLoader` is a
+//     public field of type `ModuleLoader`. The AST twin exports its
+//     counterpart (`ModuleContext`); this side did not.
+export 'package:tom_d4rt/src/bridge/bridged_enum.dart';
+export 'package:tom_d4rt/src/sdk_errors.dart';
+export 'package:tom_d4rt/src/module_loader.dart';

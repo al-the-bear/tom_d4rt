@@ -4,10 +4,7 @@ import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:tom_d4rt/d4rt.dart';
-import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt/src/utils/extensions/string.dart';
-import 'package:tom_d4rt/src/module_loader.dart';
-import 'package:tom_d4rt/src/sdk_errors.dart';
 import 'package:tom_d4rt/src/unbridged_reasons.dart';
 
 /// Main visitor that walks the AST and interprets the code.

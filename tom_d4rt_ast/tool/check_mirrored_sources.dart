@@ -47,9 +47,6 @@ const Map<String, String> kDivergentMirrors = <String, String>{
   'runtime_types.dart': _astNodeTypes,
   'introspection.dart': _astNodeTypes,
   'async_state.dart': _astNodeTypes,
-  'stdlib/core/enum.dart':
-      'one import: the reference reaches bridged_enum.dart directly and this '
-      'tree gets it another way. Not characterised further; SCD208.',
   'bridge/bridged_enum.dart':
       'module loading differs — the reference constructs a ModuleLoader where '
       'this tree builds an Environment directly, which is the same difference '

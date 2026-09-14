@@ -1,5 +1,4 @@
 import 'package:tom_d4rt/d4rt.dart';
-import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
 
 /// Minimal `Enum` base-class bridge — scripts that declare generic types
 /// like `class _SettingCard<T extends Enum>` need `Enum` to resolve at

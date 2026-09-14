@@ -25,7 +25,6 @@ library;
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
-import 'package:tom_d4rt/src/module_loader.dart';
 
 /// Trivial native enum used as a bridge target for the memo case.
 enum _Phase { red, green, blue }

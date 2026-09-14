@@ -1,3 +1,32 @@
+## 1.109.0
+
+### Added — three files the barrel never exported (scd134)
+
+A type a consumer *receives* but cannot *name* is not a private type; it is a
+public type with a missing export. Three files were in that position, and the
+AST twin (`tom_d4rt_ast/runtime.dart`) exported all three equivalents:
+
+- `src/bridge/bridged_enum.dart` — `BridgedEnum`, `BridgedEnumValue`.
+  `BridgedEnumDefinition.buildBridgedEnum()` returns the first and
+  `Environment.getRuntimeType` returns it for any native enum value. Reaching
+  them meant importing `package:tom_d4rt/src/...`, which is exactly what the
+  `implementation_imports` lint forbids.
+- `src/sdk_errors.dart` — `D4rtTypeError`, `D4rtNoSuchMethodError`,
+  `indexRangeError`. These are the SDK error types the interpreter raises
+  itself so that `on TypeError` matches inside interpreted code (SCB10); a host
+  that wants to catch one needs the name.
+- `src/module_loader.dart` — `ModuleLoader`, `LoadedModule`.
+  `InterpreterVisitor.moduleLoader` is a public field of type `ModuleLoader`.
+
+Purely additive: seven names appear on the public surface, none change or move.
+
+`test/scd134_barrel_surface_parity_test.dart` now compares the two barrels'
+exported name sets on every run, with each remaining difference recorded
+individually and a reason attached. Twenty remain, and the classification is the
+useful part rather than the count: most follow from one line having an analyzer
+and the other deliberately not, two are one concept under two names, and five
+are recorded as genuine gaps rather than differences (see sce154 and sce155).
+
 ## 1.108.0
 
 ### Changed — a bare name prefix no longer claims a bridge (scd132)

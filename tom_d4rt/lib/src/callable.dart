@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:analyzer/dart/ast/ast.dart' hide TypeParameter;
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:tom_d4rt/d4rt.dart';
-import 'package:tom_d4rt/src/sdk_errors.dart';
 
 /// Represents a yield operation in a generator function
 class YieldValue {

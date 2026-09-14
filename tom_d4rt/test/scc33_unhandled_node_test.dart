@@ -5,7 +5,6 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 // `ModuleLoader` is not part of the public barrel; F-SCC33-5 constructs a
 // visitor directly, which is the only way to reach the backstop now that every
 // node type the language has today has a handler.
-import 'package:tom_d4rt/src/module_loader.dart';
 
 import 'interpreter_test.dart' show execute;
 

@@ -24,10 +24,6 @@ library;
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
-// `BridgedEnum` is not re-exported from `d4rt.dart` on this line, although the
-// AST twin's `runtime.dart` does export it. Imported directly rather than
-// widening the public surface as a side effect of a test.
-import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
 
 /// Stands in for Flutter's `TextDirection`. The name matters: the bug is a
 /// prefix collision, so the enum's native type name must begin with the

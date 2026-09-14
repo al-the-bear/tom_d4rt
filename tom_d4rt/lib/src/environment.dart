@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:tom_d4rt/d4rt.dart';
-import 'package:tom_d4rt/src/bridge/bridged_enum.dart';
 import 'package:tom_d4rt/src/unbridged_reasons.dart';
 import 'package:tom_d4rt/src/utils/extensions/string.dart';
 

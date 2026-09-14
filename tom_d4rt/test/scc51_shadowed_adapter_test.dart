@@ -54,7 +54,6 @@ import 'dart:collection';
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt/d4rt.dart';
-import 'package:tom_d4rt/src/module_loader.dart';
 import 'package:tom_d4rt/src/stdlib/collection.dart';
 
 /// A fresh native fixture per call, so a mutating member cannot leak state from
