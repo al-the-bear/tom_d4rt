@@ -52,7 +52,7 @@ String _findProjectRoot() {
 /// `lastModified` timestamp than the binary. The previous gate only checked
 /// `bin/dclie.dart`, which left the binary stale whenever generated
 /// `*.b.dart` bridges were regenerated — see Cluster STRING-AS-PROCESS in
-/// `tom_d4rt_flutter_ast/doc/testlog_20260502-1010-consol-rebaseline/`.
+/// the `20260502-1010-consol-rebaseline` run.
 Future<String> _ensureDclieBinary() async {
   final binaryPath = p.join(_projectRoot, 'bin', 'dclie');
   final sourcePath = p.join(_projectRoot, 'bin', 'dclie.dart');

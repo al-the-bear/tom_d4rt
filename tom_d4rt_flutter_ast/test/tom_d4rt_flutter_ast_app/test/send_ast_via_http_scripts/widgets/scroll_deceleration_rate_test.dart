@@ -919,8 +919,8 @@ class _TelemetryCard extends StatelessWidget {
             // `_maxScrollExtent` is still null (between attach and the
             // first `applyContentDimensions`). The harness can rebuild
             // the telemetry card during that window and trip the null
-            // check. See Fa2 cluster diagnosis in
-            // doc/testlog_20260428-1333-issue-analysis/error_analysis.md.
+            // check. See the Fa2 cluster diagnosis in the
+            // `20260428-1333` issue-analysis sweep.
             v: controller.hasClients &&
                     controller.position.hasContentDimensions
                 ? controller.position.maxScrollExtent.toStringAsFixed(0)

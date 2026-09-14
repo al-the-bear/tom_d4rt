@@ -1,3 +1,17 @@
+## 0.5.1
+
+### Fixed — a dangling citation in `d4rt_runtime_registrations.dart`
+
+The `// Why:` above the slotted render-object proxy explained itself in full and
+then cited `doc/testlog_20260427-1339-post-c22/error_analysis.md` for the D7
+label. That folder was pruned in April along with every other run folder, so the
+path had been unresolvable in any clone for months while still reading as
+something a reader could open.
+
+The comment now names the run (`20260427-1339-post-c22`) rather than a path,
+which is the convention `interpreter_unfixable.md` states for a past pass: a run
+id is the name of a pass, not a location. No behaviour changes.
+
 ## 0.5.0
 
 ### Changed — bridges regenerated at tom_d4rt_generator 1.26.0 (scd105)

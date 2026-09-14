@@ -3,7 +3,7 @@
 /// typed generic setters (e.g. `ValueNotifier<Color>.value`) receive
 /// the native value rather than the wrapper.
 ///
-/// Cluster G #12 (`tom_d4rt_flutter_ast/doc/testlog_20260522-1328-issue-analysis/error_analysis.md`)
+/// Cluster G #12 of the `20260522-1328` issue-analysis sweep
 /// reproduced the missing unwrap as
 /// `type 'BridgedInstance<Object>' is not a subtype of type 'Color' of 'newValue'`
 /// when `foundation/notifier_test.dart` did `colorNotifier.value = c`.

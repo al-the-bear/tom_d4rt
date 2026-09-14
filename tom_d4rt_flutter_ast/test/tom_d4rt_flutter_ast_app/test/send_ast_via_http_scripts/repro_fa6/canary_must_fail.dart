@@ -1,7 +1,7 @@
 // Fa6 canary — deliberately throws inside a child widget's build() to
 // verify the SendTestRunner harness records FE>0 when child builds fail.
-// Calibration mirror of fa5 canary; see
-// `doc/testlog_20260428-1333-issue-analysis/error_analysis.md` (Fa6).
+// Calibration mirror of fa5 canary; see the `20260428-1333`
+// issue-analysis sweep (Fa6).
 //
 // ignore_for_file: avoid_print
 

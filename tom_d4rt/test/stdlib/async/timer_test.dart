@@ -1,6 +1,6 @@
 /// Tests for the `Timer` bridge in `lib/src/stdlib/async/timer.dart`.
 ///
-/// Cluster E #9 (see `tom_d4rt_flutter_ast/doc/testlog_20260522-1328-issue-analysis/error_analysis.md`):
+/// Cluster E #9 of the `20260522-1328` issue-analysis sweep:
 /// the static `Timer.run(callback)` bridge indexed `positionalArgs[1]`
 /// even though the native signature is single-argument, which threw
 /// `RangeError (length): Invalid value: Only valid value is 0: 1` on

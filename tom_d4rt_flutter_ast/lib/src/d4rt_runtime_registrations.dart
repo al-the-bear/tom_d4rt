@@ -3237,8 +3237,8 @@ class _InterpretedRenderBoxContainer extends RenderBox
 // this proxy the bridged super of the script's render-object class is plain
 // `RenderBox`, so the standard `_InterpretedRenderBox` is created and the cast
 // fails with "must return a RenderObject mixing in
-// SlottedContainerRenderObjectMixin, got _InterpretedRenderBox" (D7 in
-// `doc/testlog_20260427-1339-post-c22/error_analysis.md`).
+// SlottedContainerRenderObjectMixin, got _InterpretedRenderBox" (D7 in the
+// `20260427-1339-post-c22` run).
 //
 // Type erasure: the slot type is erased to `dynamic` and the child type is
 // fixed to `RenderBox` because the slot type is per-script (typically a custom

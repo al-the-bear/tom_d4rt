@@ -209,8 +209,8 @@ dynamic build(BuildContext context) {
       // progress value as a number against minValue/maxValue. Strings
       // like "0 percent" or "0%" fail the parse and emit
       // "Progress bar value, minValue, and maxValue must be valid
-      // numbers." Pass the bare numeric string. See
-      // doc/testlog_20260522-1328-issue-analysis entry #23.
+      // numbers." Pass the bare numeric string. See the
+      // `20260522-1328` issue-analysis sweep, entry #23.
       semanticsValue: '$percent',
     );
 

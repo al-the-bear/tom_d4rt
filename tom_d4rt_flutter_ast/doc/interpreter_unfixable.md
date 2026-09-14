@@ -60,6 +60,36 @@ all. A pass analysis is therefore a working document with a
 lifetime of one pass, and a permanent document may not depend on
 one surviving.
 
+**One exception, and it is narrow: a pass analysis that a
+permanent document declares AUTHORITATIVE is promoted out of the
+run folder rather than pruned with it.** It is committed as
+`doc/issue_analysis_<YYYYMMDD>.md`, carrying a header that says
+which run it came from and that the raw results are not tracked,
+and the citing document is repointed at the new name. Two exist:
+`issue_analysis_20260424.md`, which `interpreter_issues.md` cites
+ten times and once calls the authoritative table for Section Q,
+and `issue_analysis_20260624.md`.
+
+The exception exists because the rule above has a gap the pruning
+found: a permanent document is not supposed to depend on a pass
+analysis surviving, but if one already does, deleting the analysis
+does not repair the dependency — it only makes the citation
+unresolvable. Promote the analysis, or rewrite the citation to
+stand alone. Never prune under a live citation.
+
+A pruned analysis that nobody promoted is still in the history, and
+the run id is enough to find it:
+
+```
+git log --all --diff-filter=A -- '*/doc/testlog_<id>/*.md'
+git show <commit>:<path>
+```
+
+Take the LAST revision before the delete, not the first: these
+documents were edited for weeks after the run that produced them,
+and the closures written into them afterwards are usually the part
+somebody is looking for.
+
 So this file names a past pass **by its date and subject**, never
 by a path into a pruned folder.
 

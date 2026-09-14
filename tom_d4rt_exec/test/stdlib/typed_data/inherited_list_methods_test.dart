@@ -2,7 +2,7 @@
 /// that the per-typed-data-variant bridges merge in from
 /// `lib/src/stdlib/typed_data/inherited_list_methods.dart`.
 ///
-/// Cluster D (see `tom_d4rt_flutter_ast/doc/testlog_20260522-1328-issue-analysis/error_analysis.md`):
+/// Cluster D of the `20260522-1328` issue-analysis sweep:
 /// the bridge resolver does no supertype walk, so `Float64List.toList()`,
 /// `Int32List.map(...)`, etc. were missing. The helper centralises ~25
 /// adapter implementations; these tests exercise the helper through a

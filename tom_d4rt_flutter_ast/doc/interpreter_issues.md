@@ -1188,7 +1188,7 @@ Both edits are pure generator changes; the `tom_d4rt` ↔
 ### [X] Fixed (15, GEN-105) — `abstract mixin class` not flagged `canBeUsedAsMixin`
 
 **Symptom** (3 scripts in the 20260424-1838 run, bucket #5 /
-Cluster A in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+Cluster A in `doc/issue_analysis_20260424.md`)
 
 ```
 Runtime Error: Bridged class 'WidgetsBindingObserver' cannot be used as a mixin.
@@ -1287,7 +1287,7 @@ assertions) are downstream issues that belong to existing buckets.
 ### [X] Fixed (16, GEN-106) — `dart:typed_data` not eagerly registered
 
 **Symptom** (2 script slots in the 20260424-1838 run, bucket #6 /
-Cluster D in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+Cluster D in `doc/issue_analysis_20260424.md`)
 
 ```
 Runtime Error: Undefined variable: ByteData
@@ -1376,7 +1376,7 @@ The interpreter mirror is exact — both `tom_d4rt` and
 ### [X] Fixed (17) — `RestorationMixin.context` bridged mixin getter (incidental closure)
 
 **Symptom** (1 script slot in the 20260424-1838 run, bucket #7 /
-Cluster G in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+Cluster G in `doc/issue_analysis_20260424.md`)
 
 ```
 Runtime Error: Undefined variable: context
@@ -1487,7 +1487,7 @@ completeness.
 
 **Symptom** (1 script slot in the 20260424-1838 run, bucket #8 /
 Cluster H — "Late-init template defects" in
-`doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+`doc/issue_analysis_20260424.md`)
 
 ```
 Runtime Error: Undefined variable: _animController (Original error:
@@ -2003,7 +2003,7 @@ emits `package:` exports.
 ### [X] Fixed (19) — eager `Logger.debug` interpolation invokes Flutter Element `toString()` mid-mount (bucket #9)
 
 **Symptom** (bucket #9 / Cluster I — "Bridged field access on child
-instance" in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+instance" in `doc/issue_analysis_20260424.md`)
 
 ```
 Runtime Error: Native error during bridged method call 'visitAncestorElements'
@@ -2118,7 +2118,7 @@ diagnosis.
 ### [X] Fixed (20) — `toBridgedInstance` name-prefix fallback shadows `isAssignable` (bucket #11)
 
 **Symptom** (bucket #11 / Section K — "Iterable.toList wrapping
-sub-errors" in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+sub-errors" in `doc/issue_analysis_20260424.md`)
 
 ```
 Runtime Error: Native error during bridged method call 'toList' on Iterable:
@@ -2207,7 +2207,7 @@ wrapped as `List`, etc.
 
 **Symptom** (bucket #12 / Section L — "Constructor-parameter
 validation — `ImageFilter.matrix`" in
-`doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+`doc/issue_analysis_20260424.md`)
 
 ```
 Runtime Error: Native error during bridged constructor 'matrix' for class
@@ -2290,7 +2290,7 @@ fix lands them too.
 ### [X] Fixed (22) — Inactive-element `findRenderObject` (bucket #13)
 
 **Symptom** (bucket #13 / Section M — "Inactive-element `findRenderObject`" in
-`doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`)
+`doc/issue_analysis_20260424.md`)
 
 ```
 Runtime Error: Native error during bridged method call 'findRenderObject' on
@@ -2529,7 +2529,7 @@ No interpreter or generator changes — `tom_d4rt`, `tom_d4rt_ast`, and `tom_d4r
 
 **Symptom** (now resolved)
 
-Three independent failure modes all fed by Section P "Transition / type-generic coercion" in `doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`:
+Three independent failure modes all fed by Section P "Transition / type-generic coercion" in `doc/issue_analysis_20260424.md`:
 
 1. `retest/widgets/default_text_editing_shortcuts_test.dart` —
    ```
@@ -2755,7 +2755,7 @@ re-checking the gate.
 The remaining Section Q rows have been triaged and re-routed to their
 correct buckets — Section Q is now considered fully closed at the
 classification level. Authoritative table in
-`doc/testlog_20260424-1838-issue-analysis/issue_analysis.md`. Summary:
+`doc/issue_analysis_20260424.md`. Summary:
 
 - **Resolved-by-skip** (no longer running):
   `widgets/render_custom_paint_test.dart`,
@@ -2985,7 +2985,8 @@ context`.
 | `important_classes_test`             | 164 / 5 / 0 | **164 / 5 / 0** (match) |
 | `secondary_classes_test`             | 649 / 5 / 0 | **649 / 5 / 0** (match) |
 
-Test-run artefacts in `doc/testlog_plane_verify/`.
+Test-run artefacts were produced by the `plane_verify` run; like every
+run folder they are not versioned.
 
 **Per-script outcome:**
 
