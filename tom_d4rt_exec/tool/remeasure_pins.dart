@@ -61,9 +61,20 @@
 ///                     different way; F-SCC43-1 part one covers the case where
 ///                     the BASELINE entry is gone, not this one.
 ///
+/// ## The other register (SCD126)
+///
+/// `_uncoveredBaseline` has the same absorption property and the same
+/// experiment: an entry claims a reference file has no exec counterpart, and
+/// while it stands nothing notices if one becomes possible. `--uncovered` runs
+/// the identical copy-rewrite-run over that map instead. The verdict vocabulary
+/// carries over unchanged, only what it means changes: `PASSES NOW` on a pin
+/// means the pin was never true, and on an uncovered entry means the port is
+/// available and the entry should go.
+///
 /// Usage, from `tom_d4rt_exec/`:
 ///
-///     dart run tool/remeasure_pins.dart
+///     dart run tool/remeasure_pins.dart              # _pinnedInterpreterFloors
+///     dart run tool/remeasure_pins.dart --uncovered  # _uncoveredBaseline
 library;
 
 import 'dart:convert';
@@ -85,13 +96,23 @@ Future<int> main(List<String> args) async {
     return 2;
   }
 
-  final pins = _parsePins(File(_guardPath).readAsStringSync());
+  final uncovered = args.contains('--uncovered');
+  final register = uncovered
+      ? '_uncoveredBaseline'
+      : '_pinnedInterpreterFloors';
+  final pins = uncovered
+      ? _parseRegister(
+          File(_guardPath).readAsStringSync(),
+          'const Map<String, int> _uncoveredBaseline = {',
+          "^\\s*'([^']+)':\\s*(\\d+),",
+        )
+      : _parsePins(File(_guardPath).readAsStringSync());
   if (pins.isEmpty) {
     // A scan that finds nothing "succeeds" at everything. SCD122 caught exactly
     // that failure in this file's sibling scanner, twice, so an empty parse is
     // an error here rather than an empty report.
     stderr.writeln(
-      'Parsed ZERO entries out of _pinnedInterpreterFloors. Either the register '
+      'Parsed ZERO entries out of \$register. Either the register '
       'is genuinely empty — in which case there is nothing to re-measure and '
       'this tool should not have been run — or its syntax moved out from under '
       'the parser. Check $_guardPath before believing an empty report.',
@@ -103,8 +124,8 @@ Future<int> main(List<String> args) async {
   final resolved = _resolvedAstVersion();
   stdout.writeln(
     'exec declares tom_d4rt_ast floor $floor; resolves ${resolved ?? "unknown"}.'
-    '\nRe-measuring ${pins.length} pinned ${pins.length == 1 ? "entry" : "entries"} '
-    'against the RESOLVED copy.\n',
+    '\nRe-measuring ${pins.length} $register '
+    '${pins.length == 1 ? "entry" : "entries"} against the RESOLVED copy.\n',
   );
 
   final scratch = _scratchDir();
@@ -120,7 +141,7 @@ Future<int> main(List<String> args) async {
     (w, r) => r.path.length > w ? r.path.length : w,
   );
   stdout.writeln(
-    '${"ENTRY".padRight(width)}  ${"PINNED".padRight(8)}  ${"FLOOR".padRight(8)}  VERDICT',
+    '${"ENTRY".padRight(width)}  ${(uncovered ? "CASES" : "PINNED").padRight(8)}  ${"FLOOR".padRight(8)}  VERDICT',
   );
   for (final r in results) {
     stdout.writeln(
@@ -132,11 +153,19 @@ Future<int> main(List<String> args) async {
   final stale = results.where((r) => r.verdict == _Verdict.passesNow).toList();
   if (stale.isNotEmpty) {
     stdout.writeln(
-      '\n${stale.length} pin(s) are STALE — they pass against the interpreter '
-      'this package already resolves, so they were never blocked by the version '
-      'they name. Port each one for real and delete both its baseline entry and '
-      'its line in _pinnedInterpreterFloors:\n'
-      '${stale.map((r) => '  ${r.path}').join('\n')}',
+      uncovered
+          ? '\n${stale.length} entry/entries are PORTABLE — they pass against '
+                'the interpreter this package already resolves, so nothing is '
+                'blocking the port. Take it (diff the CASE COUNTS too, not just '
+                'pass/fail — a baseline entry can hide a silently-partial copy) '
+                'and delete the entry:\n'
+                '${stale.map((r) => '  ${r.path}').join('\n')}'
+          : '\n${stale.length} pin(s) are STALE — they pass against the '
+                'interpreter this package already resolves, so they were never '
+                'blocked by the version they name. Port each one for real and '
+                'delete both its baseline entry and its line in '
+                '_pinnedInterpreterFloors:\n'
+                '${stale.map((r) => '  ${r.path}').join('\n')}',
     );
   }
 
@@ -182,15 +211,28 @@ class _Result {
 /// `'x': 'y',` anywhere in the file: several other maps in that file have the
 /// same shape, and a parser that swept the whole file would report entries that
 /// are not pins at all.
-Map<String, String> _parsePins(String source) {
-  final start = source.indexOf(
-    'const Map<String, String> _pinnedInterpreterFloors',
-  );
+Map<String, String> _parsePins(String source) => _parseRegister(
+  source,
+  'const Map<String, String> _pinnedInterpreterFloors',
+  "^\\s*'([^']+)':\\s*'([^']+)',",
+);
+
+/// One register out of [source], as `path -> second capture group`.
+///
+/// Anchored on the map's opening line rather than sweeping the file, because
+/// several maps there share an entry shape and a parser that matched anywhere
+/// would report entries from the wrong one.
+Map<String, String> _parseRegister(
+  String source,
+  String opener,
+  String entryPattern,
+) {
+  final start = source.indexOf(opener);
   if (start < 0) return const {};
   final end = source.indexOf('\n};', start);
   if (end < 0) return const {};
   final body = source.substring(start, end);
-  final entry = RegExp(r"^\s*'([^']+)':\s*'([^']+)',", multiLine: true);
+  final entry = RegExp(entryPattern, multiLine: true);
   return {for (final m in entry.allMatches(body)) m.group(1)!: m.group(2)!};
 }
 

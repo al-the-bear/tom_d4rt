@@ -934,6 +934,40 @@ const Map<String, _Coverage> _coveredElsewhere = {
 /// cannot drift and exempt the three that already have, which is worse than
 /// none. That is why [F-SCC6-6] checks [_coveredElsewhere] — whose counts ARE
 /// static-comparable — and stops there. Confirming a count here is a run.
+///
+/// RE-MEASURED IN FULL, 2026-09-15 (SCD126), with
+/// `dart run tool/remeasure_pins.dart --uncovered` — the same copy-rewrite-run
+/// SCC44 did by hand on the other map, against resolved 0.65.0:
+///
+///     scd95_static_name_report_test.dart         does-not-compile
+///     _conway_perf_probe_test.dart               PASSES
+///     scc73_sdk_member_completeness_test.dart    does-not-compile
+///     stdlib/member_coverage_baseline_test.dart  does-not-compile
+///     release_hygiene_test.dart                  runs, 31/32
+///     scc22_io_error_handler_arity_test.dart     14/17   (as recorded)
+///     scd72_instance_tostring_test.dart          2/7     (as recorded)
+///     scd73_no_hook_unwrapping_test.dart         does-not-compile
+///     scc25_listen_duplication_guard_test.dart   0/2     (as recorded)
+///
+/// SCC44'S RATIO DID NOT REPRODUCE, and that is the result rather than a
+/// disappointment. On `_divergentBaseline` 32 of 38 entries converged on the
+/// spot because they had never been measured; here every recorded count came
+/// back exactly, because SCD25, SCD74, SCD79 and SCD157 had already worked this
+/// map entry by entry. A ratchet that has been maintained looks like this, and
+/// the way to know which kind you have is to run the experiment.
+///
+/// THE ONE THAT PASSES IS NOT A PORT WAITING TO BE TAKEN. `_conway_perf_probe`
+/// passes here and its entry already says why porting it would still be wrong:
+/// it measures how long a Conway generation takes, so on a second interpreter
+/// with different performance characteristics it yields a flaky failure rather
+/// than information. That is a judgement the experiment cannot make — which is
+/// exactly why step one of a re-measurement is to READ THE ENTRY, and only then
+/// to run anything.
+///
+/// `release_hygiene_test.dart` runs here and reaches 31 of 32, which confirms
+/// its entry rather than contradicting it: the reason it is not ported is that
+/// a copy would ask the same questions about the same three packages and add a
+/// second red for one cause, not that it cannot run.
 const Map<String, int> _uncoveredBaseline = {
   // NOT PORTABLE — and uniquely so: the subject itself cannot exist on the
   // analyzer-free line. `static_name_report.dart` resolves names over the
@@ -954,6 +988,13 @@ const Map<String, int> _uncoveredBaseline = {
   // case measures how long a Conway generation takes; run on two interpreters
   // with different performance characteristics it yields a flaky failure rather
   // than information. There is nothing here for exec to agree or disagree with.
+  //
+  // MEASURED 2026-09-15 against resolved 0.65.0: it PASSES. That is not a
+  // reason to port it — it is the reason this entry has to be a judgement and
+  // not a verdict. The experiment says "portable"; the entry says the port
+  // would be a timing assertion on a second interpreter, which is a flake
+  // waiting for a slow machine. Keep it, and keep the sentence above, because a
+  // future re-measurement will report PASSES again.
   '_conway_perf_probe_test.dart': 1,
   // NOT PORTABLE — SCC13's standing member-coverage audit. It imports
   // `../../tool/stdlib_member_diff.dart`, a `dart:mirrors` tool that reflects
@@ -980,6 +1021,19 @@ const Map<String, int> _uncoveredBaseline = {
   // possible in the same change, because the disagreement disappears with the
   // floor gap.
   'scc73_sdk_member_completeness_test.dart': 4,
+  // NOT PORTABLE, and confirmed FROM THE SOURCE rather than by a run — SCD126's
+  // first rule, because a structural reason is cheaper to read than to measure
+  // and a run would only have restated it. This file imports
+  // `../../tool/stdlib_member_diff.dart` and `member_coverage_baseline.dart`;
+  // neither exists in this package, and the tool is `dart:mirrors` over
+  // `package:tom_d4rt`'s OWN registry (`src/bridge/bridged_types.dart`,
+  // `src/unbridged_reasons.dart`, `src/stdlib/core.dart`). exec has no stdlib at
+  // all, so a copy here would reflect over the reference tree while presenting
+  // the answer as this one's.
+  //
+  // Same structural reason as `scc73_sdk_member_completeness_test.dart` above,
+  // and the same remedy: the analyzer-free line's equivalent has to be BUILT
+  // against `tom_d4rt_ast`'s registry, not ported. [2026-09-15]
   'stdlib/member_coverage_baseline_test.dart': 4,
   // NOT PORTABLE — SCC17's release-hygiene guard. Its subject is the repo, not
   // an interpreter: it walks git history and reads the pubspec and CHANGELOG of
@@ -1570,28 +1624,33 @@ Map<String, String> _floorsDeclaredInComments() {
   return declared;
 }
 
-/// The comment run written directly above each [_divergentBaseline] entry, as
-/// `<entry path> -> <joined comment text>`.
+/// The comment run written directly above each entry of the baseline map whose
+/// literal opens with [mapOpener], as `<entry path> -> <joined comment text>`.
 ///
 /// Entries with no comment above them are absent from the result rather than
-/// present with an empty value, which is what lets F-SCC44-1 distinguish "this
+/// present with an empty value, which is what lets the callers distinguish "this
 /// entry has no reason" from "the scanner did not reach it".
-Map<String, String> _divergentEntryComments() {
+///
+/// [valueTail] is the entry's right-hand side — `_Divergence.x,` for one map, a
+/// case count for the other. It is optional in both for the reason given in
+/// [_floorsDeclaredInComments]: the formatter puts the value on its own line
+/// whenever the key is long enough, and the resulting bare `'path':` is still an
+/// entry.
+///
+/// SCD126 made this take the map rather than naming one. Both baselines have the
+/// same absorption property — an entry stands until somebody re-measures it, and
+/// absorbs every change to its file meanwhile — so both need the same "is there
+/// a reason" guarantee, and two copies of this scanner would have been two
+/// things to keep in step.
+Map<String, String> _entryComments(String mapOpener, String valueTail) {
   final lines = File('test/conformance_drift_test.dart').readAsLinesSync();
-  // The `_Divergence.x,` tail is optional for the reason given in
-  // [_floorsDeclaredInComments]: the formatter puts it on its own line whenever
-  // the key is long enough, and the resulting bare `'path':` is still an entry.
-  final entryPattern = RegExp(
-    r"^\s*'([^']+)'\s*:\s*(?:_Divergence\.\w+,)?\s*$",
-  );
+  final entryPattern = RegExp("^\\s*'([^']+)'\\s*:\\s*(?:$valueTail)?\\s*\$");
   final reasons = <String, String>{};
   var inMap = false;
   var pending = <String>[];
   for (final line in lines) {
     if (!inMap) {
-      inMap = line.startsWith(
-        'const Map<String, _Divergence> _divergentBaseline = {',
-      );
+      inMap = line.startsWith(mapOpener);
       continue;
     }
     if (line.startsWith('};')) break;
@@ -1607,6 +1666,16 @@ Map<String, String> _divergentEntryComments() {
   }
   return reasons;
 }
+
+/// The reason written above each [_divergentBaseline] entry.
+Map<String, String> _divergentEntryComments() => _entryComments(
+  'const Map<String, _Divergence> _divergentBaseline = {',
+  r'_Divergence\.\w+,',
+);
+
+/// The reason written above each [_uncoveredBaseline] entry.
+Map<String, String> _uncoveredEntryComments() =>
+    _entryComments('const Map<String, int> _uncoveredBaseline = {', r'\d+,');
 
 /// A `KNOWN-GAP(<todo-id>):` or `WONT-FIX:` marker, as written in the comment
 /// directly above a test case that PINS broken behaviour.
@@ -3074,6 +3143,71 @@ void main() {
       );
     });
   }, skip: skipReason);
+
+  group(
+    'SCD126: every standing UNCOVERED entry is justified in writing',
+    () {
+      test('F-SCD126-1: each _uncoveredBaseline entry carries a reason '
+          '[2026-09-15] (PASS)', () {
+        // THE SAME GUARANTEE F-SCC44-1 GIVES THE OTHER MAP, and for the same
+        // reason. SCC44 measured `_divergentBaseline` by simply running the
+        // experiment its entries assert is impossible, and 32 of 38 converged on
+        // the spot: they had never been verdicts, only assumptions written in the
+        // syntax of one, each absorbing every subsequent change to its file for as
+        // long as it stood.
+        //
+        // `_uncoveredBaseline` has the identical property — an entry says a
+        // reference file has no exec counterpart, and while it stands nothing
+        // notices if one becomes possible — and it had NO shape guarantee at all:
+        // its values are case counts, so nothing distinguished "this file cannot
+        // be ported" from "nobody has ported it".
+        //
+        // SCD126 re-measured it and the ratio did NOT reproduce: 8 of 9 entries
+        // already carried a reason confirmed against a run or the source, with a
+        // date, left by SCD25, SCD74, SCD79 and SCD157. The ninth
+        // (`stdlib/member_coverage_baseline_test.dart`) was confirmed from source
+        // in the same pass. This case is what stops the tenth from being written
+        // without one.
+        final reasons = _uncoveredEntryComments();
+
+        // Part one — the scanner reached the map, before anything is concluded
+        // from it. A source scan that matches nothing passes every assertion built
+        // on it; this file has had that failure twice (SCC44's value-type change,
+        // and the empty floor scan SCD122 found), so coverage is asserted first.
+        expect(
+          reasons.keys.toSet(),
+          equals(_uncoveredBaseline.keys.toSet()),
+          reason:
+              'The comment scan did not pair up with _uncoveredBaseline. Either '
+              'an entry has no comment run above it — write the reason, and say '
+              'whether it was confirmed by a run or from the source — or the '
+              'entry syntax changed and this scanner stopped seeing it, which '
+              'would make every assertion below pass over nothing.',
+        );
+
+        // Part two — the reason says something. The threshold is deliberately
+        // crude: it separates a sentence from a placeholder, and nothing more. No
+        // check can tell a measured reason from a plausible one, which is why the
+        // register asks for the DATE and the method — those are what the next
+        // reader re-measures against.
+        final thin = [
+          for (final entry in reasons.entries)
+            if (entry.value.trim().length < 40)
+              '${entry.key}: "${entry.value.trim()}"',
+        ];
+        expect(
+          thin,
+          isEmpty,
+          reason:
+              'These entries have a comment but not a reason. An uncovered entry '
+              'is a claim that a port is impossible or not worth making, and the '
+              'next reader cannot re-derive which from a path and a case '
+              'count:\n${thin.join('\n')}',
+        );
+      });
+    },
+    skip: skipReason,
+  );
 
   group('SCC44: every standing divergence is justified in writing', () {
     test('F-SCC44-1: each _divergentBaseline entry carries a reason '
