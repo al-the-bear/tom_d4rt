@@ -450,7 +450,12 @@ const Map<String, _Coverage> _coveredElsewhere = {
     'ast:runtime/scc28_typed_undefined_member_test.dart',
     _astTwin,
     layer: _Layer.script,
-    refCases: 9,
+    // 9 -> 13: SCD86 added three cases naming the static signal, SCD87 one
+    // asserting the receiver survives a rewrap. The twin stays at three — its
+    // F-SCC28-AST-2 gained the receiver assertion rather than a fourth case,
+    // because it is the same seam and the twin's value here is that it can
+    // check it without a parser.
+    refCases: 13,
     twinCases: 3,
   ),
   // Both files read before pairing. The twin is FULL — six cases against six —

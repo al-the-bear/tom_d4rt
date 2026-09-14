@@ -302,6 +302,34 @@ void main() {
       );
     });
 
+    test(
+      'F-SCD86-1: a failed static lookup raises the typed signal and carries '
+      'the member name [2026-09-14]',
+      () {
+        // The type SCD86 introduced, asserted where a reader will look for it.
+        // Before this it existed only as plumbing between a raise site and one
+        // branch, and nothing named it — which is how the wording it replaced
+        // survived six raise sites and four different sentences.
+        for (final source in const [
+          'class Box { static int v = 1; }\nmain() { return Box.missing; }',
+          'enum E { a }\nmain() { return E.missing; }',
+        ]) {
+          expect(
+            () => run(source),
+            throwsA(
+              predicate<Object>(
+                (e) =>
+                    e is UndefinedStaticMemberD4rtException &&
+                    e.memberName == 'missing',
+                'raises UndefinedStaticMemberD4rtException naming `missing`',
+              ),
+            ),
+            reason: source,
+          );
+        }
+      },
+    );
+
     test('F-SCD86-2: the static signal is what the compound-assignment branch '
         'asks for, and nothing else answers it [2026-09-14]', () {
       // The decision site SCD86 converted lives in the SimpleIdentifier case of
@@ -354,6 +382,35 @@ void main() {
         ),
         throwsA(isNot(isA<UndefinedMemberD4rtException>())),
       );
+    });
+    test('F-SCD87-1: the receiver survives a rewrap [2026-09-14]', () {
+      // The one seam where the new discriminator could be erased silently.
+      // `rewrapPreservingMemberSignal` rebuilds the exception at five wrapping
+      // sites between a raise and the decision that reads it; if it dropped
+      // `receiver`, every wrapped failure would look like a plain absence again
+      // and the seven identity checks would simply stop matching — extension
+      // lookup would quietly stop resolving through those paths rather than
+      // failing loudly. Asserted directly because no script distinguishes "the
+      // rewrap dropped it" from "this path never wraps".
+      final receiver = Object();
+      final original = UndefinedMemberD4rtException(
+        'Undefined property \'tag\' on Thing.',
+        memberName: 'tag',
+        receiver: receiver,
+      );
+
+      final rewrapped = rewrapPreservingMemberSignal(original, 'wrapped');
+
+      expect(rewrapped, isA<UndefinedMemberD4rtException>());
+      final typed = rewrapped as UndefinedMemberD4rtException;
+      expect(typed.memberName, 'tag');
+      expect(
+        identical(typed.receiver, receiver),
+        isTrue,
+        reason:
+            'the same object, not an equal one — the checks use identical()',
+      );
+      expect(typed.message, contains('wrapped'));
     });
   });
 }

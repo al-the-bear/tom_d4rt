@@ -34,11 +34,13 @@ void main() {
       expect(e.toString(), "Runtime Error: Undefined property 'foo' on Bar.");
     });
 
-    test('F-SCC28-AST-2: re-wrapping preserves the signal and the inner '
-        'member name [2026-09-05]', () {
+    test('F-SCC28-AST-2: re-wrapping preserves the signal, the inner member '
+        'name and the receiver [2026-09-05]', () {
+      final receiver = Object();
       final inner = UndefinedMemberD4rtException(
         "Undefined property 'foo' on Bar.",
         memberName: 'foo',
+        receiver: receiver,
       );
       final wrapped = rewrapPreservingMemberSignal(
         inner,
@@ -50,6 +52,15 @@ void main() {
       // concatenated substring used to say too.
       expect((wrapped as UndefinedMemberD4rtException).memberName, 'foo');
       expect(wrapped.message, contains('accessing property via'));
+      // SCD87: the receiver is the discriminator that separates "this receiver
+      // has no such member" from "a member ran and something inside it failed
+      // to find the same name on a different object". A rewrap that dropped it
+      // would make every wrapped failure look like a plain absence again, and
+      // the seven identity checks would simply stop matching — extension lookup
+      // would quietly stop resolving through the wrapping paths rather than
+      // failing loudly. Identity, not equality: two objects of the same class
+      // are indistinguishable by description.
+      expect(identical(wrapped.receiver, receiver), isTrue);
     });
 
     test('F-SCC28-AST-3: re-wrapping a non-member failure does NOT invent the '
