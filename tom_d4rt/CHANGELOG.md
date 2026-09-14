@@ -1,3 +1,41 @@
+## 1.96.0
+
+### Changed — the last message test in the visitor is typed (scd86)
+
+SCC28 removed every site that decided control flow by reading a member-lookup
+diagnostic, with one deliberate exception in the compound-assignment path:
+
+```dart
+if ((e is UndefinedMemberD4rtException && e.memberName == variableName) ||
+    e.message.contains("Undefined static member")) {
+```
+
+`UndefinedStaticMemberD4rtException` replaces that string test, carrying
+`memberName`. Six raise sites convert with it — the four sentences the
+interpreter composes (`on class`, `on enum`, `on bridged class`, `on
+extension`) plus the two property-access sites — and every one had to keep
+starting with those three words for the branch to be taken.
+
+**Deliberately a second type, not a reuse.** The two failures answer different
+questions: instance-member absence gates extension-method lookup, static-member
+absence gates the compound-assignment fallback. Collapsing them would let one
+branch answer for the other, which is the defect SCC28 removed, reintroduced
+through the type system instead of through a message. F-SCD86-3 pins the
+distinction.
+
+**The decision site does not read `memberName`, and that is the conversion being
+faithful rather than incomplete.** The string test it replaced carried no name
+check, so comparing a name here would have narrowed the branch instead of typing
+it.
+
+F-SCC28-1's source scan was the other half. It matched only on "Undefined
+property", so this line passed it, and a seventh static-member raise site worded
+differently would have passed too — while silently never taking the branch. The
+matcher now covers both phrasings. Both controls were run: with it widened,
+restoring the string test fails the scan; with the matcher narrowed back to its
+old form, the same restored string test passes green, which is the blindness
+being fixed.
+
 ## 1.95.1
 
 ### Removed — `_executeClassic`, which was dead code pinning a retired contract (scd85)

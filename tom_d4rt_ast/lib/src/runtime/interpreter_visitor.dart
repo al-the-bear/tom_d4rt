@@ -1113,8 +1113,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           if (memberName == 'runtimeType') {
             return prefixValue.runtimeType;
           }
-          throw RuntimeD4rtException(
+          throw UndefinedStaticMemberD4rtException(
             "Undefined static member '$memberName' on class '${prefixValue.name}'.",
+            memberName: memberName,
           );
         }
       }
@@ -1194,8 +1195,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       }
 
       // Not found
-      throw RuntimeD4rtException(
+      throw UndefinedStaticMemberD4rtException(
         "Undefined static member '$memberName' on enum '${prefixValue.name}'. Available enum values: ${prefixValue.valueNames.join(', ')}",
+        memberName: memberName,
       );
     } else if (prefixValue is BridgedClass) {
       final bridgedClass = prefixValue;
@@ -1251,8 +1253,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       if (memberName == 'runtimeType') {
         return bridgedClass.runtimeType;
       }
-      throw RuntimeD4rtException(
+      throw UndefinedStaticMemberD4rtException(
         "Undefined static member '$memberName' on bridged class '${bridgedClass.name}'.",
+        memberName: memberName,
       );
     } else if (prefixValue is InterpretedExtension) {
       // Handle static member access on extensions
@@ -1278,8 +1281,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         return staticMethod;
       }
 
-      throw RuntimeD4rtException(
+      throw UndefinedStaticMemberD4rtException(
         "Undefined static member '$memberName' on extension '${extension.name ?? '<unnamed>'}'.",
+        memberName: memberName,
       );
     } else if (prefixValue is InterpretedInstance) {
       try {
@@ -2715,13 +2719,19 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         } on RuntimeD4rtException catch (e) {
           // If 'this' doesn't exist or getting/setting on 'this' failed
           // Use the original error if it came from get/set, otherwise standard undefined.
-          // SCD86: the static-member half is still a message test. It is a
-          // different decision from member absence and carries no name check,
-          // so it is not the fragility SCC28 removed — but it is the last one
-          // in this file.
+          // SCD86 typed the static-member half. The two clauses ask different
+          // questions on purpose — instance-member absence gates extension
+          // lookup, static-member absence gates this compound-assignment
+          // fallback — so they stay two types rather than one.
+          //
+          // Note the asymmetry: the instance clause compares `memberName`, this
+          // one does not. That is the condition it replaced, preserved. The old
+          // `e.message.contains("Undefined static member")` carried no name
+          // check, so adding one here would have narrowed the branch rather
+          // than typed it. The name is on the exception either way.
           if ((e is UndefinedMemberD4rtException &&
                   e.memberName == variableName) ||
-              e.message.contains("Undefined static member")) {
+              e is UndefinedStaticMemberD4rtException) {
             rethrow; // Propagate specific error from get/set
           }
           throw RuntimeD4rtException(
@@ -5712,8 +5722,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           if (propertyName == 'runtimeType') {
             return target.runtimeType;
           }
-          throw RuntimeD4rtException(
+          throw UndefinedStaticMemberD4rtException(
             "Undefined static member '$propertyName' on class '${target.name}'.",
+            memberName: propertyName,
           );
         }
       }
@@ -5788,8 +5799,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         if (propertyName == 'runtimeType') {
           return bridgedClass.runtimeType;
         }
-        throw RuntimeD4rtException(
+        throw UndefinedStaticMemberD4rtException(
           "Undefined static member '$propertyName' on bridged class '${bridgedClass.name}'.",
+          memberName: propertyName,
         );
       }
     } else if (toBridgedInstance(target).$2) {

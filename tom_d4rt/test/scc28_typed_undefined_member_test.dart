@@ -86,11 +86,20 @@ Directory? _repoRoot() {
 
 /// Lines of [file] that branch on member-lookup diagnostic text.
 ///
-/// Matches a `.contains(` whose argument mentions the member-lookup wording, in
-/// either of the two forms the interpreter composes (`Undefined property 'x'`
-/// and `Undefined property or method 'x'`). Comments are excluded: the
-/// wording is quoted in prose all over both trees — that is documentation, and
-/// documentation is not control flow.
+/// Matches a `.contains(` whose argument mentions any of the member-lookup
+/// wordings the interpreter composes: `Undefined property 'x'`, `Undefined
+/// property or method 'x'`, and — added by SCD86 — `Undefined static member
+/// 'x'`. Comments are excluded: the wording is quoted in prose all over both
+/// trees, and documentation is not control flow.
+///
+/// **The static phrasing was the gap this scan could not see.** SCC28 left one
+/// message test standing, in the compound-assignment path, and matched only on
+/// "Undefined property" — so that line passed, and a seventh static-member raise
+/// site worded differently would have passed too while silently never taking
+/// the branch. That is the drift this scan exists to prevent, surviving in the
+/// one place the scan was blind to. SCD86 typed the site
+/// (`UndefinedStaticMemberD4rtException`) and widened the matcher in the same
+/// commit, so the ratchet cannot loosen back to it.
 List<String> _messageSniffingLines(File file) {
   final hits = <String>[];
   final lines = file.readAsLinesSync();
@@ -101,7 +110,8 @@ List<String> _messageSniffingLines(File file) {
     // The wording may wrap onto the following line, as it does at the
     // `visitSimpleIdentifier` site, so look at the pair.
     final window = i + 1 < lines.length ? '$line\n${lines[i + 1]}' : line;
-    if (window.contains('Undefined property')) {
+    if (window.contains('Undefined property') ||
+        window.contains('Undefined static member')) {
       hits.add('${file.path}:${i + 1}: ${line.trim()}');
     }
   }
@@ -279,6 +289,88 @@ void main() {
       // flips to expecting the propagated failure, and the flip is the proof
       // the fix worked.
       expect(run(script), 'extension');
+    });
+
+    test(
+      'F-SCD86-1: a failed static lookup raises the typed signal and carries '
+      'the member name [2026-09-14]',
+      () {
+        // The type SCD86 introduced, asserted where a reader will look for it.
+        // Before this it existed only as plumbing between a raise site and one
+        // branch, and nothing named it — which is how the wording it replaced
+        // survived six raise sites and four different sentences.
+        for (final source in const [
+          'class Box { static int v = 1; }\nmain() { return Box.missing; }',
+          'enum E { a }\nmain() { return E.missing; }',
+        ]) {
+          expect(
+            () => run(source),
+            throwsA(
+              predicate<Object>(
+                (e) =>
+                    e is UndefinedStaticMemberD4rtException &&
+                    e.memberName == 'missing',
+                'raises UndefinedStaticMemberD4rtException naming `missing`',
+              ),
+            ),
+            reason: source,
+          );
+        }
+      },
+    );
+
+    test('F-SCD86-2: the static signal is what the compound-assignment branch '
+        'asks for, and nothing else answers it [2026-09-14]', () {
+      // The decision site SCD86 converted lives in the SimpleIdentifier case of
+      // `visitAssignmentExpression` — bare `name op= value`, where the get/set
+      // on implicit `this` failed. Its static clause is now a type test.
+      //
+      // A case driving that clause end to end is NOT here, and the reason is a
+      // finding rather than an omission: no script reached it. Five shapes were
+      // tried — a missing bare name in an instance method (takes the INSTANCE
+      // clause, `UndefinedMemberD4rtException`), the same in a static method
+      // ("Assigning to undefined variable"), a bare static name in an instance
+      // method, an extension body, and `Box.missing += 1` (a PropertyAccess,
+      // a different case entirely, raising "Cannot get value for compound
+      // assignment on static member"). None produced an
+      // `UndefinedStaticMemberD4rtException` at that site.
+      //
+      // So the clause may be dead. That is tracked as sce125_aimo, together with
+      // the defect the same probe turned up: writing a static field by bare name
+      // from an instance method updates a shadow, not the static. What this case
+      // pins meanwhile is the half that IS reachable and that the conversion had
+      // to preserve — the branch must not relabel a static-member failure as
+      // "Assigning to undefined variable".
+      expect(
+        () => run(
+          'class Box { static int v = 1; }\nmain() { Box.missing += 1; return 0; }',
+        ),
+        throwsA(
+          predicate<Object>(
+            (e) => !e.toString().contains('Assigning to undefined variable'),
+            'does not relabel the failure as an undefined variable',
+          ),
+        ),
+      );
+    });
+
+    test('F-SCD86-3: the instance and static signals stay distinguishable '
+        '[2026-09-14]', () {
+      // Why these are two types and not one. Instance-member absence gates
+      // extension lookup; static-member absence gates the compound-assignment
+      // fallback. If either type caught the other's failures, one branch would
+      // answer for the other — the defect SCC28 removed, reintroduced through
+      // the type system instead of through a message.
+      expect(
+        () => run('class Box { int v = 1; }\nmain() { return Box().missing; }'),
+        throwsA(isNot(isA<UndefinedStaticMemberD4rtException>())),
+      );
+      expect(
+        () => run(
+          'class Box { static int v = 1; }\nmain() { return Box.missing; }',
+        ),
+        throwsA(isNot(isA<UndefinedMemberD4rtException>())),
+      );
     });
   });
 }

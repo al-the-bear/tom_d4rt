@@ -302,6 +302,49 @@ class UndefinedMemberD4rtException extends RuntimeD4rtException {
   UndefinedMemberD4rtException(super.message, {required this.memberName});
 }
 
+/// Thrown when a STATIC member lookup fails on a class, enum, bridged class or
+/// extension.
+///
+/// SCD86. Sibling of [UndefinedMemberD4rtException] and deliberately NOT the
+/// same type, because the two failures answer different questions: instance-member
+/// absence gates extension-method lookup, static-member absence gates the
+/// compound-assignment fallback in `visitAssignmentExpression`. Collapsing them
+/// would let one branch answer for the other — the same class of defect SCC28
+/// removed when it stopped those branches reading diagnostic text.
+///
+/// What it replaced was the last message test SCC28 left standing:
+///
+/// ```dart
+/// e.message.contains("Undefined static member")
+/// ```
+///
+/// That line was less fragile than the ones SCC28 converted — it carried no name
+/// check, so no rename could break it — but it was fragile in a way the source
+/// scan could not see. F-SCC28-1 matched on "Undefined property", so the static
+/// wording passed the scan, and a seventh raise site phrased differently would
+/// have passed it too while silently never taking this branch. The six existing
+/// sites compose four different sentences (`on class`, `on enum`, `on bridged
+/// class`, `on extension`) and every one had to keep starting with those three
+/// words.
+///
+/// [memberName] carries what the message spells, so the message is free to
+/// change. **The decision site does not read it**, and that is deliberate: the
+/// condition it replaced had no name check, so using one here would have
+/// narrowed the branch rather than typed it. It is carried for parity with
+/// [UndefinedMemberD4rtException] and so that any future site can ask by
+/// equality instead of by substring.
+///
+/// A subtype of [RuntimeD4rtException] for the reason
+/// [UndefinedMemberD4rtException] documents: the `on RuntimeD4rtException`
+/// clauses between raise and inspection stay working, so the conversion could
+/// land site by site.
+class UndefinedStaticMemberD4rtException extends RuntimeD4rtException {
+  /// The static member that was not found. Compared by equality, never parsed.
+  final String memberName;
+
+  UndefinedStaticMemberD4rtException(super.message, {required this.memberName});
+}
+
 /// Thrown when a name a script reads resolves to no declaration at all.
 ///
 /// **No interpreted `catch` clause may claim this.** In real Dart an undefined
