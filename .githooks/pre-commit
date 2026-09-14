@@ -1,0 +1,84 @@
+#!/bin/sh
+# Refuse commits that let the two Flutter twins' user bridges drift apart.
+#
+# Enable once per machine, from inside this repo:
+#
+#     git config core.hooksPath .githooks
+#
+# The hook is tracked, so it travels with the repo and only the one `git config`
+# is per-machine — the same arrangement the `_ai` repo uses for its todo-schema
+# hook.
+#
+# WHY A HOOK AND NOT THE CORPUS (SCD108). `tom_d4rt_flutter_ast` is the single
+# source of truth for the four shared user bridges; `tom_d4rt_flutter`'s copies
+# are DERIVED by rewriting one import line. Nothing enforced that. The check
+# existed — `tool/sync_shared_user_bridges.dart --check` — and was invoked by
+# nothing: it matches neither corpus runner's glob, and this repo has no CI
+# workflow to have wired it into. `text_user_bridge.dart` sat duplicated and
+# unguarded in both twins for months as a result.
+#
+# A hook is the only mechanism that fires at the moment drift is AUTHORED. The
+# corpus runners are the wrong home — they are serial-only because they drive
+# one companion app over one HTTP server, and chaining a one-second file check
+# onto a sixteen-minute suite answers at the wrong cadence. `test/run_guard_tests.sh`
+# in the AST twin is the half a human invokes; this is the half nobody has to
+# remember.
+#
+# IT NO-OPS WHEN THE TWINS ARE UNTOUCHED. The check is package-local and this
+# hook is repo-wide, so it looks at the staged paths first and exits immediately
+# unless a user bridge or the sync tool itself is among them. A commit to
+# `tom_d4rt/` pays nothing.
+
+# Staged paths only — `--cached` against HEAD, so an unstaged edit does not
+# trigger a check the commit would not contain.
+staged=$(git diff --cached --name-only --diff-filter=ACMR 2>/dev/null)
+case "$staged" in
+  *d4rt_user_bridges/*|*sync_shared_user_bridges*) ;;
+  *) exit 0 ;;
+esac
+
+AST_DIR="$(git rev-parse --show-toplevel)/tom_d4rt_flutter_ast"
+TOOL="$AST_DIR/tool/sync_shared_user_bridges.dart"
+if [ ! -f "$TOOL" ]; then
+    # Say so rather than exiting silently. A clone carrying `.githooks/` but not
+    # the twin commits unchecked, and silence is how that state survives:
+    # `core.hooksPath` reads back correctly and every commit reports success, so
+    # nobody looks again.
+    echo "user-bridge-sync: skipped — tool not found at $TOOL" >&2
+    exit 0
+fi
+
+# Find a Dart. `dart` is on PATH on a provisioned machine; a Flutter checkout
+# carries one at `bin/dart` reachable through `flutter`, which is what a host
+# with only Flutter installed has.
+DART=""
+if command -v dart >/dev/null 2>&1; then
+    DART="dart"
+elif command -v flutter >/dev/null 2>&1; then
+    FLUTTER_BIN="$(dirname "$(command -v flutter)")"
+    [ -x "$FLUTTER_BIN/dart" ] && DART="$FLUTTER_BIN/dart"
+fi
+
+if [ -z "$DART" ]; then
+    # FAIL OPEN, LOUDLY. An unprovisioned machine must not be unable to commit
+    # — that trades a maintenance check for a blocked developer, which is the
+    # worse failure. The message is what stops the skip being invisible.
+    echo "user-bridge-sync: skipped — no dart interpreter found" >&2
+    echo "user-bridge-sync:   install Dart or Flutter, or run" >&2
+    echo "user-bridge-sync:   tom_d4rt_flutter_ast/test/run_guard_tests.sh by hand." >&2
+    exit 0
+fi
+
+if ! out=$(cd "$AST_DIR" && "$DART" run tool/sync_shared_user_bridges.dart --check 2>&1); then
+    echo "user-bridge-sync: the twins' user bridges have DRIFTED." >&2
+    printf '%s\n' "$out" | sed 's/^/  /' >&2
+    echo "" >&2
+    echo "  tom_d4rt_flutter_ast is the source of truth; tom_d4rt_flutter's" >&2
+    echo "  copies are derived. Edit the AST copy, then regenerate:" >&2
+    echo "" >&2
+    echo "      cd tom_d4rt_flutter_ast && dart run tool/sync_shared_user_bridges.dart" >&2
+    echo "" >&2
+    exit 1
+fi
+
+exit 0

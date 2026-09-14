@@ -33,16 +33,33 @@
 /// `--check` exits non-zero if any non-AST copy has drifted from what the AST
 /// source would produce.
 ///
-/// **NOTHING RUNS IT AUTOMATICALLY.** This paragraph used to say that wiring
-/// `--check` into CI prevents dual-maintenance creeping back, which reads as a
-/// description of the setup and is not one: there is no CI workflow in this
-/// repo, and `test/sync_shared_user_bridges_test.dart` — which calls
-/// [checkInSync] and is the closest thing to that wiring — is deliberately
-/// outside both corpus runners (`run_base_tests.sh` globs
-/// `flutter_base_*_test.dart`, `run_issue_analysis_tests.sh` adds
-/// `flutter_extended_*`). So the guard is only as good as someone remembering
-/// to invoke it. Closing that is SCD108; until then, run it by hand when
-/// touching a user bridge.
+/// **WHAT RUNS IT (SCD108).** Two things, and they are deliberately different
+/// in kind:
+///
+///  * `.githooks/pre-commit` at the REPO ROOT, which runs `--check` and refuses
+///    the commit on drift. This is the half that fires without anyone
+///    remembering, at the moment drift is authored. It needs one per-machine
+///    `git config core.hooksPath .githooks`; it exits immediately unless a
+///    staged path is a user bridge or this tool, so a commit elsewhere in the
+///    repo pays nothing; and it FAILS OPEN with a visible message when no Dart
+///    can be found, because an unprovisioned machine must not be unable to
+///    commit.
+///  * `tom_d4rt_flutter_ast/test/run_guard_tests.sh`, which runs `--check` AND
+///    `test/sync_shared_user_bridges_test.dart`. This is the half a human
+///    invokes — on a fresh clone where nobody has run the `git config` yet, it
+///    is what a reviewer has.
+///
+/// Neither is the corpus, and that is the point. This check is pure file I/O —
+/// no companion app, no HTTP transport, no `concurrency: 1` — while
+/// `run_base_tests.sh` and `run_issue_analysis_tests.sh` are serial-only
+/// because they drive one app over one server. Folding a one-second check into
+/// a sixteen-minute suite would make the cheap guard hostage to the expensive
+/// one and answer at the wrong cadence. Its independence is a feature; its
+/// former invisibility was the bug.
+///
+/// This paragraph previously claimed `--check` was wired into CI. It was not:
+/// there is no workflow in this repo, and `text_user_bridge.dart` sat
+/// duplicated and unguarded in both twins for months as a result.
 library;
 
 import 'dart:io';

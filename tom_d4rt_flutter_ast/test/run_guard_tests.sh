@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# The fast, transport-free guards — the ones that need no companion app, no
+# HTTP server and no `concurrency: 1`.
+#
+# WHY A THIRD RUNNER (SCD108). `run_base_tests.sh` globs
+# `flutter_base_*_test.dart` and `run_issue_analysis_tests.sh` adds
+# `flutter_extended_*`, so a test matching neither is invoked by nothing. That
+# was true of `sync_shared_user_bridges_test.dart` — the only check on the
+# AST/non-AST user-bridge de-dup — for as long as it existed.
+#
+# Folding it into `run_base_tests.sh` was the obvious fix and is the wrong one.
+# That suite is serial-only because it drives ONE companion app over ONE local
+# HTTP server; chaining a millisecond file-I/O check onto it makes the cheap
+# guard hostage to the expensive one, and answers in sixteen minutes a question
+# that answers in one second. The independence is a feature. The invisibility
+# was the bug, and the fix for invisibility is a hook (`.githooks/pre-commit` at
+# the repo root), not a longer corpus run.
+#
+# So this script is the half a HUMAN invokes — it gives the fast checks a name
+# and a home. The hook is the half that fires without being remembered. Neither
+# replaces the other: a hook can be un-installed on a fresh clone (it needs one
+# `git config core.hooksPath .githooks`), and on such a machine this script is
+# what a reviewer runs by hand.
+#
+#     ./test/run_guard_tests.sh
+#
+# Add a check here when it is fast and needs no transport. Anything that needs
+# the companion app belongs in the corpus runners instead.
+
+set -uo pipefail
+cd "$(dirname "$0")/.."
+
+status=0
+
+run() {
+  local label="$1"; shift
+  printf '%s ... ' "$label"
+  if out=$("$@" 2>&1); then
+    echo "ok"
+  else
+    echo "FAILED"
+    printf '%s\n' "$out" | sed 's/^/    /'
+    status=1
+  fi
+}
+
+# The user-bridge de-dup. `--check` is the same code path the test asserts, and
+# is run directly so this script stays useful even when `dart test` cannot
+# start (no pub get, a broken lock).
+run "user-bridge sync (tool --check)" \
+  dart run tool/sync_shared_user_bridges.dart --check
+
+# The test that pins the PROPERTY rather than the tool's exit code — SCC37
+# replaced a hand-written basename list with the intersection of the two
+# directories, and this is what holds that.
+# `flutter test`, not `dart test`: this is a Flutter package, and `package:test`
+# reaches it only through `flutter_test`. It is still transport-free — the file
+# does pure file I/O and needs no companion app.
+run "user-bridge sync (test)" \
+  flutter test test/sync_shared_user_bridges_test.dart
+
+if [ "$status" -eq 0 ]; then
+  echo "all guards passed"
+else
+  echo "one or more guards FAILED" >&2
+fi
+exit "$status"

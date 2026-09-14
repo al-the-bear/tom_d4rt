@@ -17,6 +17,20 @@ The `.sh` variants are macOS / Linux (bash); the `.ps1` variants are Windows
 (PowerShell / pwsh). Each globs its file list in numeric order, so adding or
 regenerating split files needs no script edit.
 
+**This package's user bridges are DERIVED**, and the guard for that lives in
+the other twin. `lib/src/d4rt_user_bridges/` here is generated from
+`tom_d4rt_flutter_ast`'s copies by rewriting one import line — editing a file
+here directly is silently overwritten on the next sync. The check is
+`tom_d4rt_flutter_ast/test/run_guard_tests.sh` (seconds, no companion app), and
+enforcement is `.githooks/pre-commit` at the repo root, which refuses a commit
+that drifts the twins apart. Run `git config core.hooksPath .githooks` once per
+machine to enable it.
+
+It is deliberately outside both corpus runners (SCD108): a test matching
+neither glob is invoked by nothing, which is how `text_user_bridge.dart` stayed
+duplicated and unguarded in both twins for months — but folding a one-second
+file check into a sixteen-minute serial suite answers at the wrong cadence.
+
 ## Usage
 
 ```bash

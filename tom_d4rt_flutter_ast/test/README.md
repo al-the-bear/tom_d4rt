@@ -17,6 +17,21 @@ The `.sh` variants are macOS / Linux (bash); the `.ps1` variants are Windows
 (PowerShell / pwsh). Each globs its file list in numeric order, so adding or
 regenerating split files needs no script edit.
 
+A third runner is **not** part of the corpus and answers in seconds:
+
+- `run_guard_tests.sh` — the fast, transport-free guards (no companion app, no
+  HTTP server, no `concurrency: 1`). Currently the AST/non-AST user-bridge
+  de-dup.
+
+It is separate on purpose (SCD108). A test matching neither corpus glob is
+invoked by nothing, which is how `text_user_bridge.dart` stayed duplicated and
+unguarded in both twins for months — but folding a one-second file check into a
+sixteen-minute serial suite answers at the wrong cadence and makes the cheap
+guard hostage to the expensive one. Enforcement lives in
+`.githooks/pre-commit` at the repo root, which refuses a commit that drifts the
+twins apart; run `git config core.hooksPath .githooks` once per machine to
+enable it. This script is what a human runs on a clone where nobody has.
+
 ## Usage
 
 ```bash
