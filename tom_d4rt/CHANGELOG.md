@@ -1,3 +1,45 @@
+## 1.97.0
+
+### Fixed — an extension member no longer answers for an error raised on a different receiver (scd87)
+
+A genuine error inside a member that EXISTS was being swallowed and replaced by
+an unrelated value, with nothing logged:
+
+```dart
+class Inner {}
+class Outer { String get tag => Inner().tag; }
+extension OuterX on Outer { String get tag => 'extension'; }
+main() => Outer().tag;   // returned 'extension'
+```
+
+`Outer.tag` exists and runs. Its body fails because `Inner` has no `tag`. That
+failure escaped the getter, reached the caller's member-lookup handler, was read
+as "`tag` is absent on this receiver", and `OuterX.tag` answered.
+
+SCC28's typed signal could not separate the two — both are genuine
+`UndefinedMemberD4rtException`s carrying `memberName == 'tag'`. What separates
+them is WHICH OBJECT the lookup failed on. `UndefinedMemberD4rtException` now
+carries `receiver`, set at all eleven raise sites, and the seven
+extension-lookup decision sites compare it with `identical`.
+
+**Identity, not a description.** Two instances of the same class describe
+identically, so a receiver string could not separate the failure raised for the
+object in hand from one raised for a different object of the same class deeper
+in the stack. A null receiver — a static or prefix lookup, where no receiver
+object exists — never matches, so the branch is not taken and the failure
+propagates, which is the conservative direction.
+
+**One of the eight sites is deliberately left alone**, and the direction is the
+reason. At the seven extension sites the branch means "treat the member as
+absent and look for an extension", so admitting a same-named inner failure lets
+an extension answer for a real error. At the compound-assignment site the branch
+means "propagate the specific error instead of relabelling it as `Assigning to
+undefined variable`" — narrowing it would send MORE failures to the relabelling
+path. Same defect, opposite direction. The comment sits beside the code.
+
+`F-SCC28-9` was written asserting the WRONG answer so that fixing this would
+invert it. It is flipped here, and the flip is the proof.
+
 ## 1.96.0
 
 ### Changed — the last message test in the visitor is typed (scd86)

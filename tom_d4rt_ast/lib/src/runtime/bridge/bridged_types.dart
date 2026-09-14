@@ -395,6 +395,7 @@ class BridgedInstance<T extends Object> implements RuntimeValue {
     throw UndefinedMemberD4rtException(
       "Undefined property or method '$name' on bridged instance of '${bridgedClass.name}'",
       memberName: name,
+      receiver: this,
     );
   }
 

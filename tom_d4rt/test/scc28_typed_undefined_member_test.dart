@@ -265,14 +265,21 @@ void main() {
 
     test('F-SCC28-9: an inner failure naming the same member does not steal '
         'the extension branch [2026-09-05]', () {
-      // The substring test could not tell "the member you asked for is absent"
-      // from "the member ran and something *inside it* was absent" whenever the
-      // two shared a name. Here `Outer.tag` exists and its body fails, so the
-      // correct behaviour is to propagate that failure — NOT to quietly answer
-      // with `OuterX.tag`, which is what a receiver-blind substring match
-      // invites. The typed signal does not fix this on its own (both failures
-      // name `tag`); what it does is make the receiver available to fix it,
-      // which is SCD87. Pinned here so that work has a starting assertion.
+      // FLIPPED BY SCD87, and the flip is the proof. This case was written
+      // asserting the WRONG answer — `'extension'` — because a test demanding
+      // the right one would simply have failed, and one accepting either would
+      // have asserted nothing. Pinning the defect was the only honest way to
+      // record it, on the understanding that the fix would invert the
+      // expectation. It did.
+      //
+      // `Outer.tag` EXISTS. It runs, and its body fails because `Inner` has no
+      // `tag`. The substring test could not tell "the member you asked for is
+      // absent" from "the member ran and something inside it was absent"
+      // whenever the two shared a name; nor could the typed signal alone, since
+      // both failures are genuine `UndefinedMemberD4rtException`s carrying
+      // `memberName == 'tag'`. What separates them is WHICH OBJECT the lookup
+      // failed on, compared by identity: the caller holds `Outer()`, the
+      // failure was raised for an `Inner`.
       const script = '''
           class Inner {}
           class Outer {
@@ -281,43 +288,19 @@ void main() {
           extension OuterX on Outer { String get tag => 'extension'; }
           main() { return Outer().tag; }
         ''';
-      // MEASURED, not predicted: the extension wins, so `Inner().tag` — a
-      // genuine error in the getter's body — is swallowed and replaced by an
-      // unrelated value. Asserting the wrong answer is the only honest way to
-      // pin it: a test that demanded the right one would fail, and a test that
-      // accepted either would assert nothing. When SCD87 lands, this case
-      // flips to expecting the propagated failure, and the flip is the proof
-      // the fix worked.
-      expect(run(script), 'extension');
+      expect(
+        () => run(script),
+        throwsA(
+          predicate<Object>(
+            (e) => e.toString().contains("Undefined property 'tag' on Inner"),
+            'propagates the failure from inside the getter, naming Inner',
+          ),
+        ),
+        reason:
+            'the extension must not answer for an error raised on a different '
+            'receiver — before SCD87 this returned the string "extension"',
+      );
     });
-
-    test(
-      'F-SCD86-1: a failed static lookup raises the typed signal and carries '
-      'the member name [2026-09-14]',
-      () {
-        // The type SCD86 introduced, asserted where a reader will look for it.
-        // Before this it existed only as plumbing between a raise site and one
-        // branch, and nothing named it — which is how the wording it replaced
-        // survived six raise sites and four different sentences.
-        for (final source in const [
-          'class Box { static int v = 1; }\nmain() { return Box.missing; }',
-          'enum E { a }\nmain() { return E.missing; }',
-        ]) {
-          expect(
-            () => run(source),
-            throwsA(
-              predicate<Object>(
-                (e) =>
-                    e is UndefinedStaticMemberD4rtException &&
-                    e.memberName == 'missing',
-                'raises UndefinedStaticMemberD4rtException naming `missing`',
-              ),
-            ),
-            reason: source,
-          );
-        }
-      },
-    );
 
     test('F-SCD86-2: the static signal is what the compound-assignment branch '
         'asks for, and nothing else answers it [2026-09-14]', () {

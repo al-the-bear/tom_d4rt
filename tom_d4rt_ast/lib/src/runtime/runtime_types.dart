@@ -2015,6 +2015,7 @@ class InterpretedInstance implements RuntimeValue {
     throw UndefinedMemberD4rtException(
       "Undefined property '$name' on ${klass.name}.",
       memberName: name,
+      receiver: this,
     );
   }
 
@@ -2583,6 +2584,7 @@ class InterpretedEnumValue implements RuntimeValue /* Add RuntimeValue */ {
     throw UndefinedMemberD4rtException(
       "Undefined property '$memberName' on enum value '$this'.",
       memberName: memberName,
+      receiver: this,
     );
   }
 

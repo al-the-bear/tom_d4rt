@@ -831,6 +831,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           "'${bridgedInstance.bridgedClass.name}' accessed via implicit 'this'."
           "${unbridgedMemberSuffix(bridgedInstance.bridgedClass.name, name)}",
           memberName: name,
+          receiver: thisInstance,
         );
       } // +++ NEW BLOCK +++
       else if (thisInstance is InterpretedEnumValue) {
@@ -870,7 +871,8 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // member is a candidate for extension-method resolution; anything that
       // went wrong *inside* a member that does exist has to propagate.
       if (thisErr is UndefinedMemberD4rtException &&
-          thisErr.memberName == name) {
+          thisErr.memberName == name &&
+          identical(thisErr.receiver, thisInstance)) {
         Logger.debug(
           "[SSimpleIdentifier] Direct access failed for '$name' via implicit 'this'. Trying extension lookup on ${thisInstance?.runtimeType}.",
         );
@@ -1294,7 +1296,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           return member;
         }
       } on RuntimeD4rtException catch (e) {
-        if (e is UndefinedMemberD4rtException && e.memberName == memberName) {
+        if (e is UndefinedMemberD4rtException &&
+            e.memberName == memberName &&
+            identical(e.receiver, prefixValue)) {
           final extensionMember = environment.findExtensionMember(
             prefixValue,
             memberName,
@@ -1352,7 +1356,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           return e.value;
         } on RuntimeD4rtException catch (e) {
           // G-DOV2-7 FIX: Try extension lookup if direct access fails
-          if (e is UndefinedMemberD4rtException && e.memberName == memberName) {
+          if (e is UndefinedMemberD4rtException &&
+              e.memberName == memberName &&
+              identical(e.receiver, prefixValue)) {
             Logger.debug(
               "[SPrefixedIdentifier] Direct access failed for '$memberName' on enum $prefixValue. Trying extension lookup...",
             );
@@ -2729,6 +2735,20 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           // `e.message.contains("Undefined static member")` carried no name
           // check, so adding one here would have narrowed the branch rather
           // than typed it. The name is on the exception either way.
+          // SCD87 deliberately does NOT add its identity check here, and the
+          // reason is the direction this branch decides in. At the seven
+          // extension-lookup sites the branch means "treat the member as
+          // absent and look for an extension", so a same-named inner failure
+          // being admitted makes an extension answer for a real error —
+          // narrowing with `identical` is the fix. Here the branch means
+          // "propagate the specific error instead of relabelling it as
+          // `Assigning to undefined variable`". Narrowing it would send MORE
+          // failures to the relabelling path, hiding genuine errors behind a
+          // message about the wrong thing. Same defect, opposite direction.
+          //
+          // (The receiver is also out of scope at this catch — `thisInstance`
+          // is declared inside the try — which is how the difference was
+          // noticed rather than reasoned about in advance.)
           if ((e is UndefinedMemberD4rtException &&
                   e.memberName == variableName) ||
               e is UndefinedStaticMemberD4rtException) {
@@ -3974,7 +3994,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
             "[SMethodInvocation] Found direct instance member '$methodName' on ${targetValue.klass.name}. Type: ${calleeValue?.runtimeType}",
           );
         } on RuntimeD4rtException catch (e) {
-          if (e is UndefinedMemberD4rtException && e.memberName == methodName) {
+          if (e is UndefinedMemberD4rtException &&
+              e.memberName == methodName &&
+              identical(e.receiver, targetValue)) {
             Logger.debug(
               "[SMethodInvocation] Direct instance method '$methodName' failed/not found on ${targetValue.klass.name}. Error: ${e.message}. Trying extension method...",
             );
@@ -4143,7 +4165,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           );
         } on RuntimeD4rtException catch (e) {
           // Try Extension Method if Direct Fails (similar to InterpretedInstance)
-          if (e is UndefinedMemberD4rtException && e.memberName == methodName) {
+          if (e is UndefinedMemberD4rtException &&
+              e.memberName == methodName &&
+              identical(e.receiver, targetValue)) {
             Logger.debug(
               "[SMethodInvocation] Direct enum method '$methodName' failed/not found on $targetValue. Error: ${e.message}. Trying extension method...",
             );
@@ -5063,6 +5087,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           throw UndefinedMemberD4rtException(
             "Undefined property or method '$methodName' on ${targetValue.runtimeType}.",
             memberName: methodName,
+            receiver: targetValue,
           );
         }
       }
@@ -5515,7 +5540,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
       } on RuntimeD4rtException catch (e) {
         // Try Extension Lookup Before Error
-        if (e is UndefinedMemberD4rtException && e.memberName == propertyName) {
+        if (e is UndefinedMemberD4rtException &&
+            e.memberName == propertyName &&
+            identical(e.receiver, target)) {
           Logger.debug(
             "[SPropertyAccess] Direct access failed for '$propertyName'. Trying extension lookup on ${target.runtimeType}.",
           );
@@ -5593,7 +5620,9 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         }
       } on RuntimeD4rtException catch (e) {
         // Try Extension Getter if Direct Fails (similar to InterpretedInstance)
-        if (e is UndefinedMemberD4rtException && e.memberName == propertyName) {
+        if (e is UndefinedMemberD4rtException &&
+            e.memberName == propertyName &&
+            identical(e.receiver, target)) {
           Logger.debug(
             "[SPropertyAccess] Direct access failed for '$propertyName' on enum $target. Trying extension lookup...",
           );
@@ -5765,6 +5794,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       throw UndefinedMemberD4rtException(
         "Undefined property '$propertyName' accessed via 'super' on instance of '${instance.klass.name}'.",
         memberName: propertyName,
+        receiver: instance,
       );
     } else if (target is BridgedClass) {
       final bridgedClass = target;
@@ -5943,6 +5973,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       throw UndefinedMemberD4rtException(
         "Undefined property or method '$propertyName' on bridged instance of '${bridgedInstance.bridgedClass.name}'.",
         memberName: propertyName,
+        receiver: bridgedInstance,
       );
     } else if (target is InterpretedRecord) {
       // Accessing field of a record
@@ -6047,6 +6078,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       throw UndefinedMemberD4rtException(
         "Undefined property or method '$propertyName' accessed via 'super' on bridged superclass '${bridgedSuper.name}'.",
         memberName: propertyName,
+        receiver: target,
       );
     } else if (target is Callable) {
       // ENG-006: Handle property access on function objects (closures, NativeFunctions)
@@ -6070,6 +6102,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           throw UndefinedMemberD4rtException(
             "Undefined property '$propertyName' on function object (${target.runtimeType}).",
             memberName: propertyName,
+            receiver: target,
           );
       }
     } else {
@@ -6085,6 +6118,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
           throw UndefinedMemberD4rtException(
             "Undefined property '$propertyName' on bridged enum value '${bridgedEnumValue.name}'.",
             memberName: propertyName,
+            receiver: target,
           );
         }
       }
@@ -6164,6 +6198,7 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
         throw UndefinedMemberD4rtException(
           "Undefined property or method '$propertyName' on ${target.runtimeType}.",
           memberName: propertyName,
+          receiver: target,
         );
       }
     }

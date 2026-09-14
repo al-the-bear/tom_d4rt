@@ -299,7 +299,31 @@ class UndefinedMemberD4rtException extends RuntimeD4rtException {
   /// The member that was not found. Compared by equality, never parsed.
   final String memberName;
 
-  UndefinedMemberD4rtException(super.message, {required this.memberName});
+  /// The object whose lookup failed, compared by IDENTITY at the decision sites.
+  ///
+  /// SCD87. [memberName] alone cannot separate "this receiver has no such
+  /// member" from "a member that does exist ran, and something *inside it*
+  /// failed to find the same name on a different object". Both are genuine
+  /// `UndefinedMemberD4rtException`s carrying the same name, so the caller's
+  /// extension-lookup branch used to answer for the second — swallowing a real
+  /// error and returning an unrelated value, with nothing logged.
+  ///
+  /// **Identity, not a description.** Two instances of the same class describe
+  /// identically, so a receiver *string* could not separate the failure raised
+  /// for the object in hand from one raised for a different object of the same
+  /// class deeper in the stack. `identical` can.
+  ///
+  /// **Null where no receiver object exists** — a static or prefix lookup. A
+  /// null receiver must never match: `identical(null, target)` is false for any
+  /// real target, so the branch is not taken and the failure propagates, which
+  /// is the conservative direction.
+  final Object? receiver;
+
+  UndefinedMemberD4rtException(
+    super.message, {
+    required this.memberName,
+    this.receiver,
+  });
 }
 
 /// Thrown when a STATIC member lookup fails on a class, enum, bridged class or
@@ -399,7 +423,14 @@ RuntimeD4rtException rewrapPreservingMemberSignal(
   RuntimeD4rtException e,
   String message,
 ) => e is UndefinedMemberD4rtException
-    ? UndefinedMemberD4rtException(message, memberName: e.memberName)
+    ? UndefinedMemberD4rtException(
+        message,
+        memberName: e.memberName,
+        // SCD87 — the receiver travels with the signal, or the rewrap would
+        // erase the discriminator and every wrapped failure would look like a
+        // plain absence again.
+        receiver: e.receiver,
+      )
     : RuntimeD4rtException(message);
 
 /// Thrown when a script names a bridged class by its simple name and two
