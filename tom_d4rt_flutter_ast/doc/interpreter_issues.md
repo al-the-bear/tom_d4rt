@@ -3887,6 +3887,104 @@ Corpus runs made to certify an interpreter change rather than to
 discover new clusters. Each entry records what was measured, against
 which resolved package versions, and what moved.
 
+### 2026-09-14 — BOTH corpora, BOTH twins at tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0: a seven-minor GENERATOR jump is behaviourally neutral
+
+**Scope: both the 17-file BASE subset and the full 41-file corpus**, each run on
+the AST twin to completion and then on `tom_d4rt_flutter`. This supersedes the
+2026-09-06 full-corpus baseline and re-confirms the 2026-09-11 base entry.
+
+**Resolved versions** — read from the lockfiles after `flutter pub upgrade` in
+both twins AND both companion apps, per DGUC6. The locks are gitignored, so
+these "was → now" lines are the only record that will exist:
+
+| Package | `tom_d4rt` | `tom_d4rt_ast` | `tom_d4rt_generator` |
+| ------- | ---------- | -------------- | -------------------- |
+| `tom_d4rt_flutter` | **1.77.0** | — | 1.19.0 → **1.26.0** |
+| `tom_d4rt_flutter_ast` | 1.77.0 | **0.65.0** | 1.19.0 → **1.26.0** |
+| `tom_d4rt_flutter/test/tom_d4rt_flutter_test_app` | **1.77.0** | — | — |
+| `tom_d4rt_flutter_ast/test/tom_d4rt_flutter_ast_app` | — | **0.65.0** | — |
+
+**The INTERPRETER pair did not move.** 1.77.0 / 0.65.0 are still the newest
+published, and are what the 2026-09-11 base entry measured. What moved is the
+**generator**, 1.19.0 → 1.26.0, and the companion apps' view of their twin
+(1.2.0 → 1.2.1, 0.4.0 → 0.4.1).
+
+**Why this run exists, and what it therefore isolates.** The todo that ordered
+it (scd105) expected to be re-measuring a twenty-minor interpreter jump; by the
+time it ran, later publishes had already been through the corpus and the
+interpreter pair was current. What had NOT been through it is the generator
+bump, which arrived with the `pub upgrade` and **regenerated the AST twin's 18
+`.b.dart` files**. Because the interpreter pair is identical to the 2026-09-11
+entry's, every delta here is attributable to the generator alone — an
+unusually clean control, and the reason this entry is worth its runtime.
+
+The generator's output delta is three things: an extension-registry keying fix
+(`extDef.name ?? '<unnamed>@${onTypeName}'` appended `@Type` only when the name
+was NULL, so a *named* extension was keyed by bare name and two extensions of
+the same name on different types collided — it now always appends), the two
+registry keys that gain their suffix as a result (`StringCharacters@String`,
+`HtmlElementViewImpl@HtmlElementView`), and one added lint to the
+`ignore_for_file` list. Only the AST twin regenerates; the source twin's
+bridges are untouched.
+
+**Method.** Host checked free of other `flutter test` processes first. AST twin
+to completion, then `tom_d4rt_flutter`, for each corpus in turn — serially, as
+the one-app-one-server design requires. Bridge regeneration was **allowed**
+rather than skipped with `D4RT_SKIP_BRIDGE_REGEN=1`: skipping it is right when
+only the interpreter moved, and wrong here, because the generator is the thing
+under test. No file was IDLE-KILLED in any of the four runs.
+
+**Result — base corpus (17 files).**
+
+| | AST twin | source twin |
+| --- | --- | --- |
+| files | 17/17 | 17/17 |
+| pass / skip / fail | **927 / 1 / 0** | **927 / 1 / 0** |
+
+Identical to the 2026-09-11 entry, cell for cell.
+
+**Result — full corpus (41 files).**
+
+| | AST twin | source twin |
+| --- | --- | --- |
+| files | 41/41 | 41/41 |
+| failing files | 4 | 4 |
+| pass / skip / fail | **2150 / 4 / 15** | **2150 / 4 / 15** |
+| `frameworkErrors` | **288** (was 295) | **299** (was 303) |
+| scripts raising them | 109 | 109 |
+
+`metrics.txt` is again **byte-identical between the twins** — the analyzer-free
+line remains behaviourally indistinguishable from the analyzer-based one.
+
+**Movement vs the 2026-09-06 baseline: one cell.**
+
+| File | 2026-09-06 | now |
+| ---- | ---------- | --- |
+| `flutter_extended_23` | `exit=1 +40 ~2 -4` | `exit=1 +41 ~1 -4` |
+
+A skip became a pass; the failure count is unchanged. The other three failing
+files (`flutter_extended_05` `+60 -1`, `_07` `+45 -1`, `_22` `+33 ~1 -9`) are
+byte-identical to the baseline, as are the 37 passing files.
+
+**`frameworkErrors` read, not just the exit codes** — the 2026-09-06 entry's
+standing instruction. Both twins are down slightly (295 → 288, 303 → 299)
+across the same 109 scripts, which is noise at this scale rather than a
+cluster closing. The three heaviest scripts are unchanged in rank:
+`rendering/render_repaint_boundary_test.dart` (43),
+`rendering/render_rotated_box_test.dart` (30),
+`widgets/html_element_view_test.dart` (26).
+
+**GEN-124 is confirmed closed** — it is marked `[X] Fixed` and is absent from
+the open set, which is now GEN-125 and GEN-126. All 15 failures remain GEN-125,
+the same scripts as the baseline; nothing reopened and nothing new appeared.
+
+**What this entry licenses.** The generator may be taken to 1.26.0 in these
+packages, and the regenerated bridges committed, on corpus evidence rather than
+on the unit suites alone. It says nothing about any UNPUBLISHED interpreter
+work — the tree is at tom_d4rt 1.105.0 / tom_d4rt_ast 0.92.0 against a resolved
+1.77.0 / 0.65.0, and certifying that gap is sce129's pre-publish pass, not this
+run.
+
 ### 2026-09-11 — base corpus, BOTH twins at tom_d4rt 1.77.0 / tom_d4rt_ast 0.65.0: break/continue and import-scoped ambiguity are behaviourally neutral
 
 **Scope: the 17-file BASE subset only** (`run_base_tests.sh`), compared with

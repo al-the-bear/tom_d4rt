@@ -1,3 +1,4 @@
+// Generated: 2026-09-14T19:32:21.221534 by tom_d4rt_generator 1.26.0
 /// D4rt Proxy Classes for flutter_material_bridges
 ///
 /// Generated proxy/adapter subclasses that delegate abstract methods
