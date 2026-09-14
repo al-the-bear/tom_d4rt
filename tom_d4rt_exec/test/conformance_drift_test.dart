@@ -228,6 +228,15 @@ const _partialTwinBudget = 1;
 /// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
 /// naive search files it as script-level and inflates this budget.
 ///
+/// 21 -> 22: SCD119 added `bridge/scd119_interpreted_proxy_binding_test.dart`,
+/// which runs source to ask whether a native proxy binds to a parameter
+/// declared as the interpreted class it stands for. Exec resolves tom_d4rt_ast
+/// 0.65.0 against a 0.93.0 tree, so a port would assert the fix against an
+/// interpreter that rejects it. The copier surface it would have added is a
+/// class declaration with an `extends` clause, a typed simple formal parameter
+/// and an instance creation — all of which the corpus copies on every run, and
+/// all of which the hand-built ast twin constructs directly.
+///
 /// 20 -> 21: SCD100 added `scd100_type_alias_resolution_test.dart`. Exec
 /// resolves tom_d4rt_ast from pub.dev, where a typedef still binds nothing, so
 /// a port would assert alias resolution against an interpreter without it.
@@ -265,7 +274,7 @@ const _partialTwinBudget = 1;
 /// than the tree — the same reason its own entry gives. The copier surface it
 /// would have added is list, set and map literals with type arguments, which
 /// the corpus already copies on every run.
-const _copierGapBudget = 21;
+const _copierGapBudget = 22;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -393,6 +402,35 @@ const Map<String, _Coverage> _coveredElsewhere = {
     // exists to resolve the tear-off.
     refCases: 10,
     twinCases: 10,
+  ),
+  // SCD119 repaired the binding check so a native `D4InterpretedProxy` binds to
+  // a parameter declared as the interpreted class it stands for — the corpus's
+  // `type 'ThemeExtension' is not a subtype of type 'BrandColors' of 'brand'`.
+  // The twin is a HAND-BUILT BUNDLE, which is the only script-level form this
+  // line can take, and the smaller count is what that costs: building a class
+  // that extends a bridged class, a typed parameter and a native round trip out
+  // of `SAstNode` constructors is ~200 lines for the pair of cases below.
+  //
+  // An exec port would be the cheaper form and is publish-blocked on top of
+  // that: the fix ships in tom_d4rt_ast 0.93.0 and exec resolves 0.65.0, so the
+  // port would assert behaviour nobody here is running (DGUC6). Revisit when
+  // the floor moves — sce137 carries the publish.
+  'bridge/scd119_interpreted_proxy_binding_test.dart': _Coverage(
+    'ast:runtime/scd119_interpreted_proxy_binding_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 4,
+    twinCases: 2,
+    whyPartial:
+        'the twin carries the claim (F-SCD119-AST-1: a proxy binds to a '
+        'parameter declared as the script class it wraps) and the one control '
+        'that can go wrong (F-SCD119-AST-2: an unrelated declared class is '
+        'still rejected, so the repair has not become unwrap-and-accept). The '
+        'two it omits are the reference tree\'s F-SCD119-2, which round-trips '
+        'the bound value through a second native boundary, and F-SCD119-4, '
+        'which checks a NON-proxy native value is still refused by the base '
+        'check — both reachable only by writing two more bundles for a branch '
+        'the first two already pin.',
   ),
   'dgub5_filesystem_permission_symlink_test.dart': _Coverage(
     'ast:runtime/dgub5_filesystem_permission_symlink_test.dart',
@@ -1202,6 +1240,21 @@ const Map<String, _Divergence> _divergentBaseline = {
   // natively (F-SCC33-AST-1/2) against its own node type, which is the only
   // place it can be pinned. The five behavioural cases are verbatim.
   'scc33_unhandled_node_test.dart': _Divergence.deliberate,
+  // SCD119 found this one SELF-INFLICTED and registered it the same day. The
+  // two copies were byte-identical until SCD92 (tom_d4rt_ast 0.87.0) tightened
+  // the binding check to compare declared TYPE ARGUMENTS, not just base types.
+  // F-SCC29-21 pinned the old limit — `f(List<String> xs)` accepting `f([1])`
+  // and returning 1 — so the reference copy had to be rewritten to expect a
+  // `TypeError`, and the exec copy was not.
+  //
+  // That asymmetry is correct rather than an oversight to repair by copying:
+  // this tree runs the PUBLISHED interpreter (0.65.0 today), where the
+  // permissive result really is what happens, and the exec copy PASSES
+  // asserting it. Porting the reference version now would make a green suite
+  // red about a behaviour nobody is running — DGUC6. The entry in
+  // [_pinnedInterpreterFloors] is what makes the flip condition
+  // machine-checkable instead of remembered.
+  'scc29_parameter_type_check_test.dart': _Divergence.deliberate,
 };
 
 /// The direct interpreter-package imports the port recipe legitimately rewrites,
@@ -1311,6 +1364,12 @@ const Map<String, String> _pinnedInterpreterFloors = <String, String>{
   // checklist — and re-measure BOTH, not just the one that came due.
   'scd72_instance_tostring_test.dart': '0.81.0',
   'scd73_no_hook_unwrapping_test.dart': '0.82.0',
+  // SCD92 shipped the applied-type-argument check in 0.87.0. At that floor,
+  // re-port F-SCC29-21 from the reference copy (it expects a `TypeError`), and
+  // check whether `scd92_applied_parameter_type_test.dart` should come with it
+  // — the reference file has no counterpart here at all, which is F-SCC6-2's
+  // business rather than this register's.
+  'scc29_parameter_type_check_test.dart': '0.87.0',
 };
 
 /// The `tom_d4rt_ast` floor exec's own `pubspec.yaml` currently declares.
