@@ -8549,6 +8549,15 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
     // function. Async/generator return types (`Future<T>` / `Stream<T>` /
     // `Iterable<T>`) are wrappers over the returned value and are skipped by
     // the return-time check, so we do not compute them here.
+    //
+    // THE TWO INTERPRETERS REACH THE SAME ANSWER BY DIFFERENT ROUTES, which is
+    // the reason both DFUB6 suites are worth running rather than one standing
+    // in for the other. `tom_d4rt` walks UP from the return statement to its
+    // enclosing declaration and reads the annotation there; this tree cannot,
+    // so it captures at declaration time and checks the stored type in
+    // `visitReturnStatement`. Same behaviour, and a regression in either route
+    // is invisible to the other — changing what is captured here cannot be
+    // validated by a green suite in the sibling tree.
     final declaredReturnTypeApplied = _resolveAppliedReturnType(
       node.returnType,
       resolveEnvironment,
@@ -12250,6 +12259,20 @@ class InterpreterVisitor extends GeneralizingSAstVisitor<Object?> {
       // and return-type checks can compare shape + field types (upstream
       // 848f03d). Nested field types resolve recursively through this same
       // resolver (so import-prefixed field types keep working).
+      //
+      // THE FIELD TYPES USED NOT TO ARRIVE HERE AT ALL, and the shape of that
+      // failure is worth keeping because no test in `tom_d4rt` can see it.
+      // `tom_ast_generator` dropped every `RecordTypeAnnotationField` into an
+      // opaque unknown node, so an annotation reached this resolver carrying
+      // only its ARITY — the field types were not there to compare, and the
+      // record cases were pinned to that degraded answer until DGUB8 fixed the
+      // copier (`tom_d4rt_ast >=0.14.0` / `tom_ast_generator >=0.1.5`).
+      //
+      // The general fact, which the next copier gap will also have: a node the
+      // copier flattens produces a mirror tree that interprets CONSISTENTLY and
+      // WRONG. Nothing here can distinguish it from a correct tree, so a
+      // difference between the two interpreters is the only instrument, and it
+      // exists only where both run the same source.
       Logger.debug(
         "[ResolveType] Resolving SRecordTypeAnnotation: ${typeNode.toString()}",
       );

@@ -1,3 +1,27 @@
+## 0.94.1
+
+### Documentation — two cross-tree facts recorded at the code they constrain (scd125)
+
+No behaviour change; comments only. Both facts were held in a `tom_d4rt` TEST
+header, which is the one place a reader changing this package's interpreter has
+no reason to look.
+
+- At the applied-return-type capture in `interpreter_visitor.dart`: the two
+  interpreters reach the same answer by different routes. `tom_d4rt` walks up
+  from a return statement to its enclosing declaration and reads the annotation
+  there; an `SAstNode` carries no parent pointer, so this tree captures at
+  declaration time and checks the stored type at return time. A regression in
+  either route is invisible to the other, which is why both DFUB6 suites are
+  worth running.
+- At the record-type-annotation resolution: the field types used not to arrive
+  at all. `tom_ast_generator` flattened every `RecordTypeAnnotationField` into
+  an opaque node, so an annotation reached the resolver carrying only its arity,
+  and the record cases were pinned to that degraded answer until DGUB8
+  (`tom_d4rt_ast >=0.14.0` / `tom_ast_generator >=0.1.5`). The general shape is
+  worth having at the site: a node the copier flattens yields a mirror tree that
+  interprets consistently and wrongly, so the only instrument is a difference
+  between the two interpreters on the same source.
+
 ## 0.94.0
 
 ### Fixed — a declaration keeps every `await` in its initializer (scd121)

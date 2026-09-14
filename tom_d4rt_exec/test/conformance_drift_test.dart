@@ -1169,19 +1169,26 @@ const Map<String, _Convergence> _convergenceLog = {
     'over the twin would have deleted a real assertion and left the weaker '
     'file in BOTH trees, with the guard reporting the pair converged.',
   ),
+  // SCD125 read both headers while mirroring them into tom_d4rt_ast and found
+  // these two reasons written against each other's entry. Corrected, and worth
+  // noticing rather than quietly fixing: nothing checks the PROSE of a
+  // convergence reason, so a swap survives every guard in this file — the log
+  // exists to make a direction reviewable, and a reason attached to the wrong
+  // file is unreviewable in the most convincing way.
   'dfub5_function_record_runtime_type_test.dart': _Convergence(
     _Direction.union,
-    'the exec copy carried an explanation the reference lacked — the SAstNode '
-    'tree has no parent pointers, so the applied return type is captured '
-    'at declaration time. Folded into the reference header BEFORE the port '
-    'was taken, so convergence added knowledge to both trees instead of '
-    'deleting it from one.',
+    'the exec copy carried an explanation the reference lacked — '
+    'tom_ast_generator used to flatten RecordTypeAnnotationField, so a record '
+    'ANNOTATION reached the mirror tree carrying only its arity. Folded into '
+    'the reference header BEFORE the port was taken, so convergence added '
+    'knowledge to both trees instead of deleting it from one.',
   ),
   'dfub6_applied_generic_runtime_types_test.dart': _Convergence(
     _Direction.union,
-    'same shape as dfub5: the exec copy recorded that tom_ast_generator used '
-    'to flatten RecordTypeAnnotationField, which the reference header did '
-    'not say. Folded upstream first, then ported.',
+    'same shape as dfub5: the exec copy recorded that an SAstNode carries no '
+    'parent pointer, so the applied return type is captured at declaration '
+    'time rather than read back at return time. Folded upstream first, then '
+    'ported.',
   ),
   'dfub13_import_export_diagnostics_test.dart': _Convergence(
     _Direction.union,

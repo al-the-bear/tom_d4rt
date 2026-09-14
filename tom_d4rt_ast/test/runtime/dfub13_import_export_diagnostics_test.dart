@@ -10,6 +10,15 @@
 //
 // The type divergence itself is left alone here and tracked separately; these
 // tests pin the *diagnostics*, not the taxonomy.
+//
+// THERE ARE THREE LOADERS, NOT TWO, and the DFUB13 todo scoped itself to two.
+// `tom_d4rt`, `tom_d4rt_ast` and `tom_d4rt_exec` each carry their own copy of
+// `d4rt_base.dart` and `module_loader.dart`, and all three had the same defects.
+// Exec's is the one downstream consumers actually run, so fixing the two that
+// are easy to find would have left the diagnostic rotting in the only copy a
+// user meets. This suite has a twin in each of the other two trees for that
+// reason; none of the three is redundant, because none of them exercises
+// another's loader.
 
 import 'package:test/test.dart';
 import 'package:tom_d4rt_ast/runtime.dart';
