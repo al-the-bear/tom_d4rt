@@ -1722,7 +1722,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final leftValue = node.leftOperand.accept<Object?>(this);
       if (leftValue is AsyncSuspensionRequest) return leftValue;
       if (leftValue is! bool) {
-        throw RuntimeD4rtException(
+        // SCD93: a `TypeError`, as real Dart raises for a non-bool operand
+        // of `||`. There is no SDK operator to delegate to — short-circuiting
+        // is control flow, not a method — so this is the legitimate kind of
+        // guard: it raises the SDK's TYPE while keeping d4rt's own message,
+        // which names the side and the operator the SDK's own wording does
+        // not. The DOMAIN already matched: `true || 1` short-circuits before
+        // the right operand is ever looked at, exactly as Dart does.
+        throw D4rtTypeError(
           "Left operand of '||' must be bool, got ${leftValue?.runtimeType}.",
         );
       }
@@ -1732,7 +1739,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final rightValue = node.rightOperand.accept<Object?>(this);
       if (rightValue is AsyncSuspensionRequest) return rightValue;
       if (rightValue is! bool) {
-        throw RuntimeD4rtException(
+        // SCD93: a `TypeError`, as real Dart raises for a non-bool operand
+        // of `||`. There is no SDK operator to delegate to — short-circuiting
+        // is control flow, not a method — so this is the legitimate kind of
+        // guard: it raises the SDK's TYPE while keeping d4rt's own message,
+        // which names the side and the operator the SDK's own wording does
+        // not. The DOMAIN already matched: `true || 1` short-circuits before
+        // the right operand is ever looked at, exactly as Dart does.
+        throw D4rtTypeError(
           "Right operand of '||' must be bool, got ${rightValue?.runtimeType}.",
         );
       }
@@ -1744,7 +1758,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final leftValue = node.leftOperand.accept<Object?>(this);
       if (leftValue is AsyncSuspensionRequest) return leftValue;
       if (leftValue is! bool) {
-        throw RuntimeD4rtException(
+        // SCD93: a `TypeError`, as real Dart raises for a non-bool operand
+        // of `&&`. There is no SDK operator to delegate to — short-circuiting
+        // is control flow, not a method — so this is the legitimate kind of
+        // guard: it raises the SDK's TYPE while keeping d4rt's own message,
+        // which names the side and the operator the SDK's own wording does
+        // not. The DOMAIN already matched: `true && 1` short-circuits before
+        // the right operand is ever looked at, exactly as Dart does.
+        throw D4rtTypeError(
           "Left operand of '&&' must be bool, got ${leftValue?.runtimeType}.",
         );
       }
@@ -1754,7 +1775,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
       final rightValue = node.rightOperand.accept<Object?>(this);
       if (rightValue is AsyncSuspensionRequest) return rightValue;
       if (rightValue is! bool) {
-        throw RuntimeD4rtException(
+        // SCD93: a `TypeError`, as real Dart raises for a non-bool operand
+        // of `&&`. There is no SDK operator to delegate to — short-circuiting
+        // is control flow, not a method — so this is the legitimate kind of
+        // guard: it raises the SDK's TYPE while keeping d4rt's own message,
+        // which names the side and the operator the SDK's own wording does
+        // not. The DOMAIN already matched: `true && 1` short-circuits before
+        // the right operand is ever looked at, exactly as Dart does.
+        throw D4rtTypeError(
           "Right operand of '&&' must be bool, got ${rightValue?.runtimeType}.",
         );
       }
@@ -2219,29 +2247,29 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         if (left is int && right is int) return left ^ right;
         if (left is bool && right is bool) return left ^ right;
         if (left is BigInt && right is BigInt) return left ^ right;
-        throw RuntimeD4rtException('Unsupported binary operator "$operator"');
+        return _nativeBinaryFallback(operatorName, left, right);
       case '&':
         if (left is int && right is int) return left & right;
         if (left is bool && right is bool) return left & right;
         if (left is BigInt && right is BigInt) return left & right;
-        throw RuntimeD4rtException('Unsupported binary operator "$operator"');
+        return _nativeBinaryFallback(operatorName, left, right);
       case '|':
         if (left is int && right is int) return left | right;
         if (left is bool && right is bool) return left | right;
         if (left is BigInt && right is BigInt) return left | right;
-        throw RuntimeD4rtException('Unsupported binary operator "$operator"');
+        return _nativeBinaryFallback(operatorName, left, right);
       case '>>':
         if (left is int && right is int) return left >> right;
         if (left is BigInt && right is int) return left >> right;
-        throw RuntimeD4rtException('Unsupported binary operator "$operator"');
+        return _nativeBinaryFallback(operatorName, left, right);
       case '<<':
         if (left is int && right is int) return left << right;
         if (left is BigInt && right is int) return left << right;
-        throw RuntimeD4rtException('Unsupported binary operator "$operator"');
+        return _nativeBinaryFallback(operatorName, left, right);
       case '>>>':
         if (left is int && right is int) return left >>> right;
         // Note: BigInt doesn't support >>> operator in Dart
-        throw RuntimeD4rtException('Unsupported binary operator "$operator"');
+        return _nativeBinaryFallback(operatorName, left, right);
       default:
         break;
     }
@@ -2290,6 +2318,69 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     );
   }
 
+  /// SCD93: hand `left <operator> right` to the SDK when the typed fast paths
+  /// above could not dispatch it themselves.
+  ///
+  /// The six bitwise and shift arms used to throw
+  /// `RuntimeD4rtException('Unsupported binary operator "…"')` here — a
+  /// d4rt-only type no `on` clause can name, carrying a message that printed
+  /// the TokenType (`AMPERSAND`) rather than the operator. But `left` and
+  /// `right` are already NATIVE at this point (a `BridgedInstance` was
+  /// unwrapped to its `nativeObject` two hundred lines up), so the SDK operator
+  /// is right there and knows the answer exactly:
+  ///
+  ///   - `1 & 2.0`      -> TypeError, 'double' is not a subtype of 'int' of 'other'
+  ///   - `true & 1`     -> TypeError, naming 'bool' -- the parameter type
+  ///                       follows the RECEIVER's own operator
+  ///   - `BigInt << 1.0`-> TypeError, naming the parameter 'shiftAmount'
+  ///   - `'x' & 1`      -> NoSuchMethodError, Class 'String' has no '&'
+  ///   - `null & 1`     -> NoSuchMethodError, The method '&' was called on null
+  ///
+  /// Tabulating that here would be a second implementation of a rule the SDK
+  /// already applies, which is the shape SCC30 removed from `~/` and `%`. The
+  /// comparison arms (`<`, `<=`, `>`, `>=`) have delegated since they were
+  /// written; these six were simply the ones nobody converted.
+  ///
+  /// **The interpreter's own runtime objects are the exception, and it is the
+  /// legitimate kind.** An `InterpretedInstance` has no SDK operator to
+  /// delegate to — its class operators and extension-type operators were
+  /// already given their chance above — so there is nothing to hand the
+  /// question to and the d4rt exception stays. Handing it over anyway would
+  /// name `InterpretedInstance` in a NoSuchMethodError, leaking an internal
+  /// class into a script's diagnostics.
+  Object? _nativeBinaryFallback(String operator, Object? left, Object? right) {
+    if (!_isSdkOperand(left)) {
+      throw RuntimeD4rtException('Unsupported binary operator "$operator"');
+    }
+    final l = left as dynamic;
+    final r = right as dynamic;
+    switch (operator) {
+      case '^':
+        return l ^ r;
+      case '&':
+        return l & r;
+      case '|':
+        return l | r;
+      case '>>':
+        return l >> r;
+      case '<<':
+        return l << r;
+      case '>>>':
+        return l >>> r;
+    }
+    throw RuntimeD4rtException('Unsupported binary operator "$operator"');
+  }
+
+  /// SCD93: whether [value] is something the SDK can answer an operator
+  /// question about — that is, NOT one of the interpreter's own runtime
+  /// objects.
+  ///
+  /// `null` is deliberately included: `null & 1` raises
+  /// `NoSuchMethodError: The method '&' was called on null` in real Dart, and
+  /// delegating reproduces it exactly.
+  static bool _isSdkOperand(Object? value) =>
+      value is! RuntimeValue && value is! Callable && value is! RuntimeType;
+
   @override
   Object? visitIndexExpression(IndexExpression node) {
     final target = node.target;
@@ -2324,14 +2415,15 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     if (targetValue is String && indexValue is int) {
       return targetValue[indexValue];
     } else if (targetValue is List) {
-      if (indexValue is int) {
-        if (indexValue < 0 || indexValue >= targetValue.length) {
-          throw indexRangeError(indexValue, targetValue.length);
-        }
-        return targetValue[indexValue];
-      } else {
-        throw RuntimeD4rtException('List index must be an integer');
-      }
+      // SCD93: no bounds test and no `is int` test — both operands are already
+      // native, so the SDK's own `List.[]` decides, and it decides better than
+      // the guards did. Out of range it raises `RangeError (length)` where the
+      // hand-written guard said `RangeError (index)`; on a non-int index it
+      // raises `TypeError` where the guard raised an uncatchable
+      // `RuntimeD4rtException`; and on an unmodifiable list it raises
+      // `UnsupportedError`, which the bounds guard used to pre-empt with a
+      // RangeError. See `scd93_native_operator_guards_test.dart`.
+      return (targetValue as dynamic)[indexValue];
     } else if (targetValue is InterpretedInstance) {
       // Check for class operator [] method
       final operatorMethod = targetValue.findOperator('[]');
@@ -3574,11 +3666,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           Object? currentValue;
           if (targetValue is Map) {
             currentValue = targetValue[indexValue];
-          } else if (targetValue is List && indexValue is int) {
-            if (indexValue < 0 || indexValue >= targetValue.length) {
-              throw indexRangeError(indexValue, targetValue.length);
-            }
-            currentValue = targetValue[indexValue];
+          } else if (targetValue is List) {
+            // SCD93: the SDK decides — see `visitIndexExpression`.
+            currentValue = (targetValue as dynamic)[indexValue];
           } else if (targetValue is InterpretedInstance) {
             // Check for class operator [] method for reading current value
             final operatorMethod = targetValue.findOperator('[]');
@@ -3711,11 +3801,9 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         if (targetValue is Map) {
           targetValue[indexValue] = finalValueToAssign;
           return finalValueToAssign;
-        } else if (targetValue is List && indexValue is int) {
-          if (indexValue < 0 || indexValue >= targetValue.length) {
-            throw indexRangeError(indexValue, targetValue.length);
-          }
-          targetValue[indexValue] = finalValueToAssign;
+        } else if (targetValue is List) {
+          // SCD93: the SDK decides — see `visitIndexExpression`.
+          (targetValue as dynamic)[indexValue] = finalValueToAssign;
           return finalValueToAssign;
         } else if (targetValue is InterpretedInstance) {
           // Check for class operator []= method
@@ -7630,14 +7718,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
     final indexValue = node.index.accept<Object?>(this);
     // Perform index access ON targetValue
     if (targetValue is List) {
-      if (indexValue is int) {
-        if (indexValue < 0 || indexValue >= targetValue.length) {
-          throw indexRangeError(indexValue, targetValue.length);
-        }
-        return targetValue[indexValue];
-      } else {
-        throw RuntimeD4rtException('List index must be an integer in cascade.');
-      }
+      // SCD93: the SDK decides — see `visitIndexExpression`.
+      return (targetValue as dynamic)[indexValue];
     } else if (targetValue is Map) {
       return targetValue[indexValue];
     } else if (targetValue is String && indexValue is int) {
@@ -7807,13 +7889,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
         // Compound assignment
         Object? currentValue;
         if (indexTarget is List) {
-          if (indexValue is! int) {
-            throw RuntimeD4rtException('List index must be int.');
-          }
-          if (indexValue < 0 || indexValue >= indexTarget.length) {
-            throw indexRangeError(indexValue, indexTarget.length);
-          }
-          currentValue = indexTarget[indexValue];
+          // SCD93: the SDK decides — see `visitIndexExpression`.
+          currentValue = (indexTarget as dynamic)[indexValue];
         } else if (indexTarget is Map) {
           currentValue = indexTarget[indexValue];
         } else if (toBridgedInstance(indexTarget).$2) {
@@ -7845,13 +7922,8 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
       // Set the value
       if (indexTarget is List) {
-        if (indexValue is! int) {
-          throw RuntimeD4rtException('List index must be int.');
-        }
-        if (indexValue < 0 || indexValue >= indexTarget.length) {
-          throw indexRangeError(indexValue, indexTarget.length);
-        }
-        indexTarget[indexValue] = newValue;
+        // SCD93: the SDK decides — see `visitIndexExpression`.
+        (indexTarget as dynamic)[indexValue] = newValue;
       } else if (indexTarget is Map) {
         indexTarget[indexValue] = newValue;
       } else if (toBridgedInstance(indexTarget).$2) {
@@ -8815,8 +8887,14 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           );
           // Fall through
         }
-        // Error uses original value type if extension not found/failed
-        throw RuntimeD4rtException(
+        // SCD93: a `NoSuchMethodError`, as real Dart raises — `-'x'` is
+        // `NoSuchMethodError: Class 'String' has no instance method 'unary-'`.
+        // Not delegated: this site is the last resort AFTER extension-operator
+        // lookup, and `-(operandValue as dynamic)` here would re-raise from the
+        // host with d4rt's extension diagnostic thrown away. No native non-num
+        // type declares `unary-`, so NoSuchMethodError is what the SDK raises
+        // for every operand that reaches this line.
+        throw D4rtNoSuchMethodError(
           "Operand for unary '-' must be a number or have an operator defined, but was ${operandValue?.runtimeType}.",
         );
 
@@ -8929,8 +9007,11 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           );
           // Fall through
         }
-        // Error if neither standard nor extension worked
-        throw RuntimeD4rtException(
+        // SCD93: a `NoSuchMethodError`, as real Dart raises — `~1.5` is
+        // `NoSuchMethodError: Class 'double' has no instance method '~'`. Only
+        // `int` and `BigInt` declare `~`, and both are handled above, so every
+        // operand reaching this line is one the SDK has no method for.
+        throw D4rtNoSuchMethodError(
           "Operand for unary '~' must be an int or have an operator defined, but was ${operandValue?.runtimeType}.",
         );
 
@@ -8996,7 +9077,19 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
             // Requires finding operator +/-, then assigning back.
             // Complex, skip for now.
             // Error uses original value type
-            throw RuntimeD4rtException(
+            // SCD93: a `TypeError`. `x++` is `x = x + 1`, so real Dart's
+            // error is whatever the operand's own `+` raises, and that splits:
+            // a type that DECLARES `+` with a different parameter raises
+            // TypeError (`'x'++`, `[1]++`), one that declares none raises
+            // NoSuchMethodError (`true++`). d4rt raises TypeError for both.
+            //
+            // The split is not reproduced on purpose. Tabulating which native
+            // types declare `+` would be a second implementation of exactly the
+            // rule this sweep removed elsewhere, and the alternative —
+            // performing `operandValue + 1` to learn which error it is — can
+            // run a bridged receiver's own operator for its side effects. The
+            // approximation is pinned rather than left to be rediscovered.
+            throw D4rtTypeError(
               "Operand for prefix '${operatorType == TokenType.PLUS_PLUS ? '++' : '--'}' must be a number, but was ${operandValue?.runtimeType}. Extension support TBD.",
             );
           }
@@ -9471,7 +9564,10 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
           );
         }
       } else {
-        throw RuntimeD4rtException(
+        // SCD93: a `TypeError` — see the prefix site for why the SDK's
+        // TypeError/NoSuchMethodError split is approximated rather than
+        // tabulated.
+        throw D4rtTypeError(
           "Operand for postfix '${operatorType == TokenType.PLUS_PLUS ? '++' : '--'}' must be a number, but was ${operandValue?.runtimeType}.",
         );
       }

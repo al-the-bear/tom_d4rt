@@ -26,11 +26,13 @@ class StringCore {
     },
     methods: {
       '[]': (visitor, target, positionalArgs, namedArgs, _) {
-        if (positionalArgs.length != 1 || positionalArgs[0] is! int) {
-          throw RuntimeD4rtException(
-            'String index operator [] requires one int argument.',
-          );
-        }
+        D4.checkArity(positionalArgs, 'String.[]', atMost: 1);
+        // SCD93: no `is! int` test. Both operands are already native, so the
+        // cast raises the SDK's own `TypeError` for a non-int index and
+        // `String.[]` raises the SDK's own `RangeError` out of range — where
+        // the guard raised a `RuntimeD4rtException` no `on` clause could name.
+        // The LIST arm of `visitIndexExpression` had the same defect; this is
+        // the same fix on the other half of the operator.
         return (target as String)[positionalArgs[0] as int];
       },
       'substring': (visitor, target, positionalArgs, namedArgs, _) {

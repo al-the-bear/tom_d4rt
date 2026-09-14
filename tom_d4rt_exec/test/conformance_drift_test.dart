@@ -228,6 +228,13 @@ const _partialTwinBudget = 1;
 /// `bridged_enum_memo_test.dart`'s only `execute(` is inside a comment, and a
 /// naive search files it as script-level and inflates this budget.
 ///
+/// 15 -> 16: SCD93 added `scd93_native_operator_guards_test.dart`, which runs
+/// source to compare what d4rt throws against what the SDK throws. Same reason
+/// as SCD92 below: a copy here would state the swept behaviour against the
+/// PUBLISHED tom_d4rt_ast. The copier surface it would have added is binary
+/// expressions and index expressions over literals, which the corpus copies on
+/// every run.
+///
 /// 14 -> 15: SCD92 added `scd92_applied_parameter_type_test.dart`, which runs
 /// source to ask which programs a binding check accepts. Porting it would state
 /// the new behaviour against the PUBLISHED tom_d4rt_ast, so it would go red
@@ -235,7 +242,7 @@ const _partialTwinBudget = 1;
 /// than the tree — the same reason its own entry gives. The copier surface it
 /// would have added is list, set and map literals with type arguments, which
 /// the corpus already copies on every run.
-const _copierGapBudget = 15;
+const _copierGapBudget = 16;
 
 const Map<String, _Coverage> _coveredElsewhere = {
   // ---- Renamed on the exec side -------------------------------------------
@@ -467,6 +474,31 @@ const Map<String, _Coverage> _coveredElsewhere = {
     layer: _Layer.registration,
     refCases: 4,
     twinCases: 4,
+  ),
+  // SCD93's native-operator-guard sweep. Script-level: it runs source and
+  // compares what d4rt throws against what the SDK throws for the same
+  // one-liner, across five guard families. Not ported to exec on purpose: this
+  // package resolves `tom_d4rt_ast` from pub.dev, so a copy here would measure
+  // the published guards rather than the swept ones, and would go red until the
+  // release lands (DGUC6). The twin carries the four cases that cannot pass by
+  // accident, hand-built as bundles.
+  'scd93_native_operator_guards_test.dart': _Coverage(
+    'ast:runtime/scd93_native_operator_guards_test.dart',
+    _astTwin,
+    layer: _Layer.script,
+    refCases: 18,
+    twinCases: 4,
+    whyPartial:
+        'the twin is a different KIND of test, not this one with cases '
+        'dropped. The reference file compares d4rt against the SDK for '
+        'eighteen one-line PROGRAMS, which is three lines each when you can '
+        'run source. The twin cannot run source at all: every case is a '
+        'hand-built bundle, so it carries the four that cannot pass by '
+        'accident -- the bitwise TypeError, the fast arm it fronts, the list '
+        'RangeError worded `(length)` (a wording only delegation produces, so '
+        'a corrected hand-written guard still fails it) and the read that must '
+        'still land. The other fourteen re-ask the same delegation question of '
+        'operators whose arms are one shared fallback.',
   ),
   // SCD92's applied-parameter matrix. Script-level: it runs source and asserts
   // which programs a binding check accepts, so most of its value is in the

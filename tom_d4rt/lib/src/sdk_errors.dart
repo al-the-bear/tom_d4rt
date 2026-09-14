@@ -83,5 +83,18 @@ class D4rtNoSuchMethodError extends Error implements NoSuchMethodError {
 /// [length] may be 0, in which case `end` is -1 — below `start`.
 /// `RangeError.range` accepts that and reports "Valid value range is empty",
 /// matching what the platform says for an empty container.
+///
+/// **SCD93 removed every interpreter call site, and that is not a deprecation.**
+/// The six list-index guards that called this were pre-empting a native
+/// operator: `targetValue` was already a `List` and `indexValue` already an
+/// `int`, so `targetValue[indexValue]` reaches the SDK's own `[]`, which raises
+/// a better error than this composed — `RangeError (length)` on a read where
+/// this said `(index)`, and `UnsupportedError` on an unmodifiable list where
+/// the bounds test pre-empted it with a RangeError. A helper is the right thing
+/// for a BRIDGE that must raise an index error for a container the SDK cannot
+/// be asked about; it was the wrong thing standing in front of a native list.
+/// The reasoning above about `RangeError` versus `IndexError` is what makes it
+/// safe to keep as API: delegation produces a plain `RangeError` too, so the
+/// helper and the platform still agree.
 RangeError indexRangeError(int index, int length) =>
     RangeError.range(index, 0, length - 1, 'index');

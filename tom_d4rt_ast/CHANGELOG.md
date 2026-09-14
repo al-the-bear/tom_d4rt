@@ -1,3 +1,59 @@
+## 0.88.0
+
+### Fixed — guards that pre-empted a native operator now hand it to the SDK (scd93)
+
+SCC30 removed six divergences from `~/` and `%` with one deletion, and only two
+of the six were the ones it went looking for. That ratio asked for a sweep, and
+this is it. The anti-pattern is not "d4rt throws the wrong exception" — it is
+**d4rt hand-writing a check in front of an operand that is ALREADY NATIVE**, so
+the SDK operator never gets to decide. Twenty-one sites, in five families, each
+measured by running the same one-line program in real Dart and in d4rt.
+
+**The six bitwise and shift arms** (`& | ^ << >> >>>`) threw
+`RuntimeD4rtException('Unsupported binary operator "AMPERSAND"')` — a d4rt-only
+type no `on` clause can name, whose message printed the TokenType rather than
+the operator. The comparison arms twenty lines above them (`< <= > >=`) had
+delegated to the SDK since they were written; these six were the ones nobody
+converted. They now fall back to the SDK too, which answers better than any
+table could: the expected type follows the RECEIVER (`1 & 2.0` names `int`,
+`true & 1` names `bool`, `BigInt << 1.0` names the parameter `shiftAmount`), and
+a receiver that declares no such operator raises `NoSuchMethodError` rather than
+a type error at all.
+
+**The six list-bounds guards** recomputed `index < 0 || index >= length` in
+front of a native list. Right type, wrong in three ways the SDK gets right for
+free: a read reports `RangeError (length)` where the guard said `(index)`; a
+compound assignment reports the READ error because the read happens first, where
+the compound arm's own copy of the guard reported the write's — the same
+self-disagreement SCC30 found between `/` and `/=`; and an out-of-range write to
+an unmodifiable list raises `UnsupportedError`, which the bounds test used to
+pre-empt with a RangeError.
+
+**The four list-index `is int` guards** and **the `String.[]` bridge's `is! int`
+guard** threw `RuntimeD4rtException` where the SDK raises `TypeError`.
+
+**Five guards stay**, because there is nothing to delegate to: `&&`/`||`
+(short-circuiting is control flow, not a method), unary `-`/`~` and `++`/`--`
+(the throw is the last resort after extension-operator lookup, and the increment
+sites must assign back). Those now raise the SDK's TYPE carrying d4rt's own
+message — the pattern `sdk_errors.dart` exists for. Their DOMAIN was measured
+and already matched: `true || 1` is `true`, not an error.
+
+`indexRangeError` keeps its place in `sdk_errors.dart` as API a bridge can use
+for a container the SDK cannot be asked about, but no longer stands in front of
+a native list.
+
+**Not one existing test failed when all of this changed**, which is the finding
+behind the new guard file: none of these types or messages was pinned anywhere,
+so any of them could have drifted in either direction unobserved.
+`scd93_native_operator_guards_test.dart` (18 cases) pins the divergences that
+were fixed AND the cases where d4rt and the SDK already agreed — the latter are
+what stop a guard being reinstated "for a better message" — plus the two limits
+kept deliberately: a non-int String index carries the SDK's cast wording rather
+than its parameter wording, and `x++` on a non-num raises TypeError where the
+SDK splits TypeError/NoSuchMethodError by whether the operand's type declares
+`+`. A four-case bundle-built twin covers the analyzer-free tree.
+
 ## 0.87.0
 
 ### Fixed — a binding check compares declared type arguments (scd92)
