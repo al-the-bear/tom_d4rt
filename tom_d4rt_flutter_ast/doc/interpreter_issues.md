@@ -4410,11 +4410,11 @@ roughly 70 % of the type-test surface unexercised.
 | ext 22 | `+30 ~1 -12` | **`+42 ~1`** (12 recovered) |
 | ext 23 | `+44 ~1 -1` | **`+44 ~2`** (fail → skip) |
 
-Base baselines are `basetestlog_20260628-step2-{src,ast}/metrics.txt`
+Base baselines are `testlog/basetestlog_20260628-step2-{src,ast}/metrics.txt`
 (byte-identical between twins); extended baselines are
-`testlog_20260624-0713-issue-analysis/metrics.txt`. This run's outputs
-are in `basetestlog_20260728-scb16-{src,ast}/` and
-`extlog_20260728-scb16/` in each twin.
+`testlog/testlog_20260624-0713-issue-analysis/metrics.txt`. This run's
+outputs are in `testlog/basetestlog_20260728-scb16-{src,ast}/` and
+`testlog/extlog_20260728-scb16/` in each twin.
 
 None of those folders is tracked, and none is expected to be: runner
 output is per-machine and is never versioned (see `test/README.md`).
@@ -4422,6 +4422,11 @@ The folder names are cited so a host that still holds a run can be
 matched against this entry — the numbers in the table above are the
 durable record. The written analysis of the 2026-06-24 sweep is kept
 separately as `doc/issue_analysis_20260624.md`.
+
+Four of those folders were written under `doc/` rather than `testlog/`
+by runners that predated the 2026-06-24 split, and have been moved to
+the paths given above. A host carrying an older copy has them one level
+up, under `doc/`; move it rather than reading it there.
 
 **Neither improvement is attributable to the widening.** The 12
 ext_22 recoveries are a single contiguous alphabetical block

@@ -78,19 +78,41 @@ folders** in this project and its siblings reached the repository before being
 untracked (`git rm --cached`, left on disk — they are still valid local results,
 just not versioned).
 
-Note what the `.gitignore` stanza for `**/doc/testlog_*/` could *not* do:
-ignoring a path does nothing to a file git is already tracking. That stanza was
-written **after** the untracking and says so — it keeps the surviving on-disk
-folders out of `git status`, it did not clean them up. If you find a tracked run
-folder, untrack it; do not assume the ignore rule already handled it.
+**There is no `doc/`-shaped ignore rule, and adding one is the wrong instinct.**
+Three of them accumulated — `**/doc/basetestlog_*/`, `**/doc/testlog_*/`,
+`**/doc/extlog_*/` — one added each time somebody found a run folder already
+committed under a name the previous rules did not cover. None of them could
+catch the *next* name, which is the only occurrence that matters, and each one
+falsified the comment directly above it claiming `doc/` carries no test
+artifacts. Worse, ignoring a path does nothing to a file git already tracks, so
+for three months the rules kept the violation quiet rather than ending it.
+
+All three are gone. Two shape-based checks replaced them, and between them they
+cover the three moments the mistake can be made:
+
+| Check | Fires when | Covers |
+| --- | --- | --- |
+| `.githooks/pre-commit` | you stage it | the staged paths, before anything is authored |
+| `tom_d4rt/test/scd110_doc_holds_no_runner_output_test.dart` | you run the guards | the tracked tree, this machine's disk, the runner scripts, and `.gitignore` itself |
+
+Both match on the *shape* of a path — a `*log_*` run folder, a `.result.json`,
+a `.log.txt`, a `.console.log`, a `metrics.txt`, a testkit baseline — so a
+fourth folder name is caught on its first appearance. Run them together with
+`../tom_d4rt_flutter_ast/test/run_guard_tests.sh` — the assembled guards live in
+the AST twin because it owns the user-bridge sync they started with, and they
+are repo-wide, so running them from there covers this project too. If one goes
+red on your machine, move the folder into `testlog/`; do not add a rule to hide
+it.
 
 If you write an analysis document about a run, do not leave it in the run
 folder. Raw results are machine output and stay uncommitted in `testlog/`; a
 document a **person** wrote is the one thing in that folder worth keeping, and
 it belongs in `doc/` under a name that survives the run it came from. The
-2026-06-24 analysis was preserved that way, as `doc/issue_analysis_20260624.md`;
-the raw metrics it was written from are no longer tracked, which is the same
-convention every historical entry in `doc/interpreter_issues.md` follows.
+2026-06-24 analysis was preserved that way, as
+`tom_d4rt_flutter_ast/doc/issue_analysis_20260624.md` (it covers both twins and
+is kept in each project it describes); the raw metrics it was written from are
+no longer tracked, which is the same convention every historical entry in
+`tom_d4rt_flutter_ast/doc/interpreter_issues.md` follows.
 
 ## ⚠️ The tests must run strictly serially — never in parallel
 

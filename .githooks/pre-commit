@@ -1,5 +1,12 @@
 #!/bin/sh
-# Refuse commits that let the two Flutter twins' user bridges drift apart.
+# Two refusals, independent of each other:
+#
+#   1. runner output being committed under a `doc/` folder  (SCD110)
+#   2. the two Flutter twins' user bridges drifting apart   (SCD108)
+#
+# Check 1 is first because it is pure path inspection — no interpreter, no
+# subprocess, nothing to provision — so it cannot be skipped by the fail-open
+# branch that check 2 needs. See the block above each.
 #
 # Enable once per machine, from inside this repo:
 #
@@ -23,15 +30,59 @@
 # onto a sixteen-minute suite answers at the wrong cadence. `test/run_guard_tests.sh`
 # in the AST twin is the half a human invokes; this is the half nobody has to
 # remember.
+
+# Staged paths only — `--cached` against HEAD, so an unstaged edit does not
+# trigger a check the commit would not contain.
+staged=$(git diff --cached --name-only --diff-filter=ACMR 2>/dev/null)
+
+# ---------------------------------------------------------------------------
+# 1. `doc/` is hand-authored. Runner output goes in `testlog/`.
+#
+# WHY AT COMMIT TIME (SCD110). This rule was broken four times and every breach
+# was found months later, by which point the files were already in the history:
+# 104 machine files across four `doc/` run folders in three projects. Each was
+# "fixed" by adding a `.gitignore` stanza for the folder name just discovered —
+# a rule that must be told each name in advance and therefore never catches a
+# first occurrence. All three stanzas are gone; this is what replaced them,
+# together with `tom_d4rt/test/scd110_doc_holds_no_runner_output_test.dart`.
+#
+# The test is the authority on the tracked tree and on this machine's disk. The
+# hook is narrower on purpose — it sees only the staged paths, which is the one
+# moment the mistake can still be undone for free.
+#
+# MATCHES SHAPE, NOT NAME. `<pkg>/doc/<anything>log_<id>/...` is a run folder
+# whatever it is called; `.result.json`, `.log.txt`, `.console.log`,
+# `metrics.txt`, `last_testrun.json` and `baseline_MMDD_HHMM.csv` are the
+# artefact shapes this repo's runners and testkit produce. `test/doc/` is a test
+# directory that happens to be named `doc` and is deliberately not matched.
+offenders=$(printf '%s\n' "$staged" | grep -E \
+  '^[^/]+/doc/([^/]*log_[^/]*/|([^/]+/)*([^/]+\.(result\.json|log\.txt|console\.log)|metrics\.txt|last_testrun\.json|baseline_[0-9]{4}_[0-9]{4}\.csv)$)' \
+  2>/dev/null)
+if [ -n "$offenders" ]; then
+    echo "doc-holds-no-runner-output: machine-generated files staged under doc/." >&2
+    printf '%s\n' "$offenders" | sed 's/^/  /' >&2
+    echo "" >&2
+    echo "  doc/ is hand-authored. A committed run is a photograph of one" >&2
+    echo "  machine's build that nothing updates, so a later reader cannot" >&2
+    echo "  tell it from a current one. Unstage, then move — do not delete:" >&2
+    echo "" >&2
+    echo "      git restore --staged <paths>" >&2
+    echo "      mv <pkg>/doc/<run-folder> <pkg>/testlog/<run-folder>" >&2
+    echo "" >&2
+    echo "  A hand-written ANALYSIS of a run is the exception: that belongs in" >&2
+    echo "  doc/ under a name that outlives the run, e.g." >&2
+    echo "  doc/issue_analysis_<YYYYMMDD>.md." >&2
+    echo "" >&2
+    exit 1
+fi
+
+# ---------------------------------------------------------------------------
+# 2. The twins' user bridges must not drift.
 #
 # IT NO-OPS WHEN THE TWINS ARE UNTOUCHED. The check is package-local and this
 # hook is repo-wide, so it looks at the staged paths first and exits immediately
 # unless a user bridge or the sync tool itself is among them. A commit to
 # `tom_d4rt/` pays nothing.
-
-# Staged paths only — `--cached` against HEAD, so an unstaged edit does not
-# trigger a check the commit would not contain.
-staged=$(git diff --cached --name-only --diff-filter=ACMR 2>/dev/null)
 case "$staged" in
   *d4rt_user_bridges/*|*sync_shared_user_bridges*) ;;
   *) exit 0 ;;

@@ -25,7 +25,9 @@
 #     ./test/run_guard_tests.sh
 #
 # Add a check here when it is fast and needs no transport. Anything that needs
-# the companion app belongs in the corpus runners instead.
+# the companion app belongs in the corpus runners instead. A check may live in
+# another package — the second one does; what makes it belong here is its cost,
+# not its address.
 
 set -uo pipefail
 cd "$(dirname "$0")/.."
@@ -58,6 +60,14 @@ run "user-bridge sync (tool --check)" \
 # does pure file I/O and needs no companion app.
 run "user-bridge sync (test)" \
   flutter test test/sync_shared_user_bridges_test.dart
+
+# SCD110: `doc/` holds no runner output — tracked tree, this machine's disk, the
+# runner scripts, and the `.gitignore` ratchet. It lives in `tom_d4rt` because it
+# is a REPO-wide invariant (the same reason `release_hygiene_test.dart` does),
+# and it is run from here because this is the repo's only assembled set of fast
+# guards. `dart test`, not `flutter test`: `tom_d4rt` is a plain Dart package.
+run "doc/ holds no runner output" \
+  sh -c 'cd ../tom_d4rt && dart test test/scd110_doc_holds_no_runner_output_test.dart'
 
 if [ "$status" -eq 0 ]; then
   echo "all guards passed"

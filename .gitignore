@@ -112,40 +112,22 @@ reflectable.dart
 # Test run logs, baselines and analysis — machine-generated, never versioned.
 # These live in a `testlog/` folder next to each project's `doc/` folder.
 # The `doc/` folder itself is fully tracked (no test artifacts written there).
+#
+# ONE RULE, AND DELIBERATELY NO `doc/`-SHAPED COMPANION (SCD110). There used to
+# be three more stanzas here — `**/doc/basetestlog_*/`, `**/doc/testlog_*/`,
+# `**/doc/extlog_*/` — one added each time a runner was found writing its output
+# into `doc/`. Every one of them made the comment directly above FALSE while
+# claiming to enforce it, and each was added only after the next unforeseen
+# folder name had already been committed. Naming the violation is not the same
+# as preventing it.
+#
+# The invariant is now checked instead of ignored, by
+# `tom_d4rt/test/scd110_doc_holds_no_runner_output_test.dart` (tracked tree) and
+# `.githooks/pre-commit` (at the moment a commit is authored). Both work on the
+# SHAPE of the path, so a fourth folder name is caught on its first appearance
+# rather than after a month. Do not re-add a `doc/`-shaped ignore rule: a run
+# folder under `doc/` is a defect to move, not output to hide.
 **/testlog/
-
-# LEGACY. No runner writes here any more — `run_base_tests.{sh,ps1}` now emit
-# `testlog/basetestlog_<ID>/`, covered by the rule above. This stanza only keeps
-# pre-existing folders on developer machines out of `git status`; drop it once no
-# machine still has one.
-#
-# It is kept as a warning, not just as a rule. Ignoring the output in place was
-# the wrong fix: the base runner predates the 2026-06-24 "logs go to testlog/,
-# not doc/" decision (1a4250154) and was simply never migrated, so this line
-# preserved the violation instead of ending it — and made the comment above it
-# false for every base run from 2026-06-05 until 2026-09-05.
-**/doc/basetestlog_*/
-
-# SCD109. Same accident, the other two folder names. `doc/testlog_<ID>/` is what
-# the `.ps1` sweep runner wrote until SCC38, and `doc/extlog_<ID>/` is what a
-# 2026-07-28 run left behind; 104 machine files across four folders were
-# COMMITTED as a result — 41 result-JSON + 41 logs from one Windows sweep alone.
-#
-# THIS STANZA IS NOT WHAT FIXED THAT, and the distinction is the whole lesson of
-# the one above. gitignore does not affect already-tracked files, so adding it
-# alone would have left all 104 exactly where they were while the tree looked
-# protected. They were untracked first (`git rm --cached`, kept on disk); this
-# only keeps the surviving on-disk copies out of `git status`.
-#
-# It is not yet a rule guarding a path nothing can produce:
-# `_run_testlog_20260503-2009.sh` still writes `doc/testlog_$ID` — that script is
-# SCD110. Drop this stanza when SCD110 lands AND no machine still has a folder.
-#
-# The one hand-authored file in that wreckage, `error_analysis.md`, was not
-# ignored — it was MOVED to `doc/issue_analysis_20260624.md` in each project,
-# because a human-written analysis belongs in `doc/` and nothing else there did.
-**/doc/testlog_*/
-**/doc/extlog_*/
 
 # Generated bridge/example output (*.b.dart) under the d4 example trees —
 # produced by the generator on every build; never hand-edited, never versioned.
