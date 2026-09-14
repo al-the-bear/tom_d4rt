@@ -41,12 +41,17 @@ class NativeShape {
 /// What `D4.registerInterfaceProxy` produces: a real native subtype carrying
 /// the interpreted instance it stands for.
 ///
-/// The name is not arbitrary. A native value is mapped back to a bridge by
-/// `Environment.toBridgedClass`, whose fallback claims a bridge whose name is a
-/// prefix of the native type name — which is how `_InterpretedThemeExtension`
-/// resolves to `ThemeExtension` in the corpus. `ShapeProxy` reproduces that:
-/// rename it `_ShapeProxy` and the lookup misses, the binding never runs its
-/// check, and this file passes for a reason that has nothing to do with the fix.
+/// The name is not arbitrary, and since SCD132 neither is the mapping. A native
+/// value is mapped back to a bridge by `Environment.toBridgedClass`; its prefix
+/// fallback used to claim any bridge whose name prefixed the native type name,
+/// which is how `_InterpretedThemeExtension` resolves to `ThemeExtension` in
+/// the corpus and how `ShapeProxy` used to resolve here. That rule now requires
+/// the bridge to DECLARE the type in `nativeNames`, which this one does.
+///
+/// The trap is now closed from both ends: rename this `_ShapeProxy` and the
+/// lookup still misses, so the file would pass for a reason unrelated to the
+/// fix — and drop the `nativeNames` line and it fails outright rather than
+/// resolving by accident.
 class ShapeProxy extends NativeShape implements D4InterpretedProxy {
   ShapeProxy(this._instance);
   final Object _instance;
@@ -230,6 +235,11 @@ D4rtRunner runnerWithShape() => D4rtRunner()
     BridgedClass(
       nativeType: NativeShape,
       name: 'Shape',
+      // SCD132: declared, not guessed. `toBridgedClass`'s prefix fallback
+      // used to resolve `ShapeProxy` to this bridge on the shared name
+      // alone; it now requires the bridge to say so. Remove this line and
+      // the two cases below fail with "No registered bridged class found".
+      nativeNames: const ['ShapeProxy'],
       constructors: {'': (visitor, positional, named) => const NativeShape()},
       staticMethods: {'wrap': _wrap},
     ),

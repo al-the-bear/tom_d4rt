@@ -1,3 +1,34 @@
+## 0.95.0
+
+### Changed — a bare name prefix no longer claims a bridge (scd132)
+
+`Environment.toBridgedClass` ends in a prefix fallback: if nothing else matched
+anywhere in the scope chain, it claimed any registered bridge whose name was a
+>=3-character prefix of the native type name, with no other corroboration. Two
+of the three false positives that method's own header documents are that rule
+firing — `MappedListIterable` claimed by `Map`, `TextDirection` claimed by
+`Text` — and each was repaired by routing ONE caller around the fallback, so the
+rule survived every fix and the next name-shaped coincidence was going to be
+claimed just as silently. A bridge named `Set` claims `Settings`.
+
+The prefix now only finds a CANDIDATE. The bridge must also declare the
+connection: `nativeNames` naming the type, or a supertype-registry edge between
+the two names. Both are things somebody wrote down. When nothing corroborates,
+the method throws — which every caller already handles, and which is more honest
+than a silently wrong dispatch.
+
+`isAssignable` is the obvious third corroboration and is deliberately absent: it
+takes a VALUE and this method is given only a `Type`. Callers that hold the
+value already consult it.
+
+**Measured before narrowing.** A probe on every fallback match across both
+trees' full suites fired 12 times: 11 for one test's deliberately prefix-named
+proxy, and once for `TextDirection` → `Text`, the known false positive.
+G-DCLI-05's `ProgressBothImpl` → `Progress` — the case the fallback was ADDED
+for — never reached it; an earlier pass resolves it today. So the rule had no
+measured legitimate user. The one test that relied on it now declares
+`nativeNames`, which is the relationship becoming declared instead of guessed.
+
 ## 0.94.1
 
 ### Documentation — two cross-tree facts recorded at the code they constrain (scd125)

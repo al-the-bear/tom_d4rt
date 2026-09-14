@@ -1179,27 +1179,59 @@ class Environment {
       current = current._enclosing;
     }
 
-    // PASS B — fuzzy fallback across the whole scope chain. G-DCLI-05 FIX:
-    // handle non-underscore implementation types like `ProgressBothImpl`, where
-    // a registered bridge name (`Progress`) is a prefix of the native type
-    // name. Runs only after every frame failed PASS A, so a precise match
-    // anywhere in the chain wins over this loose prefix match (see the method
-    // header for the `MappedListIterable` → `Map` false-positive this guards).
+    // PASS B — prefix fallback across the whole scope chain, CORROBORATED.
+    //
+    // SCD132. This used to match any registered bridge whose name was a
+    // >=3-character prefix of the native type name, with nothing else asked.
+    // Two of the three false positives this method's header documents are that
+    // rule firing: `MappedListIterable` claimed by `Map`, and `TextDirection`
+    // claimed by `Text` — and each was repaired by routing ONE caller around
+    // PASS B rather than by narrowing it, so the next name-shaped coincidence
+    // was always going to be claimed just as silently.
+    //
+    // A NAME PREFIX IS A COINCIDENCE, NOT A RELATIONSHIP. The prefix is still
+    // how a candidate is FOUND — it is cheap and it is what the G-DCLI-05 case
+    // (`ProgressBothImpl` → `Progress`) looks like — but the bridge must also
+    // DECLARE the connection, one of two ways:
+    //
+    //   * `nativeNames` names this type, so the bridge says it speaks for it;
+    //   * the supertype registry relates the two names, so a hierarchy
+    //     somebody registered says they are related.
+    //
+    // `isAssignable` is the obvious third corroboration and is NOT reachable
+    // here: it takes a VALUE and this method is given only a `Type`. Callers
+    // that hold the value already consult it (GEN-075 in
+    // `BridgedClass.isSubtypeOf`); this is the path that cannot.
+    //
+    // MEASURED BEFORE NARROWING. A probe on every PASS B match across both
+    // trees' full suites fired 12 times: 11 for one test's deliberately
+    // prefix-named proxy, and once for `TextDirection` → `Text`, the known
+    // false positive. G-DCLI-05's own case never reached PASS B at all — PASS A
+    // resolves it today. So the rule this narrows had no measured legitimate
+    // user, and the test that did rely on it now declares `nativeNames`, which
+    // is the realignment rather than a workaround.
+    //
+    // When nothing corroborates, falling through to the throw below is more
+    // honest than returning a wrong bridge: every caller already handles it,
+    // and a wrong bridge is a silently wrong dispatch.
     current = this;
     while (current != null) {
       final bridgedClass = current._bridgedClassesLookupByType.entries
           .firstWhereOrNull((e) {
             final bridgeName = e.value.name;
-            // Only match if the bridge name is a substantial prefix (>= 3 chars)
-            // and the native type name starts with it followed by more chars.
-            return bridgeName.length >= 3 &&
-                nativeTypeNameFull.startsWith(bridgeName) &&
-                nativeTypeNameFull.length > bridgeName.length;
+            // The bridge name must be a substantial prefix of the native type
+            // name — and that is only the candidate test, not the verdict.
+            if (bridgeName.length < 3 ||
+                !nativeTypeNameFull.startsWith(bridgeName) ||
+                nativeTypeNameFull.length <= bridgeName.length) {
+              return false;
+            }
+            return _prefixMatchIsCorroborated(e.value, nativeTypeNameFull);
           })
           ?.value;
       if (bridgedClass != null) {
         Logger.debug(
-          "[Environment] Matched native type '$nativeTypeNameFull' to bridge '${bridgedClass.name}' via prefix matching",
+          "[Environment] Matched native type '$nativeTypeNameFull' to bridge '${bridgedClass.name}' via corroborated prefix matching",
         );
         return bridgedClass;
       }
@@ -1209,6 +1241,42 @@ class Environment {
     throw RuntimeD4rtException(
       'Cannot bridge native object: No registered bridged class found for native type $nativeType.',
     );
+  }
+
+  /// Whether [bridge] declares a relationship to [nativeTypeNameFull], beyond
+  /// its name happening to be a prefix of it.
+  ///
+  /// SCD132. Two corroborations, and both are things somebody WROTE DOWN rather
+  /// than things a string comparison noticed:
+  ///
+  ///   * `nativeNames` names the type (or its base, before any type arguments).
+  ///     That is the bridge saying "I speak for this native type".
+  ///   * the supertype registry relates the two names in either direction —
+  ///     `BridgedClass.registerSupertypes` is how a bridge package declares a
+  ///     hierarchy, and an edge between them is a declared relationship.
+  ///
+  /// Deliberately NOT a third rule for "the name looks close enough". That is
+  /// what PASS B already was.
+  static bool _prefixMatchIsCorroborated(
+    BridgedClass bridge,
+    String nativeTypeNameFull,
+  ) {
+    final base = nativeTypeNameFull.split('<').first;
+    final declared = bridge.nativeNames;
+    if (declared != null &&
+        (declared.contains(nativeTypeNameFull) || declared.contains(base))) {
+      return true;
+    }
+    // Either direction: the registry records "X's supertypes include Y", and
+    // which of the pair is the subtype depends on which way the bridge package
+    // wrote the hierarchy.
+    if (BridgedClass.transitiveSupertypeNames(base).contains(bridge.name)) {
+      return true;
+    }
+    if (BridgedClass.transitiveSupertypeNames(bridge.name).contains(base)) {
+      return true;
+    }
+    return false;
   }
 
   /// Strips a native type name down to the part the structural suffix rule can

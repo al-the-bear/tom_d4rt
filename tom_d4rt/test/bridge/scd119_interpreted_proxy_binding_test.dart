@@ -46,6 +46,14 @@ class _NativeCrate {
 
 /// What `D4.registerInterfaceProxy` produces: a real native subtype that
 /// carries the interpreted instance it stands for.
+///
+/// The `Shape` bridge names it in `nativeNames`, which is what maps it back
+/// (SCD132). This file originally leaned on a bare name prefix instead —
+/// `Environment.toBridgedClass`'s PASS B claimed any bridge whose name prefixed
+/// the native type name — and that rule now requires the bridge to say so. The
+/// trap is closed from both ends: rename this `_ShapeProxy` and the lookup
+/// misses; drop the `nativeNames` line and it fails outright rather than
+/// resolving by coincidence.
 class ShapeProxy extends _NativeShape implements D4InterpretedProxy {
   ShapeProxy(this._instance);
   final Object _instance;
@@ -84,6 +92,15 @@ void main() {
         BridgedClass(
           nativeType: _NativeShape,
           name: 'Shape',
+          // SCD132: `ShapeProxy` resolves to this bridge because the
+          // bridge SAYS SO, not because the names share a prefix. It used
+          // to work on the prefix alone — `toBridgedClass` PASS B matched
+          // any bridge whose name was a >=3-character prefix of the native
+          // type name — and that rule now requires a declared
+          // relationship. Remove this line and the cases below fail with
+          // "No registered bridged class found", which is the honest
+          // answer to an undeclared one.
+          nativeNames: const ['ShapeProxy'],
           constructors: {'': (visitor, positional, named) => _NativeShape()},
           staticMethods: {'wrap': _wrap},
         ),
