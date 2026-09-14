@@ -1,3 +1,44 @@
+## 0.86.0
+
+### Fixed — `dynamic` is a top type for `BridgedClass.isSubtypeOf` (scd90)
+
+`BridgedClass('int').isSubtypeOf(BridgedClass('dynamic'))` was `false` — the
+predicate reported that an `int` cannot inhabit `dynamic`, which is wrong about
+Dart for every value in the language. Measured across the implementations of
+`RuntimeType`:
+
+| subject                   | BC(Object) | BC(dynamic) | BC(void) | NRT(Object) | NRT(dynamic) | NRT(void) |
+| ------------------------- | ---------- | ----------- | -------- | ----------- | ------------ | --------- |
+| `BridgedClass('int')`     | true       | **false**   | **false**| **false**   | **false**    | **false** |
+| `NamedRuntimeType('int')` | true       | true        | true     | true        | true         | true      |
+| `TypeParameter('T')`      | true       | true        | true     | true        | true         | true      |
+
+So this was never a missing case — it was one implementation disagreeing with
+its peers, in five of six cells. The `NamedRuntimeType` column is the half the
+filing todo did not mention and is the worse one: `BridgedClass.isSubtypeOf`
+reached a name test only inside its `other is BridgedClass` block and fell
+through to `return false` for every other kind of target — including the
+sentinel `runtime_interfaces.dart` documents as how `dynamic` is spelled when a
+richer type object is unavailable.
+
+`isTopTypeName` is now the single answer all three ask, covering `dynamic`,
+`Object`, `Object?` and `void`. It replaces two private spellings of the same
+idea (`_isWildcardTypeName`, `TypeParameter._isTopType`) that did not agree with
+the third implementation, which had neither.
+
+The by-name workaround in `_checkArgumentType` — `declaredName == 'dynamic' ||
+declaredName == 'void'` on the RESOLVED type — is removed, because the predicate
+answers that question itself now. F-SCC29-19 still passes, and reverting only
+the predicate fix makes it fail alone, which is what says it passes for the
+right reason rather than through a name test.
+
+**One rule had to stay by name.** Returning a value from a `void` function is
+rejected at the declaration in Dart, not because the value fails to inhabit the
+type — `void` IS a top type for assignability. The return check previously
+entered its error path only because `int <: void` answered false, so making the
+predicate correct silently deleted that diagnostic (`I-MISC-209`). The check now
+names `void` explicitly, as it already named `dynamic`.
+
 ## 0.85.0
 
 ### Fixed — an extension member no longer answers for an error raised on a different receiver (scd87)

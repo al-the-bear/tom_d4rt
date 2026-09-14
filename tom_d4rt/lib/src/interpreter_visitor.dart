@@ -8572,11 +8572,22 @@ class InterpreterVisitor extends GeneralizingAstVisitor<Object?> {
 
         if (valueRuntimeType != null) {
           if (declaredType != null) {
+            // SCD90 — `void` is a top type for ASSIGNABILITY, and
+            // `isSubtypeOf` now says so. Returning a value from a `void`
+            // function is a different rule: Dart rejects it at the declaration,
+            // not because the value fails to inhabit the type. So the check
+            // names `void` here rather than asking the predicate, exactly as it
+            // already named `dynamic`. Without this, making the predicate
+            // correct silently deleted I-MISC-209 — the block was only ever
+            // entered because `int <: void` used to answer false.
+            final returnsValueFromVoid =
+                declaredType.name == "void" && returnValue != null;
             if (declaredType.name != "dynamic" &&
-                !valueRuntimeType.isSubtypeOf(
-                  declaredType,
-                  value: returnValue,
-                )) {
+                (returnsValueFromVoid ||
+                    !valueRuntimeType.isSubtypeOf(
+                      declaredType,
+                      value: returnValue,
+                    ))) {
               bool showError = true;
               if (isNullable && returnValue == null) {
                 showError = false;

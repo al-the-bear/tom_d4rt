@@ -241,6 +241,16 @@ class BridgedClass implements RuntimeType {
     // Any concrete type is a subtype of a type parameter (T)
     if (other is TypeParameter) return true;
 
+    // SCD90 — every value inhabits a top type, so this has to be asked before
+    // anything else and for EVERY kind of target. It sits above the
+    // `other is BridgedClass` block deliberately: the old code only reached a
+    // name test inside that block, so a `dynamic` target spelled as a
+    // `NamedRuntimeType` — which is exactly how this interpreter spells
+    // `dynamic` when a richer type object is unavailable — fell through to
+    // `return false`. It also sits above the `num` special case, which
+    // otherwise reports `num` as not a subtype of `dynamic`.
+    if (isTopTypeName(other.name)) return true;
+
     if (other is BridgedClass) {
       if (isSubtypeOfFunc != null) {
         return isSubtypeOfFunc!.call(other, value: value);
@@ -470,10 +480,7 @@ class TypeParameter implements RuntimeType {
   }
 
   /// DFUB7: the Dart top types an unbounded type parameter is a subtype of.
-  static bool _isTopType(RuntimeType other) {
-    final n = other.name;
-    return n == 'Object' || n == 'dynamic' || n == 'void';
-  }
+  static bool _isTopType(RuntimeType other) => isTopTypeName(other.name);
 
   @override
   String toString() => name;

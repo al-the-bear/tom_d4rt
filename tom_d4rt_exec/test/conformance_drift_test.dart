@@ -446,6 +446,20 @@ const Map<String, _Coverage> _coveredElsewhere = {
   // next ast publish" — has now fired. Until it lands the ast twin pins the half
   // the scan cannot see, that the signal survives being re-wrapped, and this
   // entry records a real, closable gap rather than a structural one.
+  // SCD90's top-type matrix. Registration-level by nature — it constructs
+  // `RuntimeType` implementations directly and asks them a predicate question,
+  // so it needs no parser and the twin runs the identical file. Not ported to
+  // exec on purpose: this package resolves `tom_d4rt_ast` from pub.dev, so a
+  // copy here would measure the published predicate rather than the fixed one,
+  // and would go red until the release lands (DGUC6). The twin is where the
+  // code under test lives.
+  'scd90_top_type_subtyping_test.dart': _Coverage(
+    'ast:runtime/scd90_top_type_subtyping_test.dart',
+    _astTwin,
+    layer: _Layer.registration,
+    refCases: 4,
+    twinCases: 4,
+  ),
   'scc28_typed_undefined_member_test.dart': _Coverage(
     'ast:runtime/scc28_typed_undefined_member_test.dart',
     _astTwin,

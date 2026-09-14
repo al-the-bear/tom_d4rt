@@ -408,7 +408,16 @@ class InterpretedFunction implements Callable {
     if (declaredType is TypeParameter) return null;
 
     final declaredName = declaredType.name;
-    if (declaredName == 'dynamic' || declaredName == 'void') return null;
+    // SCD90 removed a by-name repeat of the top-type test that used to stand
+    // here (`declaredName == 'dynamic' || declaredName == 'void'`). It was a
+    // workaround: `BridgedClass.isSubtypeOf` did not treat `dynamic` as a top
+    // type, so a raw generic's unbound `T` — which is spelled `T` and RESOLVES
+    // to `dynamic` — rejected a correct argument. The predicate answers that
+    // question itself now, for every kind of target, so repeating it here would
+    // be a spelling test standing in for a type question, which is the shape
+    // SCC28 spent its whole budget removing. The cheap pre-resolution exit on
+    // the ANNOTATION's lexeme stays: it skips an environment walk, and a
+    // spelling test is the only thing available before resolution.
 
     return ResolvedBinding._(
       declaredType,

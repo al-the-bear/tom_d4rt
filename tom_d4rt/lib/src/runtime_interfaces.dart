@@ -7,13 +7,33 @@ abstract class RuntimeType {
   bool isSubtypeOf(RuntimeType other, {Object? value});
 }
 
-/// True for the top / bottom-ish type names that behave as wildcards in
-/// structural function/record subtype checks. Treating `dynamic`, `Object` and
-/// `void` as "matches anything" keeps the structural comparison permissive
-/// exactly where Dart's own assignability is permissive, avoiding regressions
-/// on annotations the interpreter can only resolve coarsely.
-bool _isWildcardTypeName(String n) =>
-    n == 'dynamic' || n == 'Object' || n == 'void';
+/// True for the names that denote a TOP TYPE — one every value inhabits.
+///
+/// `dynamic`, `Object`, `Object?` and `void`. Treating them as "matches
+/// anything" keeps a comparison permissive exactly where Dart's own
+/// assignability is permissive, which matters most on annotations the
+/// interpreter can only resolve coarsely.
+///
+/// **One predicate, because three used to disagree.** SCD90 measured the
+/// question `X <: <top>` across the implementations of [RuntimeType] and found
+/// [NamedRuntimeType] and `TypeParameter` answering `true` for all of
+/// `Object` / `dynamic` / `void`, while `BridgedClass` answered `true` only for
+/// a `BridgedClass` named `Object` — false for `dynamic`, for `void`, and for
+/// every [NamedRuntimeType] target including `Object`, which is the sentinel
+/// this very file documents as how `dynamic` is spelled when a richer type
+/// object is unavailable. Five of six cells wrong in one implementation, right
+/// in the others. So the fix is one shared answer rather than a fourth private
+/// copy of it.
+///
+/// `Object?` is included although nothing was measured spelling it: a type
+/// whose name is literally `Object?` can only be the nullable top type, so
+/// admitting it cannot be wrong, and omitting it would be the next asymmetry.
+bool isTopTypeName(String n) =>
+    n == 'dynamic' || n == 'Object' || n == 'Object?' || n == 'void';
+
+/// Deprecated spelling kept for the structural helpers below, which read better
+/// with the old name at their call sites.
+bool _isWildcardTypeName(String n) => isTopTypeName(n);
 
 /// Structural field/parameter compatibility used by [FunctionRuntimeType] and
 /// [RecordRuntimeType]. Independent of the concrete [RuntimeType] class so it
