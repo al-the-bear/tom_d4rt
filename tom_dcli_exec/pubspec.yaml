@@ -19,7 +19,7 @@ dependencies:
   # `Undefined variable: <Type>` in the ErrorReporter, neither when its on-type
   # resolves through the fallback (1.12.0) nor while that fallback probes the
   # stdlib modules (1.13.0). The REPL's `-test` mode counts those as failures.
-  tom_d4rt_exec: ">=1.13.0"
+  tom_d4rt_exec: "^1.25.0"
   # Mirror-AST interpreter — generated bridges import its runtime directly.
   # Floor 0.20.0: tracks the interpreter this REPL is verified against, and
   # 0.19.0 is load-bearing (same-name bridged classes resolve by declaring
