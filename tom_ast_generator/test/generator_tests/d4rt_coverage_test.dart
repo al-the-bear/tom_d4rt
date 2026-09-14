@@ -30,6 +30,8 @@ final String _packageRoot = Directory.current.path;
 final String _exampleRoot = p.join(_packageRoot, 'example');
 
 void main() {
+  _scd127CountGuard();
+
   // ── dart_overview: feature coverage ──────────────────────────────
 
   group('dart_overview coverage', () {
@@ -46,7 +48,20 @@ void main() {
 
       // Generate bridges once for all tests (via astgen pipeline)
       final ok = await AstgenTestSetup.prepareBridges(tester, config);
-      expect(ok, isTrue, reason: 'Bridge generation failed for dart_overview');
+      // SCD127: say what this abort COSTS and what caused it. A failing
+      // setUpAll never registers the cases below, so `dart test` reports one
+      // failure where $_corpusCaseCount are missing — and the cause is almost
+      // always the fixture's frozen lock, which `lastFailure` names.
+      expect(
+        ok,
+        isTrue,
+        reason:
+            'Bridge generation failed for dart_overview. This withholds '
+            '$_corpusCaseCount cases in this file — they are not registered, '
+            'so the run reports one failure rather than '
+            '$_corpusCaseCount missing tests.\n'
+            '${AstgenTestSetup.lastFailure ?? "(no detail recorded)"}',
+      );
     });
 
     // ── Top-Level Exportables ──────────────────────────────────────
@@ -1220,4 +1235,52 @@ void _expectSuccess(D4rtTestResult result, String featureId) {
     }
     fail(buf.toString());
   }
+}
+
+// SCD127 GUARD — everything above this line is the corpus. Nothing below it may
+// add a `test(` to the count the guard checks.
+
+/// How many cases the group above registers, and therefore how many a failed
+/// `setUpAll` withholds.
+///
+/// WHY THE NUMBER IS WRITTEN DOWN. A `setUpAll` that throws does not merely
+/// fail its group — MEASURED, the group's cases are never REGISTERED at all.
+/// `dart test` then reports one failure named `<group> (setUpAll)`, and a run
+/// missing a quarter of its coverage is indistinguishable from one missing two
+/// assertions. That is how a frozen fixture lock reported `418 passing, 2
+/// failing` while withholding 122 tests, and why a baseline CSV recording
+/// that shape reads as a small contained problem.
+///
+/// So the count travels with the failure. It cannot be computed at runtime —
+/// the cases are gone by then — so it is recorded here and F-SCD127-1 keeps it
+/// honest against the file itself.
+const int _corpusCaseCount = 94;
+
+void _scd127CountGuard() {
+  group('SCD127: the withheld-case count is honest', () {
+    // NO setUpAll, deliberately: this group has to run on exactly the occasion
+    // the corpus above does not. The probe that established the behaviour above
+    // also established this — a sibling group with no fixture runs normally
+    // while the guarded one is skipped entirely.
+    test('F-SCD127-1: _corpusCaseCount matches the cases above it '
+        '[2026-09-15]', () {
+      final source = File(
+        'test/generator_tests/d4rt_coverage_test.dart',
+      ).readAsStringSync();
+      final corpus = source.substring(0, source.indexOf('// SCD127 GUARD'));
+      final actual = RegExp(
+        r'(?<![A-Za-z0-9_])test\(',
+      ).allMatches(corpus).length;
+      expect(
+        actual,
+        equals(_corpusCaseCount),
+        reason:
+            'The corpus above the guard marker registers $actual cases but '
+            '_corpusCaseCount says $_corpusCaseCount. A stale number here '
+            'understates what a broken fixture costs, which is the whole '
+            'defect SCD127 '
+            'exists to stop. Update the constant.',
+      );
+    });
+  });
 }

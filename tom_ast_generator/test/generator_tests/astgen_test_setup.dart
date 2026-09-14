@@ -121,6 +121,9 @@ class AstgenTestSetup {
     );
 
     if (!result.isSuccess) {
+      lastFailure =
+          'bridge generation failed in $projectPath: ${result.errors}\n'
+          'fixture resolved: ${resolvedInterpreterVersions(projectPath)}';
       stderr.writeln('BRIDGE GENERATION ERRORS: ${result.errors}');
       return false;
     }
@@ -143,11 +146,24 @@ class AstgenTestSetup {
     ], workingDirectory: projectPath);
 
     if (compileResult.exitCode != 0) {
+      // SCD127: the resolved versions FIRST, because that is the line that
+      // ends the investigation. A compile failure here is far more often a
+      // frozen fixture lock than a defect in the generated code, and the
+      // compiler's own output says nothing about which versions it was given.
+      lastFailure =
+          '`dart compile exe $runnerPath` failed in $projectPath\n'
+                  'fixture resolved: ${resolvedInterpreterVersions(projectPath)}\n'
+                  'If a tom_* version above is older than the working tree, the fixture '
+                  'lock is frozen: run `dart pub upgrade` in $projectPath.\n'
+                  '${compileResult.stderr}'
+              .trim();
       stderr.writeln('D4 COMPILATION FAILED:');
       stderr.writeln(compileResult.stdout);
       stderr.writeln(compileResult.stderr);
       return false;
     }
+
+    lastFailure = null;
 
     // Mark the compile as done for siblings still racing against us.
     try {
@@ -156,6 +172,49 @@ class AstgenTestSetup {
       /* sentinel is an optimisation; skip on failure */
     }
     return true;
+  }
+
+  /// Why the last [prepareBridges] call returned false, or null if it did not.
+  ///
+  /// SCD127: the diagnosis has to travel with the BOOLEAN, because that is what
+  /// the caller asserts on. `prepareBridges` already wrote the compiler's stderr,
+  /// and the `expect` that consumed its result said only "Bridge generation
+  /// failed for dart_overview" — so the one fact that explained everything, the
+  /// fixture's resolved versions, never reached the reader. It cost twenty
+  /// minutes of bisection to recover and is one line of data.
+  static String? lastFailure;
+
+  /// The `tom_*` packages [projectPath]'s lock resolved, as one line.
+  ///
+  /// The FIXTURE's lock, not this package's. `example/d4` is its own package
+  /// with its own gitignored lock while it path-resolves `tom_d4rt_exec` from
+  /// the working tree, so it can freeze at a version that no longer compiles
+  /// against HEAD — which is exactly what happened at tom_d4rt_ast 0.19.0,
+  /// whose exports lacked `ConvertStdlib`, `CollectionStdlib`,
+  /// `TypedDataStdlib` and `Logger`.
+  ///
+  /// Best-effort by design: this runs on a path that has already failed, so a
+  /// missing or unparseable lock must degrade to a note rather than throw and
+  /// replace the real diagnosis with its own.
+  static String resolvedInterpreterVersions(String projectPath) {
+    final lock = File(p.join(projectPath, 'pubspec.lock'));
+    if (!lock.existsSync()) {
+      return 'no pubspec.lock in $projectPath — the fixture was never resolved';
+    }
+    try {
+      final entry = RegExp(
+        r'^  (tom_\w+):\n(?:.*\n)*?    source: (\S+)\n    version: "([^"]+)"',
+        multiLine: true,
+      );
+      final found = [
+        for (final m in entry.allMatches(lock.readAsStringSync()))
+          '${m.group(1)} ${m.group(3)} (${m.group(2)})',
+      ];
+      if (found.isEmpty) return 'no tom_* packages in ${lock.path}';
+      return found.join(', ');
+    } catch (e) {
+      return 'could not read ${lock.path}: $e';
+    }
   }
 
   /// Recursively post-process all `.b.dart` files in a directory.

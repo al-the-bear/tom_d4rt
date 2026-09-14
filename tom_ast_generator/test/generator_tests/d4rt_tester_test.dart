@@ -55,12 +55,20 @@ void main() {
       // ignore: avoid_print
       print('BRIDGE ERRORS: ${tester.lastGenerationErrors}');
     }
+    // SCD127: name the cost and the cause. A failing setUpAll never registers
+    // the cases below it, so one reported failure stands in for all of them.
     expect(
       ok,
       isTrue,
-      reason: 'Bridge generation failed for d4: ${tester.lastGenerationErrors}',
+      reason:
+          'Bridge generation failed for d4. This withholds $_corpusCaseCount '
+          'cases in this file — they are not registered, so the run reports '
+          'one failure rather than $_corpusCaseCount missing tests.\n'
+          '${AstgenTestSetup.lastFailure ?? tester.lastGenerationErrors}',
     );
   });
+
+  _scd127CountGuard();
 
   group('D4rtTester end-to-end', () {
     // ── example_project ──────────────────────────────────────────────
@@ -459,4 +467,52 @@ void _expectSuccess(D4rtTestResult result, String projectName) {
     }
     fail(buf.toString());
   }
+}
+
+// SCD127 GUARD — everything above this line is the corpus. Nothing below it may
+// add a `test(` to the count the guard checks.
+
+/// How many cases the group above registers, and therefore how many a failed
+/// `setUpAll` withholds.
+///
+/// WHY THE NUMBER IS WRITTEN DOWN. A `setUpAll` that throws does not merely
+/// fail its group — MEASURED, the group's cases are never REGISTERED at all.
+/// `dart test` then reports one failure named `<group> (setUpAll)`, and a run
+/// missing a quarter of its coverage is indistinguishable from one missing two
+/// assertions. That is how a frozen fixture lock reported `418 passing, 2
+/// failing` while withholding 122 tests, and why a baseline CSV recording
+/// that shape reads as a small contained problem.
+///
+/// So the count travels with the failure. It cannot be computed at runtime —
+/// the cases are gone by then — so it is recorded here and F-SCD127-2 keeps it
+/// honest against the file itself.
+const int _corpusCaseCount = 28;
+
+void _scd127CountGuard() {
+  group('SCD127: the withheld-case count is honest', () {
+    // NO setUpAll, deliberately: this group has to run on exactly the occasion
+    // the corpus above does not. The probe that established the behaviour above
+    // also established this — a sibling group with no fixture runs normally
+    // while the guarded one is skipped entirely.
+    test('F-SCD127-2: _corpusCaseCount matches the cases above it '
+        '[2026-09-15]', () {
+      final source = File(
+        'test/generator_tests/d4rt_tester_test.dart',
+      ).readAsStringSync();
+      final corpus = source.substring(0, source.indexOf('// SCD127 GUARD'));
+      final actual = RegExp(
+        r'(?<![A-Za-z0-9_])test\(',
+      ).allMatches(corpus).length;
+      expect(
+        actual,
+        equals(_corpusCaseCount),
+        reason:
+            'The corpus above the guard marker registers $actual cases but '
+            '_corpusCaseCount says $_corpusCaseCount. A stale number here '
+            'understates what a broken fixture costs, which is the whole '
+            'defect SCD127 '
+            'exists to stop. Update the constant.',
+      );
+    });
+  });
 }

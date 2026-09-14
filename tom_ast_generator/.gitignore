@@ -5,3 +5,11 @@
 # Avoid committing pubspec.lock for library packages; see
 # https://dart.dev/guides/libraries/private-files#pubspeclock.
 pubspec.lock
+
+# SCD127. One deliberate exception to the rule above. This is not a resolution —
+# it is hand-written, never produced by pub, and records the exact versions the
+# 2026-09-05 fixture freeze was stuck at so the diagnostic that names them has a
+# fixture with a known answer. Ignored, it would vanish on a fresh clone and
+# `scd127_frozen_fixture_diagnostic_test.dart` would fail for a reason that has
+# nothing to do with what it asserts.
+!test/generator_tests/scd127_frozen_fixture/pubspec.lock
