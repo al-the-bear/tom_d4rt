@@ -75,6 +75,8 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:test/test.dart';
 
+import 'port_recipe.dart';
+
 /// Why a reference file with no same-path exec counterpart is nevertheless
 /// covered, and where that coverage lives.
 ///
@@ -1296,6 +1298,12 @@ const Map<String, _Divergence> _divergentBaseline = {
   // [_pinnedInterpreterFloors] is what makes the flip condition
   // machine-checkable instead of remembered.
   //
+  // MEASURED 2026-09-14 against resolved 0.65.0 by
+  // `dart run tool/remeasure_pins.dart`: 25 of 26 pass, and the one that fails
+  // is F-SCC29-21 — `expected throws TypeError, returned 1`, which is the
+  // permissive result this copy asserts. So the pin is a measurement, not a
+  // restatement.
+  //
   // Re-port when a publish raises exec's floor past 0.87.0.
   'scc29_parameter_type_check_test.dart': _Divergence.deliberate,
 };
@@ -1400,6 +1408,19 @@ const Map<String, _Divergence> _divergentBaseline = {
 /// you happened to be reading — the six that had gone stale were stale for the
 /// same reason, and reading any one of them would not have revealed the other
 /// five.
+///
+/// THE RUN IS A COMMAND (SCD124), because at seven entries a five-step manual
+/// recipe per entry is enough friction not to do, and not doing it is how the
+/// six went stale:
+///
+///     dart run tool/remeasure_pins.dart
+///
+/// It ports each twin against the RESOLVED interpreter in a scratch copy under
+/// the workspace `ztmp` — never in the tree — and prints `still-failing`,
+/// `does-not-compile` or `PASSES NOW` per entry, with the failing case ids and
+/// their observed-vs-expected values. Paste those into the entry comment: a pin
+/// carrying a measurement is re-checkable, a pin carrying a restatement is how
+/// this register went stale the first time.
 ///
 /// NON-EMPTY AGAIN SINCE 2026-09-13 (SCD74), holding the two entries SCD72 and
 /// SCD73 created in the sibling tree. Both were ported and RUN against the
@@ -1795,43 +1816,16 @@ List<String> _markers(String source) => [
     if (_markerPattern.firstMatch(line.trimLeft()) case final m?) m.group(1)!,
 ];
 
-String _normalise(String source) => source
-    .replaceAll('package:tom_d4rt/d4rt.dart', '@INTERPRETER@')
-    .replaceAll('package:tom_d4rt_exec/d4rt.dart', '@INTERPRETER@')
-    .replaceAll('package:tom_d4rt/src/exceptions.dart', '@EXCEPTIONS@')
-    .replaceAll(
-      'package:tom_d4rt_ast/src/runtime/exceptions.dart',
-      '@EXCEPTIONS@',
-    )
-    // SCC14: `bridge/d4_helpers_test.dart` reaches the D4 helpers directly.
-    .replaceAll('package:tom_d4rt/src/generator/d4.dart', '@D4@')
-    .replaceAll('package:tom_d4rt_ast/src/runtime/generator/d4.dart', '@D4@')
-    // SCC35: `bridge/bridged_class_test.dart` reaches the InterpretedInstance
-    // extension directly. Once its SCC27 divergence cleared, this import was
-    // the ONLY thing still separating the two copies — a permanent difference
-    // in where each package puts the file, not a difference in what either
-    // asserts. Left un-normalised it would have needed a standing
-    // `_divergentBaseline` entry, and that entry would then have absorbed any
-    // real drift in the file for as long as it stood.
-    .replaceAll(
-      'package:tom_d4rt/src/utils/extensions/interpreted_instance.dart',
-      '@INTERPRETED_INSTANCE@',
-    )
-    .replaceAll(
-      'package:tom_d4rt_ast/src/runtime/utils/extensions/interpreted_instance.dart',
-      '@INTERPRETED_INSTANCE@',
-    )
-    // SCC52: `scc46_native_enum_runtime_type_test.dart` builds a
-    // `BridgedEnumDefinition` directly, which neither package re-exports from
-    // its public library. Same shape as the two pairs above and the same
-    // reason for normalising rather than baselining: the import is the only
-    // thing that can differ, so an entry would buy a permanent exemption for a
-    // file whose assertions are identical.
-    .replaceAll('package:tom_d4rt/src/bridge/bridged_enum.dart', '@ENUM@')
-    .replaceAll(
-      'package:tom_d4rt_ast/src/runtime/bridge/bridged_enum.dart',
-      '@ENUM@',
-    );
+/// [source] with both spellings of every interpreter import collapsed to one
+/// token, so a correctly-ported file compares equal to its twin.
+///
+/// SCD124 moved the table itself to `port_recipe.dart`, because
+/// `tool/remeasure_pins.dart` reads the SAME pairs in the other direction to
+/// produce a runnable port. Two copies of that table drift silently in the
+/// worst way: this guard would go on calling a file a valid port while the tool
+/// produced something that does not compile, or the reverse. The rationale for
+/// each pair, and for normalising rather than baselining, lives there with it.
+String _normalise(String source) => normalisePortImports(source);
 
 /// Files under `tom_d4rt_ast/lib` that differ between the PUBLISHED copy exec
 /// resolves and the sibling working tree, and why that is currently accepted.
@@ -3067,7 +3061,9 @@ void main() {
             'entry and its line in _pinnedInterpreterFloors. If one of them '
             'turns out still to fail, that is a real finding and needs a fresh '
             'entry saying so — do not re-pin it to the next version without '
-            'measuring.\n${due.join('\n')}',
+            'measuring. `dart run tool/remeasure_pins.dart` does that '
+            'measurement for every entry at once and prints the failing case '
+            'ids to paste into the entry.\n${due.join('\n')}',
       );
     });
   }, skip: skipReason);
@@ -3172,4 +3168,54 @@ void main() {
       );
     });
   }, skip: skipReason);
+
+  group('SCD124: the port recipe reads in both directions', () {
+    // `port_recipe.dart` is one table read two ways: `_normalise` collapses both
+    // spellings to a token so a port compares equal to its twin, and
+    // `tool/remeasure_pins.dart` rewrites the reference spelling into the exec
+    // one so a twin can be RUN here. Before SCD124 those were two tables; the
+    // failure of two tables is silent and asymmetric, because only one of them
+    // is exercised by a suite. These two cases are what make the table's other
+    // direction non-theoretical without running the tool.
+    test('F-SCD124-1: rewriting a reference import produces something the '
+        'guard calls a port [2026-09-14]', () {
+      for (final import in portImports) {
+        final reference = "import '${import.reference}';";
+        expect(
+          _normalise(rewriteReferenceImports(reference)),
+          equals(_normalise(reference)),
+          reason:
+              'The rewrite of ${import.reference} does not normalise to the '
+              'same token as the original, so the tool would produce a file '
+              'this guard does not consider a port.',
+        );
+        expect(
+          rewriteReferenceImports(reference),
+          contains(import.exec),
+          reason: 'the rewrite did not reach the exec spelling',
+        );
+      }
+    });
+
+    test('F-SCD124-2 (control): the rewrite is not a no-op and not a '
+        'sledgehammer [2026-09-14]', () {
+      // A table whose every pair mapped a string to itself would pass the case
+      // above vacuously, and one that rewrote too eagerly would corrupt an
+      // unrelated import. `package:tom_d4rt_ast/` is the trap: it does not
+      // start with `package:tom_d4rt/`, and an implementation that matched on
+      // the package NAME rather than the full path would break it.
+      for (final import in portImports) {
+        expect(
+          import.exec,
+          isNot(equals(import.reference)),
+          reason: '${import.token} maps a spelling to itself',
+        );
+      }
+      const untouched =
+          "import 'package:tom_d4rt_ast/runtime.dart';\n"
+          "import 'package:test/test.dart';\n"
+          "import 'interpreter_test.dart';";
+      expect(rewriteReferenceImports(untouched), equals(untouched));
+    });
+  });
 }
