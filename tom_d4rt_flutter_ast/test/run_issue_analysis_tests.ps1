@@ -35,10 +35,24 @@ $out = "testlog/testlog_$Id"
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 
 # Idle-output watchdog: kill a test file that produces NO output for this many
-# seconds (default 70 = ~60s per-test max + margin). Catches mid-run stalls AND
-# "never reaches the first test" hangs so a wedged transport fails fast.
-# Override with $env:IDLE_TIMEOUT.
-$idle = if ($env:IDLE_TIMEOUT) { [int]$env:IDLE_TIMEOUT } else { 70 }
+# seconds. Catches mid-run stalls AND "never reaches the first test" hangs so a
+# wedged transport fails fast. Override with $env:IDLE_TIMEOUT.
+#
+# SCD131: 300, not the 70 this used to default to — the watchdog was SHORTER
+# THAN THE THING IT WATCHES. `SendTestRunner.setUp` waits up to 120 s for the
+# companion app to start, so on a cold build cache the first file produces no
+# output for longer than the watchdog allows and is killed with exit 124 and
+# zero tests, which reads as a hang and is not one. That state is exactly what
+# a `flutter pub upgrade` leaves behind, i.e. exactly the state the corpus
+# protocol requires the sweep to run in.
+#
+# NOTE, and it is why this default matters more here than in the .sh twin:
+# THIS SCRIPT HAS NO WALL-CLOCK BACKSTOP. The shell runners wrap each file in
+# `timeout 900`; this one has only the watchdog and the per-test `--timeout`,
+# so raising it lengthens how long a genuinely wedged file survives. That
+# asymmetry is a real gap and is SCE148, not something to paper over by keeping
+# a default that misfires on every cold run.
+$idle = if ($env:IDLE_TIMEOUT) { [int]$env:IDLE_TIMEOUT } else { 300 }
 
 # Full corpus: the flutter_base_NN then flutter_extended_NN split files, in
 # numeric order (base before extended, interactive is the last extended file).

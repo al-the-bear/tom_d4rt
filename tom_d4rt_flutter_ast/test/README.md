@@ -160,20 +160,38 @@ two failure modes seen most often in practice:
 Both waste up to ~15 minutes per file before the backstop fires. To fail fast,
 each `flutter test` invocation is wrapped by `idle_timeout.sh` (bash) /
 `idle_timeout.ps1` (PowerShell): if the run produces **no output at all for
-`IDLE_TIMEOUT` seconds (default 70)** the wrapper kills the entire process group
+`IDLE_TIMEOUT` seconds (default 300)** the wrapper kills the entire process group
 — `flutter test` and any child it spawned — and returns exit code **124**. The
 metrics line for that file is annotated `(IDLE-KILLED after <n>s of no output)`.
 
-70 s = the ~60 s per-test maximum plus margin, so a single slow-but-progressing
-test is never killed while a true stall is caught within ~70 s instead of ~900 s.
-Override with the `IDLE_TIMEOUT` env var (and `IDLE_POLL` for the check cadence):
+**The default was 80 (70 in the `.ps1` twins) and that was too short — SCD131.**
+The watchdog was shorter than the thing it watches: `SendTestRunner.setUp` waits
+up to **120 s** for the companion app to start, so on a cold build cache the
+first file produced no output for longer than the watchdog allowed and was
+killed with `exit=124 +0` before the harness could report anything. That reads
+as a hang and is not one, and the state it happens in is not unusual — it is
+what a `flutter pub upgrade` leaves behind, i.e. exactly the state the corpus
+protocol requires a sweep to run in. Every run between 2026-08-12 and the fix
+passed `IDLE_TIMEOUT=300` by hand.
+
+So the floor is not "the per-test maximum plus margin" but **the companion
+app's own start timeout plus margin**. Any future change to
+`SendTestRunner.setUp`'s 120 s has to move this default with it.
+
+A genuine stall is still caught: the `.sh` runners wrap each file in
+`timeout 900` regardless. The `.ps1` runners have no such backstop — see
+SCE148 — so there the watchdog is the only cap.
+
+Override with the `IDLE_TIMEOUT` env var (and `IDLE_POLL` for the check cadence,
+which defaults to 5 s — an `IDLE_TIMEOUT` below that is meaningless because the
+first poll already exceeds it):
 
 ```bash
-IDLE_TIMEOUT=120 ./test/run_issue_analysis_tests.sh   # more headroom
+IDLE_TIMEOUT=600 ./test/run_issue_analysis_tests.sh   # more headroom still
 ```
 
 ```powershell
-$env:IDLE_TIMEOUT = 120; ./test/run_issue_analysis_tests.ps1
+$env:IDLE_TIMEOUT = 600; ./test/run_issue_analysis_tests.ps1
 ```
 
 ## ⚠️ The corpus certifies the PUBLISHED interpreter, not the working tree

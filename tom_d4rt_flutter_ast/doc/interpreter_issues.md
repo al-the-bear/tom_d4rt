@@ -4394,12 +4394,16 @@ bridges, not current generator output. The twins agreed exactly here,
 but that is a result of this run, not a guarantee the harness provides.
 Recommend giving the source twin the same default.
 
-**Methodology note — `IDLE_TIMEOUT` default is too tight.** The runner's
-80 s idle watchdog is shorter than `SendTestRunner.setUp`'s own 120 s
-app-start timeout, so on a cold cache the watchdog kills a file
-(`exit=124 +0`) before the harness can report anything useful. The first
-attempt at this run died that way on `flutter_base_01`/`_02`; it
-completed cleanly at `IDLE_TIMEOUT=300`.
+**Methodology note — `IDLE_TIMEOUT` default was too tight, fixed in
+SCD131.** The runner's idle watchdog defaulted to 80 s (70 s in the
+`.ps1` twins), shorter than `SendTestRunner.setUp`'s own 120 s
+app-start timeout, so on a cold cache it killed a file (`exit=124 +0`)
+before the harness could report anything. The first attempt at this run
+died that way on `flutter_base_01`/`_02` and completed cleanly at
+`IDLE_TIMEOUT=300`. That is now the default in all ten runner scripts,
+so a run made after 2026-09-15 needs no override — an entry below that
+records passing one was written before the fix, not against a
+still-broken default.
 
 ---
 

@@ -39,10 +39,28 @@ cd "$(dirname "$0")/.."
 PROJECT="$(basename "$PWD")"
 
 # Idle-output watchdog: kill a test file that produces NO output for this many
-# seconds (default 70 = ~60s per-test max + margin). Catches mid-run stalls AND
-# "never reaches the first test" hangs so a wedged transport fails fast instead
-# of burning the timeout-900 backstop. Override with IDLE_TIMEOUT=<seconds>.
-IDLE_TIMEOUT="${IDLE_TIMEOUT:-80}"
+# seconds. Catches mid-run stalls AND "never reaches the first test" hangs so a
+# wedged transport fails fast instead of burning the timeout-900 backstop.
+# Override with IDLE_TIMEOUT=<seconds>.
+#
+# SCD131: 300, not the 80 this used to default to. The watchdog was SHORTER
+# THAN THE THING IT WATCHES — `SendTestRunner.setUp` waits up to 120 s for the
+# companion app to start, so on a cold build cache the first file produces no
+# output for longer than 80 s and the watchdog kills it:
+#
+#     flutter_base_01_test: exit=124 +0 (IDLE-KILLED after 80s of no output)
+#
+# That is not a hang, and the state it happens in is not unusual: it is exactly
+# the state a `flutter pub upgrade` leaves behind, which is exactly the state
+# the corpus protocol requires the sweep to run in. `interpreter_issues.md` had
+# recorded the default as too tight since 2026-08-12 and every run since had
+# been passing `IDLE_TIMEOUT=300` by hand.
+#
+# The watchdog's job is unaffected. `timeout 900` still caps a genuine hang per
+# file, so this only changes how long a wedged transport takes to be noticed —
+# and only for the first file, where the cold-cache start makes the old default
+# wrong rather than strict.
+IDLE_TIMEOUT="${IDLE_TIMEOUT:-300}"
 
 ID="${1:-$(date +%Y%m%d-%H%M)-base}"
 OUT="testlog/basetestlog_${ID}"
